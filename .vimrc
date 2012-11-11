@@ -30,10 +30,14 @@ set autoindent
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+set smarttab
 set tabstop=4
 
 " Line Numbers
 set number
+
+" Scrolling
+set mouse=a
 
 " Show Title
 set title
