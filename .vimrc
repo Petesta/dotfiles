@@ -8,6 +8,7 @@ call vundle#rc()
 
 " Required
 Bundle 'gmarik/vundle'
+Bundle 'derekwyatt/vim-scala'
 
 "Required 
 filetype plugin indent on
@@ -57,4 +58,9 @@ set title
 " Syntax Highlighting
 syntax on
 set t_Co=16
-colorscheme molokai
+set background=dark
+let g:solarized_termcolors = 256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+let g:solarized_termtrans = 1
+colorscheme solarized
