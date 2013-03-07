@@ -3,6 +3,8 @@ set nocompatible
 " Vundle Installation
 filetype off
 
+execute pathogen#infect()
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -41,6 +43,9 @@ set tabstop=4
 
 " Line Numbers
 set number
+
+" Shows position in file
+set ruler
 
 " Scala
 au BufNewFile,BufRead *.scala set shiftwidth=2
