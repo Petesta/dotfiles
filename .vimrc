@@ -12,7 +12,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'derekwyatt/vim-scala'
 
-"Required 
+" Required 
 filetype plugin indent on
 
 " Vim Configuration File
@@ -44,8 +44,29 @@ set tabstop=4
 " Line Numbers
 set number
 
-" Shows position in file
+" NERDTree Config
+autocmd vimenter * NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" Shows Position In File
 set ruler
+
+" C and C++
+au BufNewFile,BufRead *.c set shiftwidth=4
+au BufNewFile,BufRead *.cpp set shiftwidth=4
+au BufNewFile,BufRead *.h set shiftwidth=4
+
+" Coffee
+au BufNewFile,BufRead *.coffee set shiftwidth=2
+
+" Haskell
+au BufNewFile,BufRead *.hs set shiftwidth=4
+
+" Python
+au BufNewFile,BufRead *.py set shiftwidth=2
+
+" Ruby
+au BufNewFile,BufRead *.rb set shiftwidth=2
 
 " Scala
 au BufNewFile,BufRead *.scala set shiftwidth=2
@@ -62,10 +83,11 @@ set title
 
 " Syntax Highlighting
 syntax on
-set t_Co=16
+let &t_Co=256
 set background=dark
-let g:solarized_termcolors = 256
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
+"highlight LineNr ctermfg=grey ctermbg=black
+"let g:solarized_termcolors = 256
+"let g:solarized_visibility = "high
+"let g:solarized_contrast = "high
 let g:solarized_termtrans = 1
 colorscheme solarized
