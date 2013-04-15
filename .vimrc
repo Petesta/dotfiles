@@ -56,7 +56,7 @@ au BufNewFile,BufRead *.c set shiftwidth=4
 au BufNewFile,BufRead *.cpp set shiftwidth=4
 au BufNewFile,BufRead *.h set shiftwidth=4
 
-" Coffee
+" CoffeeScript
 au BufNewFile,BufRead *.coffee set shiftwidth=2
 
 " Haskell
