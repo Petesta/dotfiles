@@ -46,12 +46,13 @@ set number
 
 " NERDTree Config
 autocmd vimenter * NERDTree
+autocmd vimenter * wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Shows Position In File
 set ruler
 
-" C and C++
+" C, C++, and Objective-C
 au BufNewFile,BufRead *.c set shiftwidth=4
 au BufNewFile,BufRead *.cpp set shiftwidth=4
 au BufNewFile,BufRead *.h set shiftwidth=4
@@ -74,6 +75,9 @@ hi scalaNew gui=underline
 hi scalaMethodCall gui=italic
 hi scalaValName gui=underline
 hi scalaVarName gui=underline
+
+" SCSS
+au BufNewFile,BufRead *.scss set shiftwidth=2
 
 " Scrolling
 set mouse=a
