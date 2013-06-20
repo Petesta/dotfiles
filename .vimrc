@@ -48,6 +48,12 @@ set number
 autocmd vimenter * NERDTree
 autocmd vimenter * wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let mapleader = ","
+map <leader>t :NERDTreeToggle<CR>
+nmap <leader>w <C-w>w
+nmap <leader>e gt
+nmap <leader>q gT
+
 
 " Shows Position In File
 set ruler
