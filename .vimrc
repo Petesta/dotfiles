@@ -70,7 +70,7 @@ au BufNewFile,BufRead *.coffee set shiftwidth=2
 au BufNewFile,BufRead *.hs set shiftwidth=4
 
 " Python
-au BufNewFile,BufRead *.py set shiftwidth=2
+au BufNewFile,BufRead *.py set shiftwidth=4
 
 " Ruby
 au BufNewFile,BufRead *.rb set shiftwidth=2
