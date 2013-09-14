@@ -1,21 +1,21 @@
 set nocompatible
+filetype plugin indent on
+
+" Pathgoen Installation
+execute pathogen#infect()
 
 " Vundle Installation
 filetype off
-
-execute pathogen#infect()
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
-" Required
 Bundle 'gmarik/vundle'
 Bundle 'derekwyatt/vim-scala'
 
-" Required 
-filetype plugin indent on
+" Vim-Powerline
+let g:Powerline_symbols = 'fancy'
 
-" Vim Configuration File
+" Exercises
+" :echom "(>^.^<)"
 
 " Arrow Keys
 nnoremap <up> <nop>
@@ -44,6 +44,16 @@ set tabstop=4
 " Line Numbers
 set number
 
+" Mappings
+nnoremap - yyddp
+nnoremap _ yydd2jp
+inoremap <c-u> <esc>viwU<esc>i
+let mapleader = ","
+nnoremap <leader>ev :split $MYVIMRC<CR>
+if has("autocmd")
+    autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+
 " NERDTree Config
 autocmd vimenter * NERDTree
 autocmd vimenter * wincmd p
@@ -54,13 +64,26 @@ nmap <leader>w <C-w>w
 nmap <leader>e gt
 nmap <leader>q gT
 
+" Scrolling
+set mouse=a
 
-" Shows Position In File
+" Show Position In File
 set ruler
+
+" Show Title
+set title
+
+" Syntax Highlighting
+syntax on
+let &t_Co=256
+set background=dark
+let g:solarized_termtrans = 1
+colorscheme solarized
 
 " C, C++, and Objective-C
 au BufNewFile,BufRead *.c set shiftwidth=4
 au BufNewFile,BufRead *.cpp set shiftwidth=4
+au BufNewFile,BufRead *.m set shiftwidth=4
 au BufNewFile,BufRead *.h set shiftwidth=4
 
 " CoffeeScript
@@ -84,20 +107,3 @@ hi scalaVarName gui=underline
 
 " SCSS
 au BufNewFile,BufRead *.scss set shiftwidth=2
-
-" Scrolling
-set mouse=a
-
-" Show Title
-set title
-
-" Syntax Highlighting
-syntax on
-let &t_Co=256
-set background=dark
-"highlight LineNr ctermfg=grey ctermbg=black
-"let g:solarized_termcolors = 256
-"let g:solarized_visibility = "high
-"let g:solarized_contrast = "high
-let g:solarized_termtrans = 1
-colorscheme solarized
