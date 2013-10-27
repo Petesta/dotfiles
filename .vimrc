@@ -14,6 +14,9 @@ Bundle 'derekwyatt/vim-scala'
 " Vim-Powerline
 let g:Powerline_symbols = 'fancy'
 
+" Vim-Unstack
+let g:unstack_layoyt = "portrait"
+
 " Exercises
 " :echom "(>^.^<)"
 
@@ -48,7 +51,14 @@ set number
 nnoremap - yyddp
 nnoremap _ yydd2jp
 inoremap <c-u> <esc>viwU<esc>i
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+"inoremap {<CR> {<CR>}<Esc>o
+inoremap ( ()<esc>i
+inoremap [ []<esc>i
+inoremap { {}<esc>i
+inoremap " ""<esc>i
 let mapleader = ","
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>ev :split $MYVIMRC<CR>
 if has("autocmd")
     autocmd bufwritepost .vimrc source $MYVIMRC
