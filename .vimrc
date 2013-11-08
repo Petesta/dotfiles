@@ -20,6 +20,9 @@ let g:unstack_layoyt = "portrait"
 " Exercises
 " :echom "(>^.^<)"
 
+" Abbreviations
+iabbrev ssig Pete Cruz Petesta@live.com
+
 " Arrow Keys
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -52,7 +55,6 @@ nnoremap - yyddp
 nnoremap _ yydd2jp
 inoremap <c-u> <esc>viwU<esc>i
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
-"inoremap {<CR> {<CR>}<Esc>o
 inoremap ( ()<esc>i
 inoremap [ []<esc>i
 inoremap { {}<esc>i
@@ -98,15 +100,22 @@ au BufNewFile,BufRead *.h set shiftwidth=4
 
 " CoffeeScript
 au BufNewFile,BufRead *.coffee set shiftwidth=2
+au BufNewFile,BufRead *.js.coffee set shiftwidth=2
 
 " Haskell
 au BufNewFile,BufRead *.hs set shiftwidth=4
+
+" Javascript
+au BufNewFile,BufRead *.js set shiftwidth=4
 
 " Python
 au BufNewFile,BufRead *.py set shiftwidth=4
 
 " Ruby
 au BufNewFile,BufRead *.rb set shiftwidth=2
+
+" html.erb
+au BufNewFile,BufRead *.erb set shiftwidth=2
 
 " Scala
 au BufNewFile,BufRead *.scala set shiftwidth=2
