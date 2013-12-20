@@ -67,9 +67,13 @@ if has("autocmd")
 endif
 
 " NERDTree Config
-autocmd vimenter * NERDTree
-autocmd vimenter * wincmd p
+" autocmd VimEnter * if &filetype !=# 'haskell' && &filetype !=# 'python' | NERDTree | endif
+autocmd VimEnter * NERDTree
+
+autocmd VimEnter * wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+let NERDTreeIgnore = ['\.pyc$'] + ['\.class$']
 let mapleader = ","
 map <leader>t :NERDTreeToggle<CR>
 nmap <leader>w <C-w>w
