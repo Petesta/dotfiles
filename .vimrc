@@ -1,15 +1,6 @@
-set nocompatible
-filetype plugin indent on
-
 " Pathgoen Installation
 execute pathogen#infect()
-
-" Vundle Installation
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'derekwyatt/vim-scala'
+filetype plugin indent on
 
 " Vim-Powerline
 let g:Powerline_symbols = 'fancy'
@@ -18,7 +9,7 @@ let g:Powerline_symbols = 'fancy'
 let g:unstack_layoyt = "portrait"
 
 " Exercises
-" :echom "(>^.^<)"
+" :echom \"(>^.^<)"
 
 " Abbreviations
 iabbrev ssig Pete Cruz Petesta@live.com
@@ -42,12 +33,13 @@ set hlsearch
 " Indentation
 set autoindent
 set expandtab
-set shiftwidth=4
+set shiftwidth=2
 set softtabstop=4
 set smarttab
 set tabstop=4
 
 " Line Numbers
+set relativenumber
 set number
 
 " Mappings
@@ -73,7 +65,7 @@ autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-let NERDTreeIgnore = ['\.pyc$'] + ['\.class$']
+let NERDTreeIgnore = ['\.pyc$'] + ['\.class$'] + ['\.o$']
 let mapleader = ","
 map <leader>t :NERDTreeToggle<CR>
 nmap <leader>w <C-w>w
@@ -94,7 +86,6 @@ syntax on
 let &t_Co=256
 set background=dark
 let g:solarized_termtrans = 1
-colorscheme solarized
 
 " C, C++, and Objective-C
 au BufNewFile,BufRead *.c set shiftwidth=4
@@ -117,9 +108,7 @@ au BufNewFile,BufRead *.py set shiftwidth=4
 
 " Ruby
 au BufNewFile,BufRead *.rb set shiftwidth=2
-
-" html.erb
-au BufNewFile,BufRead *.erb set shiftwidth=2
+au BufNewFile,BufRead Berksfile set shiftwidth=2
 
 " Scala
 au BufNewFile,BufRead *.scala set shiftwidth=2
@@ -130,3 +119,12 @@ hi scalaVarName gui=underline
 
 " SCSS
 au BufNewFile,BufRead *.scss set shiftwidth=2
+
+" Additional File Types
+au BufNewFile,BufRead *.css colorscheme molokai
+au BufNewFile,BufRead *.html colorscheme molokai
+au BufNewFile,BufRead *.json colorscheme molokai
+au BufNewFile,BufRead *.md colorscheme molokai
+au FileType css shiftwidth=2
+au FileType html shiftwidth=2
+au FileType json shiftwidth=2
