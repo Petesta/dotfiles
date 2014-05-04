@@ -1,0 +1,54 @@
+# Print size of the given directory
+# Ex: dirsize app/ => 25M
+function dirsize {
+  du -skh $1
+}
+
+# Open Dropbox in a finder window
+# Exit the terminal unless run with -k
+function db {
+  open ~/Dropbox
+  if [[ "$1" != '-k' ]]
+  then
+    exit
+  fi
+}
+
+# Open a url in a web browser, because sometimes opening a browser is too much work
+# Ex: web github.com/rails/rails
+function web {
+  if [[ -n "$1" ]]
+  then
+    open "http://www.$1"
+  else
+    open "http://www.google.com"
+  fi
+}
+
+# EC2 Instances
+alias cs189="ssh -i ~/Downloads/ringbase.pem ubuntu@ec2-54-213-180-115.us-west-2.compute.amazonaws.com"
+
+# Miscellaneous
+alias ll="ls -al"
+alias dw="cd ~/Dropbox/Spring"
+alias csil="ssh -X petecruz@csil.cs.ucsb.edu"
+alias engr="ssh -X petecruz@linux.engr.ucsb.edu"
+
+alias c='clear'
+alias up='cd ../'
+alias up.='up'
+alias up..='cd ../../'
+alias up...='cd ../../../'
+alias up....='cd ../../../../'
+alias up.....='cd ../../../../../'
+
+# Rails Shortcuts
+alias be='bundle exec'
+
+# Typos
+alias clera='clear'
+alias im='vim'
+alias rpsec='rspec'
+
+# Vim
+alias vim="/usr/local/bin/vim"

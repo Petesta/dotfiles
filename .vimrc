@@ -2,6 +2,9 @@
 execute pathogen#infect()
 filetype plugin indent on
 
+" Abbreviations
+iabbrev ssig Pete Cruz Petesta@live.com
+
 " Vim-Powerline
 let g:Powerline_symbols = 'fancy'
 
@@ -11,36 +14,33 @@ let g:unstack_layoyt = "portrait"
 " Exercises
 " :echom \"(>^.^<)"
 
-" Abbreviations
-iabbrev ssig Pete Cruz Petesta@live.com
-
 " Arrow Keys
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
+nnoremap <up>    <nop>
+nnoremap <down>  <nop>
+nnoremap <left>  <nop>
 nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
+inoremap <up>    <nop>
+inoremap <down>  <nop>
+inoremap <left>  <nop>
 inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
 " Braces
-set showmatch
 set hlsearch
+set showmatch
 
 " Indentation
 set autoindent
 set expandtab
 set shiftwidth=2
-set softtabstop=4
 set smarttab
+set softtabstop=4
 set tabstop=4
 
 " Line Numbers
-set relativenumber
 set number
+set relativenumber
 
 " Mappings
 nnoremap - yyddp
@@ -51,6 +51,7 @@ inoremap ( ()<esc>i
 inoremap [ []<esc>i
 inoremap { {}<esc>i
 inoremap " ""<esc>i
+
 let mapleader = ","
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>ev :split $MYVIMRC<CR>
@@ -67,7 +68,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 let NERDTreeIgnore = ['\.pyc$'] + ['\.class$'] + ['\.o$']
 let mapleader = ","
-map <leader>t :NERDTreeToggle<CR>
+map  <leader>t :NERDTreeToggle<CR>
 nmap <leader>w <C-w>w
 nmap <leader>e gt
 nmap <leader>q gT
@@ -83,8 +84,9 @@ set title
 
 " Syntax Highlighting
 syntax on
-let &t_Co=256
 set background=dark
+set cursorline
+let &t_Co=256
 let g:solarized_termtrans = 1
 
 " C, C++, and Objective-C
