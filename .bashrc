@@ -3,9 +3,6 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-### Scala Play
-export PATH="/Users/Petesta/Downloads/play-2.2.1:$PATH"
-
 ### Cassandra
 export PATH="/Users/Petesta/Downloads/apache-cassandra-2.0.7/bin:$PATH"
 
@@ -53,9 +50,6 @@ white=$'\e[1;37m'
 PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 
 PS1='$red\]\u \[$white\]\[::$red\]\[ λ $white\]\[-> $red\]\w$git_branch \[\033[00m\]'
-
-# Load autojump
-[[ -f /usr/local/etc/autojump.bash ]] && source /usr/local/etc/autojump.bash
 
 # Load aliases
 if [ -f ~/.sh_aliases ]; then
