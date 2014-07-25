@@ -73,6 +73,17 @@ nmap <leader>w <C-w>w
 nmap <leader>e gt
 nmap <leader>q gT
 
+" Tab mappings.
+""map <leader>tt :tabnew<cr>
+""map <leader>te :tabedit
+""map <leader>tc :tabclose<cr>
+""map <leader>to :tabonly<cr>
+""map <leader>tn :tabnext<cr>
+""map <leader>tp :tabprevious<cr>
+""map <leader>tf :tabfirst<cr>
+""map <leader>tl :tablast<cr>
+""map <leader>tm :tabmove
+
 " Scrolling
 set mouse=a
 
@@ -89,44 +100,43 @@ set cursorline
 let &t_Co=256
 let g:solarized_termtrans = 1
 
-" C, C++, and Objective-C
-au BufNewFile,BufRead *.c set shiftwidth=4
-au BufNewFile,BufRead *.cpp set shiftwidth=4
-au BufNewFile,BufRead *.m set shiftwidth=4
-au BufNewFile,BufRead *.h set shiftwidth=4
-
-" CoffeeScript
-au BufNewFile,BufRead *.coffee set shiftwidth=2
-au BufNewFile,BufRead *.js.coffee set shiftwidth=2
-
-" Haskell
-au BufNewFile,BufRead *.hs set shiftwidth=4
-
-" Javascript
-au BufNewFile,BufRead *.js set shiftwidth=4
-
-" Python
-au BufNewFile,BufRead *.py set shiftwidth=4
-
-" Ruby
-au BufNewFile,BufRead *.rb set shiftwidth=2
-au BufNewFile,BufRead Berksfile set shiftwidth=2
-
-" Scala
-au BufNewFile,BufRead *.scala set shiftwidth=2
-hi scalaNew gui=underline
-hi scalaMethodCall gui=italic
-hi scalaValName gui=underline
-hi scalaVarName gui=underline
-
-" SCSS
-au BufNewFile,BufRead *.scss set shiftwidth=2
-
 " Additional File Types
-au BufNewFile,BufRead *.css colorscheme molokai
-au BufNewFile,BufRead *.html colorscheme molokai
-au BufNewFile,BufRead *.json colorscheme molokai
-au BufNewFile,BufRead *.md colorscheme molokai
-au FileType css shiftwidth=2
-au FileType html shiftwidth=2
-au FileType json shiftwidth=2
+augroup filetypesettings
+  " C, C++, and Objective-C
+  au BufNewFile,BufRead *.c set shiftwidth=4
+  au BufNewFile,BufRead *.cpp set shiftwidth=4
+  au BufNewFile,BufRead *.m set shiftwidth=4
+  au BufNewFile,BufRead *.h set shiftwidth=4
+
+  " CoffeeScript
+  au BufNewFile,BufRead *.coffee set shiftwidth=2
+  au BufNewFile,BufRead *.js.coffee set shiftwidth=2
+
+  " Haskell
+  au BufNewFile,BufRead *.hs set shiftwidth=4
+
+  " Javascript
+  au BufNewFile,BufRead *.js set shiftwidth=4
+
+  " Python
+  au BufNewFile,BufRead *.py set shiftwidth=4
+
+  " Ruby
+  au BufNewFile,BufRead *.rb set shiftwidth=2
+  au BufNewFile,BufRead Berksfile set shiftwidth=2
+
+  " Scala
+  au BufNewFile,BufRead *.scala set shiftwidth=2
+
+  " SCSS
+  au BufNewFile,BufRead *.scss set shiftwidth=2
+
+  au BufNewFile,BufRead *.css colorscheme molokai
+  au BufNewFile,BufRead *.html colorscheme molokai
+  au BufNewFile,BufRead *.json colorscheme molokai
+  au BufNewFile,BufRead *.md colorscheme molokai
+
+  au FileType css shiftwidth=2
+  au FileType html shiftwidth=2
+  au FileType json shiftwidth=2
+augroup END
