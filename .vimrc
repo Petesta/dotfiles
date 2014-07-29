@@ -54,7 +54,7 @@ inoremap " ""<esc>i
 
 let mapleader = ","
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
-nnoremap <leader>ev :split $MYVIMRC<CR>
+nnoremap <leader>v :split $MYVIMRC<CR>
 if has("autocmd")
     autocmd bufwritepost .vimrc source $MYVIMRC
 endif
