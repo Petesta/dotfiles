@@ -15,16 +15,19 @@ let g:unstack_layoyt = "portrait"
 " :echom \"(>^.^<)"
 
 " Arrow Keys
-nnoremap <up>    <nop>
-nnoremap <down>  <nop>
-nnoremap <left>  <nop>
-nnoremap <right> <nop>
+nnoremap <up>    :echo "No arrow keys in Vim :)" <esc>
+nnoremap <down>  :echo "No arrow keys in Vim :)" <esc>  
+nnoremap <left>  :echo "No arrow keys in Vim :)" <esc>
+nnoremap <right> :echo "No arrow keys in Vim :)" <esc>
 inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
+
+" Autoread
+set autoread
 
 " Braces
 set hlsearch
