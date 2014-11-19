@@ -3,35 +3,30 @@ execute pathogen#infect()
 filetype plugin indent on
 
 " Abbreviations
-iabbrev ssig Pete Cruz Petesta@live.com
+iabbrev ssig Pete Cruz iPetesta@gmail.com
 
-" Vim-Powerline
-let g:Powerline_symbols = 'fancy'
+" Vim-Airline
+set laststatus=2
+set ttimeoutlen=50
 
 " Vim-Unstack
 let g:unstack_layoyt = "portrait"
 
-" Exercises
-" :echom \"(>^.^<)"
-
-" Arrow Keys
-nnoremap <up>    :echo "No arrow keys in Vim :)" <esc>
-nnoremap <down>  :echo "No arrow keys in Vim :)" <esc>  
-nnoremap <left>  :echo "No arrow keys in Vim :)" <esc>
-nnoremap <right> :echo "No arrow keys in Vim :)" <esc>
-inoremap <up>    <nop>
-inoremap <down>  <nop>
-inoremap <left>  <nop>
-inoremap <right> <nop>
-nnoremap j gj
-nnoremap k gk
+" Highlight trailing whitespace
+match ErrorMsg '\s\+$'
 
 " Autoread
 set autoread
 
+" Fix backspace issue
+set backspace=indent,eol,start
+
 " Braces
 set hlsearch
 set showmatch
+
+" Horizontal Cursor
+set cursorline
 
 " Indentation
 set autoindent
@@ -45,6 +40,32 @@ set tabstop=4
 set number
 set relativenumber
 
+" Scrolling
+set mouse=a
+
+" Show Position In File
+set ruler
+
+" Show Title
+set title
+
+" Screen Coloring and Syntax Highlighting
+syntax on
+set background=dark
+let &t_Co=256
+
+" Arrow Keys
+nnoremap <up>    :echo "No arrow keys in Vim :)" <esc>
+nnoremap <down>  :echo "No arrow keys in Vim :)" <esc>
+nnoremap <left>  :echo "No arrow keys in Vim :)" <esc>
+nnoremap <right> :echo "No arrow keys in Vim :)" <esc>
+inoremap <up>    <nop>
+inoremap <down>  <nop>
+inoremap <left>  <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+
 " Mappings
 nnoremap - yyddp
 nnoremap _ yydd2jp
@@ -55,6 +76,18 @@ inoremap [ []<esc>i
 inoremap { {}<esc>i
 inoremap " ""<esc>i
 
+" Tab mappings.
+"map <leader>tt :tabnew<cr>
+"map <leader>te :tabedit
+"map <leader>tc :tabclose<cr>
+"map <leader>to :tabonly<cr>
+"map <leader>tn :tabnext<cr>
+"map <leader>tp :tabprevious<cr>
+"map <leader>tf :tabfirst<cr>
+"map <leader>tl :tablast<cr>
+"map <leader>tm :tabmove
+
+" Bring up .vimrc
 let mapleader = ","
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>v :split $MYVIMRC<CR>
@@ -65,43 +98,14 @@ endif
 " NERDTree Config
 " autocmd VimEnter * if &filetype !=# 'haskell' && &filetype !=# 'python' | NERDTree | endif
 autocmd VimEnter * NERDTree
-
 autocmd VimEnter * wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 let NERDTreeIgnore = ['\.pyc$'] + ['\.class$'] + ['\.o$']
-let mapleader = ","
 map  <leader>t :NERDTreeToggle<CR>
 nmap <leader>w <C-w>w
 nmap <leader>e gt
 nmap <leader>q gT
-
-" Tab mappings.
-""map <leader>tt :tabnew<cr>
-""map <leader>te :tabedit
-""map <leader>tc :tabclose<cr>
-""map <leader>to :tabonly<cr>
-""map <leader>tn :tabnext<cr>
-""map <leader>tp :tabprevious<cr>
-""map <leader>tf :tabfirst<cr>
-""map <leader>tl :tablast<cr>
-""map <leader>tm :tabmove
-
-" Scrolling
-set mouse=a
-
-" Show Position In File
-set ruler
-
-" Show Title
-set title
-
-" Syntax Highlighting
-syntax on
-set background=dark
-set cursorline
-let &t_Co=256
-let g:solarized_termtrans = 1
 
 " Additional File Types
 augroup filetypesettings
@@ -111,12 +115,16 @@ augroup filetypesettings
   au BufNewFile,BufRead *.m set shiftwidth=4
   au BufNewFile,BufRead *.h set shiftwidth=4
 
+  " Clojure, ClojureScript
+  au BufNewFile,BufRead *.clj set shiftwidth=2
+  au BufNewFile,BufRead *.cljs set shiftwidth=2
+
   " CoffeeScript
   au BufNewFile,BufRead *.coffee set shiftwidth=2
   au BufNewFile,BufRead *.js.coffee set shiftwidth=2
 
   " Haskell
-  au BufNewFile,BufRead *.hs set shiftwidth=4
+  au BufNewFile,BufRead *.hs set shiftwidth=2
 
   " Javascript
   au BufNewFile,BufRead *.js set shiftwidth=4

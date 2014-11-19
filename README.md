@@ -4,13 +4,13 @@
 
 Pathogen is used to executed the following plugins.
 
-* [emmet-vim](https://github.com/mattn/emmet-vim) : Zen coding for HTML
+* [Ctrlp](https://github.com/kien/ctrlp.vim) : Fuzzy file searching
 
-* [haskellmode-vim](https://github.com/lukerandall/haskellmode-vim) : Displays type information on functions
+* [emmet-vim](https://github.com/mattn/emmet-vim) : Zen coding for HTML
 
 * [NERDTree](https://github.com/scrooloose/nerdtree) : A tree explorer for file navigation
 
-* [syntastic](https://github.com/scrooloose/syntastic) : Syntax checking plugin
+* [vim-airline](https://github.com/bling/vim-airline) : Status tabline
 
 * [vim-bundler](https://github.com/tpope/vim-bundler) : Bundler to be used with rake.vim and rails.vim
 
@@ -23,6 +23,10 @@ Pathogen is used to executed the following plugins.
 * [vim-gitgutter](https://github.com/airblade/vim-gitgutter) : Displays a git diff in the "gutter" 
 
 * [vim-powerline](https://github.com/Lokaltog/vim-powerline) : Displays awesome looking functional vim statuslines
+
+* [vim-rails](https://github.com/tpope/vim-rails) : Ruby On Rails Development
+
+* [vim-scala](https://github.com/derekwyatt/vim-scala) : Adds Scala support for Vim
 
 * [vim-signature](https://github.com/kshenoy/vim-signature) : Display Vim marks set by user
 

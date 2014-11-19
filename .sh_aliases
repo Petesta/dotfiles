@@ -25,14 +25,16 @@ function web {
   fi
 }
 
-# EC2 Instances
-alias cs189="ssh -i ~/Downloads/ringbase.pem ubuntu@ec2-54-213-180-115.us-west-2.compute.amazonaws.com"
+# FASD
+alias z='fasd_cd -d'
+
+# Git
+alias gcal="git-cal"
 
 # Miscellaneous
 alias ll="ls -al"
-alias dw="cd ~/Dropbox/Spring"
-alias csil="ssh -X petecruz@csil.cs.ucsb.edu"
-alias engr="ssh -X petecruz@linux.engr.ucsb.edu"
+alias dropbox="cd ~/Dropbox"
+alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
 
 alias c='clear'
 alias up='cd ../'
@@ -46,6 +48,7 @@ alias up.....='cd ../../../../../'
 alias be='bundle exec'
 
 # Typos
+alias claer='clear'
 alias clera='clear'
 alias im='vim'
 alias rpsec='rspec'
