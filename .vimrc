@@ -3,7 +3,7 @@ execute pathogen#infect()
 filetype plugin indent on
 
 " Abbreviations
-iabbrev ssig Pete Cruz iPetesta@gmail.com
+iabbrev pc@ Pete Cruz iPetesta@gmail.com
 
 " Vim-Airline
 set laststatus=2
@@ -14,6 +14,16 @@ let g:unstack_layoyt = "portrait"
 
 " Highlight trailing whitespace
 match ErrorMsg '\s\+$'
+
+" Copy text from Vim
+function! g:CopyText()
+    let old_z = @z
+    normal! gv"zy
+    call system('pbcopy', @z)
+    let @z = old_z
+endfunction
+noremap <leader>z :silent! set paste<CR>"*p:set nopaste<CR>
+vnoremap <leader>y :<c-u>call g:CopyText()<CR>
 
 " Autoread
 set autoread
@@ -76,6 +86,12 @@ inoremap [ []<esc>i
 inoremap { {}<esc>i
 inoremap " ""<esc>i
 
+" set paste!
+nnoremap <leader>p :set paste!<CR>
+
+" set relativenumber!
+nnoremap <leader>rn :set relativenumber!<CR>
+
 " Tab mappings.
 "map <leader>tt :tabnew<cr>
 "map <leader>te :tabedit
@@ -89,6 +105,7 @@ inoremap " ""<esc>i
 
 " Bring up .vimrc
 let mapleader = ","
+nnoremap <leader>y orequire 'pry'<esc>obinding.pry<esc>
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>v :split $MYVIMRC<CR>
 if has("autocmd")
