@@ -15,16 +15,6 @@ let g:unstack_layoyt = "portrait"
 " Highlight trailing whitespace
 match ErrorMsg '\s\+$'
 
-" Copy text from Vim
-function! g:CopyText()
-    let old_z = @z
-    normal! gv"zy
-    call system('pbcopy', @z)
-    let @z = old_z
-endfunction
-noremap <leader>z :silent! set paste<CR>"*p:set nopaste<CR>
-vnoremap <leader>y :<c-u>call g:CopyText()<CR>
-
 " Autoread
 set autoread
 
@@ -86,11 +76,6 @@ inoremap [ []<esc>i
 inoremap { {}<esc>i
 inoremap " ""<esc>i
 
-" set paste!
-nnoremap <leader>p :set paste!<CR>
-
-" set relativenumber!
-nnoremap <leader>rn :set relativenumber!<CR>
 
 " Tab mappings.
 "map <leader>tt :tabnew<cr>
@@ -103,14 +88,26 @@ nnoremap <leader>rn :set relativenumber!<CR>
 "map <leader>tl :tablast<cr>
 "map <leader>tm :tabmove
 
-" Bring up .vimrc
 let mapleader = ","
-nnoremap <leader>y orequire 'pry'<esc>obinding.pry<esc>
+
+" set paste!
+nnoremap <leader>p :set paste!<CR>
+
+" set relativenumber!
+nnoremap <leader>rn :set relativenumber!<CR>
+
+nnoremap <leader>asdfy orequire 'pry'<esc>obinding.pry<esc>
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+
+" Bring up .vimrc
 nnoremap <leader>v :split $MYVIMRC<CR>
 if has("autocmd")
     autocmd bufwritepost .vimrc source $MYVIMRC
 endif
+
+" Copy
+vmap <C-c> "+yi
+
 
 " NERDTree Config
 " autocmd VimEnter * if &filetype !=# 'haskell' && &filetype !=# 'python' | NERDTree | endif
