@@ -5,13 +5,6 @@ filetype plugin indent on
 " Abbreviations
 iabbrev pc@ Pete Cruz iPetesta@gmail.com
 
-" Vim-Airline
-set laststatus=2
-set ttimeoutlen=50
-
-" Vim-Unstack
-let g:unstack_layoyt = "portrait"
-
 " Highlight trailing whitespace
 match ErrorMsg '\s\+$'
 
@@ -49,9 +42,15 @@ set ruler
 " Show Title
 set title
 
+" Molokai
+let g:molokai_original = 1
+
+" Vim-Airline
+set laststatus=2
+set ttimeoutlen=50
+
 " Screen Coloring and Syntax Highlighting
 syntax on
-set background=dark
 let &t_Co=256
 
 " Arrow Keys
@@ -76,7 +75,6 @@ inoremap [ []<esc>i
 inoremap { {}<esc>i
 inoremap " ""<esc>i
 
-
 " Tab mappings.
 "map <leader>tt :tabnew<cr>
 "map <leader>te :tabedit
@@ -96,7 +94,6 @@ nnoremap <leader>p :set paste!<CR>
 " set relativenumber!
 nnoremap <leader>rn :set relativenumber!<CR>
 
-nnoremap <leader>asdfy orequire 'pry'<esc>obinding.pry<esc>
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 
 " Bring up .vimrc
@@ -107,7 +104,6 @@ endif
 
 " Copy
 vmap <C-c> "+yi
-
 
 " NERDTree Config
 " autocmd VimEnter * if &filetype !=# 'haskell' && &filetype !=# 'python' | NERDTree | endif
