@@ -74,10 +74,6 @@ inoremap ( ()<esc>i
 inoremap [ []<esc>i
 inoremap { {}<esc>i
 inoremap " ""<esc>i
-
-for i in [1,2,3,4,5,6,7,8,9]
-  nnoremap <leader>i igt
-endfor
  
 " Tab mappings.
 "map <leader>tt :tabnew<cr>
@@ -91,6 +87,10 @@ endfor
 "map <leader>tm :tabmove
  
 let mapleader = ","
+
+for i in [1,2,3,4,5,6,7,8,9]
+  nnoremap <leader>i igt
+endfor
  
 " set paste!
 nnoremap <leader>p :set paste!<CR>
