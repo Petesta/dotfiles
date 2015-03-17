@@ -84,6 +84,10 @@ nnoremap <leader>6 6gt
 nnoremap <leader>7 7gt
 nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
+
+for i in [1,2,3,4,5,6,7,8,9]
+  nnoremap <leader>i igt
+endfor
  
 " Tab mappings.
 "map <leader>tt :tabnew<cr>
