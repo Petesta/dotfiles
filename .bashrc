@@ -22,6 +22,14 @@ export EDITOR=vim
 ### Load up Git completion
 source ~/.git-completion.sh 2>/dev/null
 
+BABY_BLUE=$'\e[1;34m'
+BLUE=$'\e[0;34m'
+BLUE_GREEN=$'\e[1;32m'
+GREEN=$'\e[0;32m'
+NORMAL=$'\e[00m'
+RED=$'\e[0;31m'
+WHITE=$'\e[1;37m'
+
 HISTCONTROL=ignoredups:ignorespace
 HISTSIZE=1000
 HISTFILESIZE=2000
@@ -33,6 +41,7 @@ shopt -s histappend
 ### Colors on for all grep functions
 export GREP_OPTIONS='--color=auto'
 
+### Extract compressed files
 extract () {
   if [ -f $1 ]; then
     case $1 in
@@ -51,6 +60,29 @@ extract () {
     esac
   else
     echo "'$1' is not a valid file!"
+  fi
+}
+
+scalaTree () {
+  echo 'What is the name of your Scala project?'
+  read project_name
+
+  if [[ "$project_name" = "${project_name%[[:space]]*}" ]]
+  then
+    mkdir project
+    echo -e "$GREEN mkdir project"
+    mkdir -p src/scala/$project_name
+    echo -e "$GREEN mkdir -p src/scala/$project_name"
+
+    touch build.sbt
+    echo -e "$GREEN touch build.sbt";
+    touch project/build.properties
+    echo -e "$GREEN touch project/build.properties";
+    touch project/build.sbt
+    echo -e "$GREEN touch project/build.sbt";
+  else
+    echo -e "$RED Project name cannot contain whitespace characters! Try again."
+    scalaTree
   fi
 }
 
@@ -74,20 +106,13 @@ function find_git_branch {
   git_branch=''
 }
 
-baby_blue=$'\e[1;34m'
-blue=$'\e[0;34m'
-blue_green=$'\e[1;32m'
-green=$'\e[0;32m'
-normal=$'\e[00m'
-red=$'\e[0;31m'
-white=$'\e[1;37m'
 PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 
-PS1='\[$red\]\u \[$white\]::\[$red\]\[ λ $white\]\[-> $red\]\w$git_branch $normal\]'
+PS1='\[$RED\]\u \[$WHITE\]::\[$RED\]\[ λ $WHITE\]\[-> $RED\]\w$git_branch $NORMAL\]'
 
 ### Load aliases
 if [ -f ~/.sh_aliases ]; then
-   . ~/.sh_aliases
+  . ~/.sh_aliases
 fi
 
 ### Load environment variables
