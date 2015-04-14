@@ -48,4 +48,6 @@ Pathogen is used to executed the following plugins.
 
 * [vim-surround](https://github.com/tpope/vim-surround) : Surrounds text, "", {}, etc.
 
+* [vim-trailing-whitespace](https://github.com/bronson/vim-trailing-whitespace) : Remove trailing whitespace
+
 * [vim-unstack](https://github.com/mattboehm/vim-unstack) : Parses stack traces and opens results in Vim splits
