@@ -155,12 +155,11 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " NERDTree Config
-autocmd VimEnter * if &filetype !=# 'haskell' && &filetype !=# 'python' && &filetype !=# 'ruby' | NERDTree | endif
-autocmd VimEnter * NERDTree
+autocmd VimEnter * if &filetype !=# "haskell" && &filetype !=# "python" && &filetype !=# "ruby" | NERDTree | endif
 autocmd VimEnter * wincmd p
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-let NERDTreeIgnore = ['\.pyc$', '\.class$', '\.o$']
+let NERDTreeIgnore = ["\.pyc$", "\.class$", "\.o$"]
 map  <leader>t :NERDTreeToggle<cr>
 nmap <leader>w <c-w>w
 nmap <leader>e gt
