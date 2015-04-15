@@ -2,7 +2,7 @@
 
 ## Vim configuration
 
-Pathogen is used to executed the following plugins.
+Pathogen is used to execute the following plugins.
 
 * [Ag](https://github.com/rking/ag.vim) : A searching tool faster than ack
 
@@ -36,16 +36,14 @@ Pathogen is used to executed the following plugins.
 
 * [vim-hackernews](https://github.com/ryanss/vim-hackernews) : Browse HackerNews through Vim
 
-* [vim-powerline](https://github.com/Lokaltog/vim-powerline) : Displays awesome looking functional Vim statuslines
-
 * [vim-rails](https://github.com/tpope/vim-rails) : Ruby On Rails Development
 
 * [vim-scala](https://github.com/derekwyatt/vim-scala) : Adds Scala support for Vim
 
-* [vim-signature](https://github.com/kshenoy/vim-signature) : Display Vim marks set by user
-
 * [vim-slim](https://github.com/slim-template/vim-slim) : Slim syntax highlighting
 
 * [vim-surround](https://github.com/tpope/vim-surround) : Surrounds text, "", {}, etc.
+
+* [vim-trailing-whitespace](https://github.com/bronson/vim-trailing-whitespace) : Remove trailing whitespace
 
 * [vim-unstack](https://github.com/mattboehm/vim-unstack) : Parses stack traces and opens results in Vim splits
