@@ -1,4 +1,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Pete Cruz's Vim Configuration
+"
+"                             Some pretty chill stuff here
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Pathgoen Installation
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 execute pathogen#infect()
@@ -77,17 +83,6 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-" Tab mappings.
-"map <leader>tt :tabnew<CR>
-"map <leader>te :tabedit
-"map <leader>tc :tabclose<CR>
-"map <leader>to :tabonly<CR>
-"map <leader>tn :tabnext<CR>
-"map <leader>tp :tabprevious<CR>
-"map <leader>tf :tabfirst<CR>
-"map <leader>tl :tablast<CR>
-"map <leader>tm :tabmove
-
 let mapleader = ","
 
 " Custom
@@ -100,33 +95,33 @@ inoremap [ []<esc>i
 inoremap { {}<esc>i
 inoremap " ""<esc>i
 
-" Jump to a Vim tab positions
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
-nnoremap <leader>3 3gt
-nnoremap <leader>4 4gt
-nnoremap <leader>5 5gt
-nnoremap <leader>6 6gt
-nnoremap <leader>7 7gt
-nnoremap <leader>8 8gt
-nnoremap <leader>9 9gt
+" Jump to a Vim tab position
+for i in range(1,9)
+  execute "nnoremap <leader>".i." ".i."gt"
+endfor
 
-" set paste!
-nnoremap <leader>p :set paste!<CR>
+" Move Vim tab to a different position
+for i in range(1,9)
+  let s:num = i - 1
+  execute "nnoremap <leader>m".i." :tabm".s:num."<cr>"
+endfor
 
-" set relativenumber!
-nnoremap <leader>n :set relativenumber!<CR>
+" Toggle paste
+nnoremap <leader>p :set paste!<cr>
 
-" insert binding.pry (before[bf] or after[ba]) current line
-map <leader>bf :normal $Obinding.pry<CR>
-map <leader>ba :normal $obinding.pry<CR>
+" Toggle relativenumber
+nnoremap <leader>n :set relativenumber!<cr>
+
+" Insert binding.pry (before[bf] or after[ba]) current line
+map <leader>bf :normal $Obinding.pry<cr>
+map <leader>ba :normal $obinding.pry<cr>
 
 " Opens up Github page
-noremap <silent> cp :let @" = expand("%")<CR>
+noremap <silent> cp :let @" = expand("%")<cr>
 
 " Shortcuts for editing files
-nnoremap <leader>v :split $MYVIMRC<CR>
-nnoremap <leader>b :split ~/.bashrc<CR>
+nnoremap <leader>v :split $MYVIMRC<cr>
+nnoremap <leader>b :split ~/.bashrc<cr>
 
 " Automatically source .vimrc upon write
 if has("autocmd")
@@ -138,12 +133,20 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("unix")
   let s:uname = system("uname -s")
-  if s:uname == "Darwin"
-    " Molokai
-    let g:molokai_original = 1
 
-    " Copy
-    vmap <C-c> "+yi
+  if has("gui_running")
+    set mousehide
+  else
+    if s:uname == "Darwin\n"
+      let g:molokai_original = 1
+      let g:airline#extensions#tabline#enabled = 1
+
+      " Copy and paste
+      vmap <c-c> "+yi
+      vmap <c-x> "+c
+      vmap <c-v> c<esc>"+p
+      imap <c-v> <esc>"+pa
+    endif
   endif
 endif
 
@@ -158,16 +161,87 @@ autocmd VimEnter * wincmd p
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 let NERDTreeIgnore = ['\.pyc$', '\.class$', '\.o$']
-map  <leader>t :NERDTreeToggle<CR>
-nmap <leader>w <C-w>w
+map  <leader>t :NERDTreeToggle<cr>
+nmap <leader>w <c-w>w
 nmap <leader>e gt
 nmap <leader>q gT
 
 " Vim Dispatch
 map <leader>rc "ayi"
-map <leader>c :copen<CR>
-map <leader>R :Dispatch ruby % -n /'<C-R>a'/<CR>
-map <leader>r :Dispatch ruby %<CR>
+map <leader>c :copen<cr>
+map <leader>R :Dispatch ruby % -n /'<C-R>a'/<cr>
+map <leader>r :Dispatch ruby %<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Custom Functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:match_base = ':match poi '
+let g:lines = []
+
+function! MakeMatch()
+  highlight poi ctermbg=darkred guibg='#004f27' guifg='#ffcc00'
+
+  let g:build_string = g:match_base
+  let c = 0
+  for i in g:lines
+    let c += 1
+    if c == 1
+      let g:build_string = g:build_string.'/\%'.string(i).'l'
+    else
+      let g:build_string = g:build_string.'\%'.string(i).'l'
+    endif
+    if c == len(g:lines)
+      let g:build_string = g:build_string.'/'
+    else
+      let g:build_string = g:build_string.'\|'
+    endif
+  endfor
+  execute g:build_string
+endfunction
+
+function! AddLine(...)
+  " Weird bug with highlight not getting called in MakeMatch
+  highlight poi ctermbg=darkred guibg='#004f27' guifg='#ffcc00'
+
+  if a:1 == 0
+    let g:line_num = line('.')
+  else
+    let g:line_num = a:1
+  endif
+  let add = 1
+  let dup_ind = 99
+  let c = 0
+  for i in g:lines
+    if g:line_num == i
+      let add = 0
+      let dup_ind = c
+    endif
+    let c += 1
+  endfor
+
+  if add == 1
+    let g:lines += [g:line_num]
+  else
+    if dup_ind != 99
+      call remove(g:lines, dup_ind)
+    endif
+  endif
+  call MakeMatch()
+endfunction
+
+function! AddRange() range
+  let start = a:firstline
+  let end = a:lastline
+
+  while start <= end
+    call AddLine(eval(start))
+    let start += 1
+  endwhile
+endfunction
+
+" Bug with some colorschemes reloading highlights
+vnoremap <leader>h :call AddRange()<cr>
+nnoremap <leader>h :call AddLine(line('.'))<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             File Type Configurations
