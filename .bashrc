@@ -119,3 +119,13 @@ fi
 if [ -f ~/.environment_variables ]; then
   . ~/.environment_variables
 fi
+
+### Git completion
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
+### PVM
+if [ -f ~/utils/pvm/pvm.sh ]; then
+  . ~/utils/pvm/pvm.sh
+fi
