@@ -84,7 +84,7 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-let mapleader = ","
+let mapleader = "\<space>"
 
 " Custom
 nnoremap - yyddp
@@ -297,6 +297,7 @@ augroup END
 " Additional File Types
 augroup ft_settings
   au!
+  au BufNewFile,BufRead .vimrc colorscheme molokai | set shiftwidth=2
   au BufNewFile,BufRead *.html colorscheme molokai | set shiftwidth=2
   au BufNewFile,BufRead *.json colorscheme molokai | set shiftwidth=2
   au BufNewFile,BufRead *.md   colorscheme molokai | set shiftwidth=2
