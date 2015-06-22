@@ -105,4 +105,5 @@ fi
 ### PVM
 if [ -f ~/utils/pvm/pvm.sh ]; then
   . ~/utils/pvm/pvm.sh
+  [[ -r $PVM_DIR/bash_completion ]] && . $PVM_DIR/bash_completion
 fi
