@@ -45,44 +45,21 @@ export GREP_OPTIONS='--color=auto'
 extract () {
   if [ -f $1 ]; then
     case $1 in
-      *.tar.bz2) tar xvjf $1    ;;
-      *.tar.gz)  tar xvzf $1    ;;
-      *.bz2)     bunzip2 $1     ;;
-      *.rar)     unrar x $1     ;;
-      *.gz)      gunzip $1      ;;
-      *.tar)     tar xvf $1     ;;
-      *.tbz2)    tar xvjf $1    ;;
-      *.tgz)     tar xvzf $1    ;;
-      *.zip)     unzip $1       ;;
-      *.Z)       uncompress $1  ;;
-      *.7z)      7z x $1        ;;
-      *)         echo "don't know how to extract '$1'..." ;;
+      *.tar.bz2) tar xvjf $1   ;;
+      *.tar.gz)  tar xvzf $1   ;;
+      *.bz2)     bunzip2 $1    ;;
+      *.rar)     unrar x $1    ;;
+      *.gz)      gunzip $1     ;;
+      *.tar)     tar xvf $1    ;;
+      *.tbz2)    tar xvjf $1   ;;
+      *.tgz)     tar xvzf $1   ;;
+      *.zip)     unzip $1      ;;
+      *.Z)       uncompress $1 ;;
+      *.7z)      7z x $1       ;;
+      *)         echo "Don't know how to extract '$1'..." ;;
     esac
   else
     echo "'$1' is not a valid file!"
-  fi
-}
-
-scalaTree () {
-  echo 'What is the name of your Scala project?'
-  read project_name
-
-  if [[ "$project_name" = "${project_name%[[:space]]*}" ]]
-  then
-    mkdir project
-    echo -e "$GREEN mkdir project"
-    mkdir -p src/scala/$project_name
-    echo -e "$GREEN mkdir -p src/scala/$project_name"
-
-    touch build.sbt
-    echo -e "$GREEN touch build.sbt";
-    touch project/build.properties
-    echo -e "$GREEN touch project/build.properties";
-    touch project/build.sbt
-    echo -e "$GREEN touch project/build.sbt";
-  else
-    echo -e "$RED Project name cannot contain whitespace characters! Try again."
-    scalaTree
   fi
 }
 
