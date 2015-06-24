@@ -8,8 +8,7 @@ function dirsize {
 # Exit the terminal unless run with -k
 function db {
   open ~/Dropbox
-  if [[ "$1" != '-k' ]]
-  then
+  if [ $1 != '-k' ]; then
     exit
   fi
 }
@@ -40,8 +39,7 @@ function extract {
 # Open a url in a web browser, because sometimes opening a browser is too much work
 # Ex: web github.com/rails/rails
 function web {
-  if [[ -n "$1" ]]
-  then
+  if [ -n $1 ]; then
     open "http://www.$1"
   else
     open 'http://www.google.com'
