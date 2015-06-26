@@ -19,9 +19,6 @@ eval "$(fasd --init auto)"
 ### Default editor is Vim
 export EDITOR=vim
 
-### Load up Git completion
-source ~/.git-completion.sh 2>/dev/null
-
 BABY_BLUE=$'\e[1;34m'
 BLUE=$'\e[0;34m'
 BLUE_GREEN=$'\e[1;32m'
@@ -40,51 +37,6 @@ shopt -s histappend
 
 ### Colors on for all grep functions
 export GREP_OPTIONS='--color=auto'
-
-### Extract compressed files
-extract () {
-  if [ -f $1 ]; then
-    case $1 in
-      *.tar.bz2) tar xvjf $1    ;;
-      *.tar.gz)  tar xvzf $1    ;;
-      *.bz2)     bunzip2 $1     ;;
-      *.rar)     unrar x $1     ;;
-      *.gz)      gunzip $1      ;;
-      *.tar)     tar xvf $1     ;;
-      *.tbz2)    tar xvjf $1    ;;
-      *.tgz)     tar xvzf $1    ;;
-      *.zip)     unzip $1       ;;
-      *.Z)       uncompress $1  ;;
-      *.7z)      7z x $1        ;;
-      *)         echo "don't know how to extract '$1'..." ;;
-    esac
-  else
-    echo "'$1' is not a valid file!"
-  fi
-}
-
-scalaTree () {
-  echo 'What is the name of your Scala project?'
-  read project_name
-
-  if [[ "$project_name" = "${project_name%[[:space]]*}" ]]
-  then
-    mkdir project
-    echo -e "$GREEN mkdir project"
-    mkdir -p src/scala/$project_name
-    echo -e "$GREEN mkdir -p src/scala/$project_name"
-
-    touch build.sbt
-    echo -e "$GREEN touch build.sbt";
-    touch project/build.properties
-    echo -e "$GREEN touch project/build.properties";
-    touch project/build.sbt
-    echo -e "$GREEN touch project/build.sbt";
-  else
-    echo -e "$RED Project name cannot contain whitespace characters! Try again."
-    scalaTree
-  fi
-}
 
 ### Set the prompt
 function find_git_branch {
@@ -115,6 +67,11 @@ if [ -f ~/.sh_aliases ]; then
   . ~/.sh_aliases
 fi
 
+### Load user defined functions
+if [ -f ~/.sh_functions ]; then
+  . ~/.sh_functions
+fi
+
 ### Load environment variables
 if [ -f ~/.environment_variables ]; then
   . ~/.environment_variables
@@ -128,4 +85,5 @@ fi
 ### PVM
 if [ -f ~/utils/pvm/pvm.sh ]; then
   . ~/utils/pvm/pvm.sh
+  [[ -r $PVM_DIR/bash_completion ]] && . $PVM_DIR/bash_completion
 fi

@@ -1,39 +1,12 @@
-# Print size of the given directory
-# Ex: dirsize app/ => 25M
-function dirsize {
-  du -skh $1
-}
-
-# Open Dropbox in a finder window
-# Exit the terminal unless run with -k
-function db {
-  open ~/Dropbox
-  if [[ "$1" != '-k' ]]
-  then
-    exit
-  fi
-}
-
-# Open a url in a web browser, because sometimes opening a browser is too much work
-# Ex: web github.com/rails/rails
-function web {
-  if [[ -n "$1" ]]
-  then
-    open "http://www.$1"
-  else
-    open "http://www.google.com"
-  fi
-}
-
 # FASD
 alias z='fasd_cd -d'
 
 # Git
-alias gcal="git-cal"
+alias gcal='git-cal'
 
 # Miscellaneous
-alias ll="ls -al"
-alias dropbox="cd ~/Dropbox"
+alias ll='ls -al'
+alias dropbox='cd ~/Dropbox'
 alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
 
 alias c='clear'
@@ -54,4 +27,4 @@ alias im='vim'
 alias rpsec='rspec'
 
 # Vim
-alias vim="/usr/local/bin/vim"
+alias vim='/usr/local/bin/vim'

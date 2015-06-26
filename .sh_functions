@@ -1,0 +1,47 @@
+# Print size of the given directory
+# Ex: dirsize app/ => 25M
+function dirsize {
+  du -skh $1
+}
+
+# Open Dropbox in a finder window
+# Exit the terminal unless run with -k
+function db {
+  open ~/Dropbox
+  if [ $1 != '-k' ]; then
+    exit
+  fi
+}
+
+# Extract compressed files
+# Ex: extract downloaded_package.tar.gz
+function extract {
+  if [ -f $1 ]; then
+    case $1 in
+      *.tar.bz2) tar xvjf $1   ;;
+      *.tar.gz)  tar xvzf $1   ;;
+      *.bz2)     bunzip2 $1    ;;
+      *.rar)     unrar x $1    ;;
+      *.gz)      gunzip $1     ;;
+      *.tar)     tar xvf $1    ;;
+      *.tbz2)    tar xvjf $1   ;;
+      *.tgz)     tar xvzf $1   ;;
+      *.zip)     unzip $1      ;;
+      *.Z)       uncompress $1 ;;
+      *.7z)      7z x $1       ;;
+      *)         echo "Don't know how to extract '$1'..." ;;
+    esac
+  else
+    echo "'$1' is not a valid file!"
+  fi
+}
+
+# Open a url in a web browser, because sometimes opening a browser is too much work
+# Ex: web github.com/rails/rails
+function web {
+  if [ -n $1 ]; then
+    open "http://www.$1"
+  else
+    open 'http://www.google.com'
+  fi
+}

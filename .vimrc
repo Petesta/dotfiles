@@ -32,6 +32,7 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+autocmd BufWritePre * :%s/\s\+$//e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Vim Configruations
@@ -63,9 +64,10 @@ set laststatus=2   "Vim-Airline
 set ttimeoutlen=50 "Vim-Airline
 set dictionary=/usr/share/dict/words
 
-" Screen Coloring and Syntax Highlighting
+" Screen Coloring, Syntax Highlighting, and Color Scheme
 syntax on
 let &t_Co=256
+colorscheme molokai
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Key Mappings
@@ -82,8 +84,6 @@ inoremap <left>  <nop>
 inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
-
-let mapleader = ","
 
 " Custom
 nnoremap - yyddp
@@ -130,6 +130,8 @@ imap <c-l><c-p> <c-k>p*
 
 " Phi
 imap <c-l><c-f> <c-k>f*
+
+let mapleader = "\<space>"
 
 " Jump to a Vim tab position
 for i in range(1, 9)
@@ -296,10 +298,13 @@ augroup END
 " Additional File Types
 augroup ft_settings
   au!
-  au BufNewFile,BufRead *.html colorscheme molokai | set shiftwidth=2
-  au BufNewFile,BufRead *.json colorscheme molokai | set shiftwidth=2
-  au BufNewFile,BufRead *.md   colorscheme molokai | set shiftwidth=2
-  au BufNewFile,BufRead *.toml colorscheme molokai | set shiftwidth=2
-  au BufNewFile,BufRead *.yaml colorscheme molokai | set shiftwidth=2
-  au BufNewFile,BufRead *.yml  colorscheme molokai | set shiftwidth=2
+  au BufNewFile,BufRead .vimrc set shiftwidth=2
+  au BufNewFile,BufRead *.haml set shiftwidth=2
+  au BufNewFile,BufRead *.html set shiftwidth=2
+  au BufNewFile,BufRead *.json set shiftwidth=2
+  au BufNewFile,BufRead *.md   set shiftwidth=2
+  au BufNewFile,BufRead *.slim set shiftwidth=2
+  au BufNewFile,BufRead *.toml set shiftwidth=2
+  au BufNewFile,BufRead *.yaml set shiftwidth=2
+  au BufNewFile,BufRead *.yml  set shiftwidth=2
 augroup END
