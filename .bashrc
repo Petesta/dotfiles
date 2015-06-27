@@ -50,14 +50,15 @@ function find_git_branch {
   git_branch=''
 }
 
-### Load up shell colors
-if [ -f ~/.sh_colors ]; then
-  . ~/.sh_colors
-fi
-
 PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 
-PS1='\[$RED\]\u \[$WHITE\]::\[$RED\]\[ λ $WHITE\]\[-> $RED\]\w$git_branch $NORMAL\]'
+### Load up shell colors and define prompt
+if [ -f ~/.sh_colors ]; then
+  . ~/.sh_colors
+  PS1='\[$RED\]\u \[$WHITE\]::\[$RED\]\[ λ $WHITE\]\[-> $RED\]\w$git_branch $NORMAL\]'
+else
+  PS1='\u :: λ -> \w$git_branch '
+fi
 
 ### Load aliases
 if [ -f ~/.sh_aliases ]; then
