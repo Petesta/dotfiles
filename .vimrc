@@ -194,7 +194,7 @@ autocmd VimEnter * if &filetype !=# "haskell" && &filetype !=# "python" && &file
 autocmd VimEnter * wincmd p
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-let NERDTreeIgnore = ['\.pyc$', '\.class$', '\.o$']
+let NERDTreeIgnore = ["\.pyc$", "\.class$", "\.o$"]
 map  <leader>t :NERDTreeToggle<cr>
 nmap <leader>w <c-w>w
 nmap <leader>e gt
@@ -280,7 +280,7 @@ augroup END
 " Rust
 augroup ft_rust
   au!
-  au BufNewFile,BufRead *.rs set shiftwidth=2
+  au BufNewFile,BufRead *.rs set shiftwidth=4
 augroup END
 
 " Scala

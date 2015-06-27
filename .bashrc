@@ -19,13 +19,8 @@ eval "$(fasd --init auto)"
 ### Default editor is Vim
 export EDITOR=vim
 
-BABY_BLUE=$'\e[1;34m'
-BLUE=$'\e[0;34m'
-BLUE_GREEN=$'\e[1;32m'
-GREEN=$'\e[0;32m'
-NORMAL=$'\e[00m'
-RED=$'\e[0;31m'
-WHITE=$'\e[1;37m'
+### Colors on for all grep functions
+export GREP_OPTIONS='--color=auto'
 
 HISTCONTROL=ignoredups:ignorespace
 HISTSIZE=1000
@@ -34,9 +29,6 @@ HISTTIMEFORMAT="%d/%m/%y %T "
 
 ### Append to the history file, don't overwrite it
 shopt -s histappend
-
-### Colors on for all grep functions
-export GREP_OPTIONS='--color=auto'
 
 ### Set the prompt
 function find_git_branch {
@@ -57,6 +49,11 @@ function find_git_branch {
   done
   git_branch=''
 }
+
+### Load up shell colors
+if [ -f ~/.sh_colors ]; then
+  . ~/.sh_colors
+fi
 
 PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 

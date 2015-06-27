@@ -5,8 +5,8 @@ alias z='fasd_cd -d'
 alias gcal='git-cal'
 
 # Miscellaneous
-alias ll='ls -al'
 alias dropbox='cd ~/Dropbox'
+alias ll='ls -al'
 alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
 
 alias c='clear'
@@ -17,7 +17,7 @@ alias up...='cd ../../../'
 alias up....='cd ../../../../'
 alias up.....='cd ../../../../../'
 
-# Rails Shortcuts
+# Ruby
 alias be='bundle exec'
 
 # Typos
@@ -25,6 +25,3 @@ alias claer='clear'
 alias clera='clear'
 alias im='vim'
 alias rpsec='rspec'
-
-# Vim
-alias vim='/usr/local/bin/vim'

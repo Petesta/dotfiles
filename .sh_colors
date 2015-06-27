@@ -1,0 +1,7 @@
+BABY_BLUE=$'\e[1;34m'
+BLUE=$'\e[0;34m'
+BLUE_GREEN=$'\e[1;32m'
+GREEN=$'\e[0;32m'
+NORMAL=$'\e[00m'
+RED=$'\e[0;31m'
+WHITE=$'\e[1;37m'
