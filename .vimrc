@@ -210,6 +210,21 @@ vnoremap <leader>h  :PoiLines<cr>
 nnoremap <leader>h  :PoiLine<cr>
 nnoremap <leader>hc :PoiClear<cr>
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Custom Vim Functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Ex. sbt 'test-only test.ApplicationSpec'
+function! SBTTestOnly()
+  let b:current_filename = split(split(@%, '/')[1], '\.')[0]
+  let b:sbt = ":Dispatch sbt 'test-only test.".b:current_filename."'"
+  execute b:sbt
+endfunction
+
+command! -nargs=0 SBT :call SBTTestOnly()
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             File Type Configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

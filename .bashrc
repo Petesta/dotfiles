@@ -3,15 +3,12 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-### Cassandra
-export PATH="/Users/Petesta/Downloads/apache-cassandra-2.0.7/bin:$PATH"
-
-### JAVA_HOME
-export JAVA_HOME=$(/usr/libexec/java_home)
-
 ### rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+### JAVA_HOME
+export JAVA_HOME=$(/usr/libexec/java_home)
 
 ### FASD
 eval "$(fasd --init auto)"
@@ -83,5 +80,4 @@ fi
 ### PVM
 if [ -f ~/utils/pvm/pvm.sh ]; then
   . ~/utils/pvm/pvm.sh
-  [[ -r $PVM_DIR/bash_completion ]] && . $PVM_DIR/bash_completion
 fi
