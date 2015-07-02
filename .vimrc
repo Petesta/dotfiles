@@ -210,7 +210,6 @@ vnoremap <leader>h  :PoiLines<cr>
 nnoremap <leader>h  :PoiLine<cr>
 nnoremap <leader>hc :PoiClear<cr>
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Custom Vim Functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -223,7 +222,6 @@ function! SBTTestOnly()
 endfunction
 
 command! -nargs=0 SBT :call SBTTestOnly()
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             File Type Configurations
