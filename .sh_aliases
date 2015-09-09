@@ -5,8 +5,9 @@ alias z='fasd_cd -d'
 alias gcal='git-cal'
 
 # Miscellaneous
-alias dropbox='cd ~/Dropbox'
+alias ls='ls -G'
 alias ll='ls -al'
+alias dropbox='cd ~/Dropbox'
 alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
 
 alias c='clear'
