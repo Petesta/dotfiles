@@ -90,9 +90,6 @@ nnoremap - yyddp
 nnoremap _ yydd2jp
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 inoremap <c-u> <esc>viwU<esc>i
-inoremap ( ()<esc>i
-inoremap [ []<esc>i
-inoremap { {}<esc>i
 inoremap " ""<esc>i
 
 " Alpha

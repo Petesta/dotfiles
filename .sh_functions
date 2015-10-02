@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Print size of the given directory
 # Ex: dirsize app/ => 25M
 function dirsize {

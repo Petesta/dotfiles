@@ -18,6 +18,7 @@ This repo contains a collection of my dot files and Vim environment settings.
 | [open-browser](https://github.com/tyru/open-browser.vim)                      | Use in conjunction with `open-browser-github.vim`  |
 | [open-browser-github](https://github.com/tyru/open-browser-github.vim)        | Open Github URL of current file, etc.              |
 | [vim-airline](https://github.com/bling/vim-airline)                           | Status tabline                                     |
+| [vim-autoclose](https://github.com/Townk/vim-autoclose.git)                   | Auto complete open/close of characters             |
 | [vim-bundler](https://github.com/tpope/vim-bundler)                           | Bundler to be used with `rake.vim` and `rails.vim` |
 | [vim-coffee-script](https://github.com/kchmck/vim-coffee-script)              | CoffeeScript syntax highlighting                   |
 | [vim-dispatch](https://github.com/tpope/vim-dispatch)                         | Asynchronously kick off builds and test suites     |
@@ -26,6 +27,7 @@ This repo contains a collection of my dot files and Vim environment settings.
 | [vim-gitgutter](https://github.com/airblade/vim-gitgutter)                    | Displays a git diff in the `"gutter"`              |
 | [vim-hackernews](https://github.com/ryanss/vim-hackernews)                    | Browse HackerNews through Vim                      |
 | [vim-json](https://github.com/elzr/vim-json)                                  | A better JSON for Vim                              |
+| [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)       | Sublime multiple cursors for Vim                   |
 | [vim-poi](https://github.com/DanBradbury/vim-poi)                             | Highlight points of interest                       |
 | [vim-rails](https://github.com/tpope/vim-rails)                               | Add support for Ruby on Rails development          |
 | [vim-rust](https://github.com/rust-lang/rust.vim)                             | Rust syntax highlighting                           |
