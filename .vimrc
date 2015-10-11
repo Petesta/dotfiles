@@ -40,6 +40,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 set nocompatible
 set autoread                   "Autoread
 set backspace=indent,eol,start "Fix backspace issue
+set ignorecase                 "Ignore cases in searches
 set hlsearch                   "Highlight matching strings
 set showmatch                  "Matching braces
 set cursorline                 "Horizontal cursor
@@ -62,6 +63,7 @@ set title          "Show title
 set visualbell
 set laststatus=2   "Vim-Airline
 set ttimeoutlen=50 "Vim-Airline
+set tags=tags
 set dictionary=/usr/share/dict/words
 
 " Screen Coloring, Syntax Highlighting, and Color Scheme
