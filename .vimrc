@@ -65,6 +65,7 @@ set laststatus=2   "Vim-Airline
 set ttimeoutlen=50 "Vim-Airline
 set tags=tags
 set dictionary=/usr/share/dict/words
+set wildignore+=*.so,*.swp,*.class,*/target/*
 
 " Screen Coloring, Syntax Highlighting, and Color Scheme
 syntax on
