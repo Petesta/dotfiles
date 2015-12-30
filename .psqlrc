@@ -1,0 +1,23 @@
+\set QUIET 1
+
+-- Aliases
+\set clear '\\! clear;'
+\set extensions 'SELECT * FROM pg_available_extensions;'
+\set version 'SELECT version();'
+
+-- Formatting
+\x auto
+\pset null 'NULL'
+\set COMP_KEYWORD_CASE upper
+\set HISTCONTROL ignoredups
+\set HISTFILE ~/.psql_history- :HOST - :DBNAME
+\set VERBOSITY verbose
+
+-- Prompt
+\set PROMPT1 '%M:%> %n@%/%R%#%x '
+\set PROMPT2 '%M %n@%/%R %# '
+
+-- Timing
+\timing
+
+\set QUIET 0
