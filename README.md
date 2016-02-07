@@ -13,10 +13,12 @@ This repo contains a collection of my dot files and Vim environment settings.
 | [colorizer](https://github.com/lilydjwg/colorizer)                            | Colorize hexadecimal text                          |
 | [ctrlp](https://github.com/kien/ctrlp.vim)                                    | Fuzzy file searching                               |
 | [emmet-vim](https://github.com/mattn/emmet-vim)                               | Zen coding for HTML                                |
+| [indentLine](https://github.com/Yggdroot/indentLine)                          | Vertical lines for indentation level of code       |
 | [NERDCommenter](https://github.com/scrooloose/nerdcommenter)                  | Better commenting for `NERDTree`                   |
 | [NERDTree](https://github.com/scrooloose/nerdtree)                            | A tree explorer for file navigation                |
 | [open-browser](https://github.com/tyru/open-browser.vim)                      | Use in conjunction with `open-browser-github.vim`  |
 | [open-browser-github](https://github.com/tyru/open-browser-github.vim)        | Open Github URL of current file, etc.              |
+| [rainbow_parentheses](https://github.com/kien/rainbow_parentheses.vim)        | Highlight nested parentheses                       |
 | [vim-airline](https://github.com/bling/vim-airline)                           | Status tabline                                     |
 | [vim-autoclose](https://github.com/Townk/vim-autoclose.git)                   | Auto complete open/close of characters             |
 | [vim-bundler](https://github.com/tpope/vim-bundler)                           | Bundler to be used with `rake.vim` and `rails.vim` |
@@ -35,4 +37,3 @@ This repo contains a collection of my dot files and Vim environment settings.
 | [vim-slim](https://github.com/slim-template/vim-slim)                         | Slim syntax highlighting                           |
 | [vim-startify](https://github.com/mhinz/vim-startify)                         | A fancy start screen for Vim                       |
 | [vim-surround](https://github.com/tpope/vim-surround)                         | Surround text with `""`, `{}`, etc.                |
-| [vim-trailing-whitespace](https://github.com/bronson/vim-trailing-whitespace) | Remove trailing whitespace                         |

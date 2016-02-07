@@ -206,9 +206,17 @@ map <leader>c :copen<cr>
 map <leader>R :Dispatch ruby % -n /'<C-R>a'/<cr>
 map <leader>r :Dispatch ruby %<cr>
 
+" Vim Poi
 vnoremap <leader>h  :PoiLines<cr>
 nnoremap <leader>h  :PoiLine<cr>
 nnoremap <leader>hc :PoiClear<cr>
+
+" indentLine
+let g:indentLine_color_term = 239
+let g:indentLine_char = '|'
+
+" Rainbow Parentheses
+au VimEnter * RainbowParenthesesToggle
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Custom Vim Functions
@@ -226,6 +234,10 @@ command! -nargs=0 SBT :call SBTTestOnly()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             File Type Configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup HiglightKeywords
+  autocmd!
+  autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO\|FIXME\|NOTE', -1)
+augroup END
 
 " C, C++, and Objective-C
 augroup ft_c
