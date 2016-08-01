@@ -10,6 +10,7 @@
 --type-set=markdown=.markdown,.md,.mdown,.mkd,.mkdn,.txt
 
 --ignore-dir=.bundle
+--ignore-dir=_site
 --ignore-dir=asset-cache
 --ignore-dir=build
 --ignore-dir=coverage

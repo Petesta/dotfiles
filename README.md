@@ -20,6 +20,7 @@ This repo contains a collection of my dot files and Vim environment settings.
 | [open-browser](https://github.com/tyru/open-browser.vim)                      | Use in conjunction with `open-browser-github.vim`  |
 | [open-browser-github](https://github.com/tyru/open-browser-github.vim)        | Open Github URL of current file, etc.              |
 | [rainbow_parentheses](https://github.com/kien/rainbow_parentheses.vim)        | Highlight nested parentheses                       |
+| [tabular](https://github.com/godlygeek/tabular)                               | Alignment and table markup                         |
 | [vim-airline](https://github.com/bling/vim-airline)                           | Status tabline                                     |
 | [vim-autoclose](https://github.com/Townk/vim-autoclose.git)                   | Auto complete open/close of characters             |
 | [vim-bundler](https://github.com/tpope/vim-bundler)                           | Bundler to be used with `rake.vim` and `rails.vim` |
@@ -29,6 +30,7 @@ This repo contains a collection of my dot files and Vim environment settings.
 | [vim-fugitive](https://github.com/tpope/vim-fugitive)                         | Git wrapper for Vim                                |
 | [vim-gitgutter](https://github.com/airblade/vim-gitgutter)                    | Displays a git diff in the `"gutter"`              |
 | [vim-hackernews](https://github.com/ryanss/vim-hackernews)                    | Browse HackerNews through Vim                      |
+| [vim-instant-markdown](https://github.com/suan/vim-instant-markdown)          | Preview Markdown in new browser window             |
 | [vim-json](https://github.com/elzr/vim-json)                                  | A better JSON for Vim                              |
 | [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors)       | Sublime multiple cursors for Vim                   |
 | [vim-poi](https://github.com/DanBradbury/vim-poi)                             | Highlight points of interest                       |

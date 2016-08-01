@@ -38,12 +38,12 @@ autocmd BufWritePre * :%s/\s\+$//e
 "                             Vim Configruations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
-set autoread                   "Autoread
-set backspace=indent,eol,start "Fix backspace issue
-set ignorecase                 "Ignore cases in searches
-set hlsearch                   "Highlight matching strings
-set showmatch                  "Matching braces
-set cursorline                 "Horizontal cursor
+set autoread                   " Autoread
+set backspace=indent,eol,start " Fix backspace issue
+set ignorecase                 " Ignore cases in searches
+set hlsearch                   " Highlight matching strings
+set showmatch                  " Matching braces
+set cursorline                 " Horizontal cursor
 
 " Indentation
 set autoindent
@@ -55,14 +55,14 @@ set tabstop=4
 
 set lazyredraw
 set ttyfast
-set number         "Show line number
-set relativenumber "Relative number line
-set mouse=a        "Scrolling
-set ruler          "Show position in file
-set title          "Show title
+set number         " Show line number
+set relativenumber " Relative number line
+set mouse=a        " Scrolling
+set ruler          " Show position in file
+set title          " Show title
 set visualbell
-set laststatus=2   "Vim-Airline
-set ttimeoutlen=50 "Vim-Airline
+set laststatus=2   " Vim-Airline
+set ttimeoutlen=50 " Vim-Airline
 set tags=tags
 set dictionary=/usr/share/dict/words
 set wildignore+=*.so,*.swp,*.class,*/target/*
@@ -237,7 +237,7 @@ command! -nargs=0 SBT :call SBTTestOnly()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             File Type Configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup HiglightKeywords
+augroup HighlightKeywords
   autocmd!
   autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO\|FIXME\|NOTE', -1)
 augroup END
@@ -301,6 +301,7 @@ augroup ft_ruby
   au!
   au BufNewFile,BufRead *.rb         set shiftwidth=2
   au BufNewFile,BufRead Berksfile    set shiftwidth=2
+  au BufNewFile,BufRead Guardfile    set shiftwidth=2
   au BufNewFile,BufRead Gemfile      set shiftwidth=2
   au BufNewFile,BufRead Gemfile.lock set shiftwidth=2
 augroup END
@@ -326,13 +327,14 @@ augroup END
 " Additional File Types
 augroup ft_settings
   au!
-  au BufNewFile,BufRead .vimrc set shiftwidth=2
   au BufNewFile,BufRead *.haml set shiftwidth=2
   au BufNewFile,BufRead *.html set shiftwidth=2
   au BufNewFile,BufRead *.json set shiftwidth=2
   au BufNewFile,BufRead *.md   set shiftwidth=2
+  au BufNewFile,BufRead *.rc   set shiftwidth=2
   au BufNewFile,BufRead *.slim set shiftwidth=2
-  au BufNewFile,BufRead *.toml set shiftwidth=2
+  au BufNewFile,BufRead *.toml set shiftwidth=4
+  au BufNewFile,BufRead *.xml  set shiftwidth=2
   au BufNewFile,BufRead *.yaml set shiftwidth=2
   au BufNewFile,BufRead *.yml  set shiftwidth=2
 augroup END
