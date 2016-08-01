@@ -189,7 +189,10 @@ endif
 "                             Vim Plugin Configruations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" NERDTree Config
+" Goyo
+au VimEnter * if &filetype ==# "markdown" | Goyo 125 | endif
+
+" NERDTree
 autocmd VimEnter * if &filetype !=# "haskell" && &filetype !=# "python" && &filetype !=# "ruby" | NERDTree | endif
 autocmd VimEnter * wincmd p
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -199,6 +202,9 @@ map  <leader>t :NERDTreeToggle<cr>
 nmap <leader>w <c-w>w
 nmap <leader>e gt
 nmap <leader>q gT
+
+" Rainbow Parentheses
+au VimEnter * RainbowParenthesesToggle
 
 " Vim Dispatch
 map <leader>rc "ayi"
@@ -214,9 +220,6 @@ nnoremap <leader>hc :PoiClear<cr>
 " indentLine
 let g:indentLine_color_term = 239
 let g:indentLine_char = '|'
-
-" Rainbow Parentheses
-au VimEnter * RainbowParenthesesToggle
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Custom Vim Functions

@@ -13,6 +13,7 @@ This repo contains a collection of my dot files and Vim environment settings.
 | [colorizer](https://github.com/lilydjwg/colorizer)                            | Colorize hexadecimal text                          |
 | [ctrlp](https://github.com/kien/ctrlp.vim)                                    | Fuzzy file searching                               |
 | [emmet-vim](https://github.com/mattn/emmet-vim)                               | Zen coding for HTML                                |
+| [Goyo](https://github.com/junegunn/goyo.vim)                                  | Distraction free writing                           |
 | [indentLine](https://github.com/Yggdroot/indentLine)                          | Vertical lines for indentation level of code       |
 | [NERDCommenter](https://github.com/scrooloose/nerdcommenter)                  | Better commenting for `NERDTree`                   |
 | [NERDTree](https://github.com/scrooloose/nerdtree)                            | A tree explorer for file navigation                |
