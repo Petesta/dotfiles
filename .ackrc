@@ -14,11 +14,13 @@
 --ignore-dir=asset-cache
 --ignore-dir=build
 --ignore-dir=coverage
+--ignore-dir=dist
 --ignore-dir=doc
 --ignore-dir=generated
 --ignore-dir=images
 --ignore-dir=log
 --ignore-dir=logs
+--ignore-dir=node_modules
 --ignore-dir=public/assets
 --ignore-dir=target
 --ignore-dir=tmp
