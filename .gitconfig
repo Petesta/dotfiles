@@ -1,0 +1,18 @@
+[user]
+  name = Pete Cruz
+  email = iPetesta@gmail.com
+[core]
+  editor = vim
+[credential]
+  helper = osxkeychain
+[push]
+  default = upstream
+[alias]
+  ca = commit --amend
+  d = diff
+  p = push
+  pl = pull
+  s = status
+  sc = stash clear
+  sl = stash list
+  sp = stash pop
