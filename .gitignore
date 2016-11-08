@@ -1,0 +1,25 @@
+# Compiled
+*.class
+*.hi
+*.o
+
+# Directories
+bin
+dist
+log
+node_modules
+target
+tmp
+
+# Logs
+*.log
+
+# Operating System
+.DS_Store*
+.env
+
+# Redis
+*.rdb
+
+# Terminal
+*.sw*
