@@ -4,11 +4,13 @@
 *.o
 
 # Directories
+.idea
 bin
 dist
 log
 node_modules
 target
+temp
 tmp
 
 # Logs

@@ -1,13 +1,3 @@
-[user]
-  name = Pete Cruz
-  email = iPetesta@gmail.com
-[core]
-  editor = vim
-  excludesfile = ~/.gitignore
-[credential]
-  helper = osxkeychain
-[push]
-  default = upstream
 [alias]
   ca = commit --amend
   d = diff
@@ -17,3 +7,21 @@
   sc = stash clear
   sl = stash list
   sp = stash pop
+[color "branch"]
+  local = blue
+  remote = yellow
+[color "diff"]
+  func = cyan
+  meta = yellow
+[color "status"]
+  untracked = yellow
+[core]
+  editor = vim
+  excludesfile = ~/.gitignore
+[credential]
+  helper = osxkeychain
+[push]
+  default = upstream
+[user]
+  email = iPetesta@gmail.com
+  name = Pete Cruz

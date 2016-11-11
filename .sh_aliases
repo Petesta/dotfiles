@@ -8,12 +8,11 @@ alias gcal='git-cal'
 alias groot="cd $(git rev-parse --show-toplevel)"
 
 # Miscellaneous
+alias c='clear'
+alias dropbox='cd ~/Dropbox'
 alias ls='ls -G'
 alias ll='ls -al'
-alias dropbox='cd ~/Dropbox'
 alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
-
-alias c='clear'
 alias up='cd ../'
 alias up.='up'
 alias up..='cd ../../'

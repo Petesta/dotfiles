@@ -70,7 +70,7 @@ PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 # Load up shell colors and define prompt
 if [ -f ~/.sh_colors ]; then
   . ~/.sh_colors
-  PS1='\[$RED\]\u \[$WHITE\]::\[$RED\]\[ λ $WHITE\]\[-> $RED\]\w$git_branch $NORMAL\]'
+  PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]\λ \[$WHITE\]-> \[$RED\]\w$git_branch $NORMAL'
 else
   PS1='\u :: λ -> \w$git_branch '
 fi
@@ -95,15 +95,11 @@ if [ -f ~/.environment_variables ]; then
 fi
 
 # Git completion
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
+if [ -f ~/.git_completion ]; then
+  . ~/.git_completion
 fi
 
-# PVM
-if [ -f ~/utils/pvm/pvm.sh ]; then
-  . ~/utils/pvm/pvm.sh
-fi
-
+# Highlighting of `man` pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # Begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # Begin bold
 export LESS_TERMCAP_me=$'\E[0m'           # End mode
