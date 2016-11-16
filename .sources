@@ -1,0 +1,8 @@
+# FASD
+eval "$(fasd --init auto)"
+
+
+# rbenv
+if [ -d ~/.rbenv ]; then
+  eval "$(rbenv init -)"
+fi

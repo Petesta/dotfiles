@@ -13,7 +13,7 @@ declare -a files
 
 files+=($(find . -name '.*' -type f -exec basename {} ';'))
 
-for $file in "${files[@]}"; do
+for file in "${files[@]}"; do
   ln -sf "$DIR/$file" "$HOME/$file"
 done
 

@@ -337,4 +337,5 @@ augroup ft_settings
   au BufNewFile,BufRead *.xml  set shiftwidth=2
   au BufNewFile,BufRead *.yaml set shiftwidth=2
   au BufNewFile,BufRead *.yml  set shiftwidth=2
+  au BufNewFile,BufRead .aliases,.exports,.sources set shiftwidth=2 | set filetype=sh
 augroup END
