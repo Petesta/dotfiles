@@ -15,6 +15,14 @@ files+=($(find . -name '.*' -type f -exec basename {} ';'))
 
 for file in "${files[@]}"; do
   ln -sf "$DIR/$file" "$HOME/$file"
-done
+done; unset file
 
 echo 'Dotfiles setup complete.'
+
+declare -r bashrc="$HOME/.bashrc"
+
+echo "Now sourcing $bashrc"
+
+. "$bashrc"
+
+echo "Done sourcing $bashrc"
