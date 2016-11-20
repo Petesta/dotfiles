@@ -13,7 +13,9 @@ export HISTFILESIZE=2000
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # JAVA_HOME
-export JAVA_HOME=$(/usr/libexec/java_home)
+if [ -h /usr/libexec/java_home ]; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi
 
 # Heroku Toolbelt
 if [ -d /usr/local/heroku ]; then

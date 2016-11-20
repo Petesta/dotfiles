@@ -1,6 +1,7 @@
 # FASD
-eval "$(fasd --init auto)"
-
+if [ -x "$HOME/bin/fasd" ]; then
+  eval "$(fasd --init auto)"
+fi
 
 # rbenv
 if [ -d ~/.rbenv ]; then
