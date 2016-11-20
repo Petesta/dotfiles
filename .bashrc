@@ -30,9 +30,11 @@ PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 # Load up shell colors and define prompt
 if [ -f ~/.sh_colors ]; then
   . ~/.sh_colors
-  PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w$git_branch$NORMAL'
   if [ -d ~/.git-radar ]; then
+    PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w$git_branch$NORMAL'
     PS1="$PS1\$(git-radar --bash --fetch) "
+  else
+    PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w $git_branch$NORMAL'
   fi
 else
   PS1='\u :: λ -> \w$git_branch '
@@ -42,14 +44,6 @@ fi
 #                             Sourcing dotfiles
 ################################################################################
 
-files=(
-  '.aliases',
-  '.exports',
-  '.git_completion',
-  '.functions',
-  '.sources'
-)
-
-for file in "${files[@]}"; do
+for file in ~/.{aliases,exports,git_completion,functions,sources}; do
   [ -r "${file}" ] && [ -f "${file}" ] && . "${file}"
 done; unset file
