@@ -44,6 +44,6 @@ fi
 #                             Sourcing dotfiles
 ################################################################################
 
-for file in ~/.{aliases,exports,git_completion,functions,sources}; do
+for file in ~/.{aliases,colors,exports,git_completion,functions,sources}; do
   [ -r "${file}" ] && [ -f "${file}" ] && . "${file}"
 done; unset file

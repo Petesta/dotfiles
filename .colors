@@ -1,0 +1,18 @@
+#!/bin/bash
+
+BABY_BLUE=$'\e[1;34m'
+BLUE=$'\e[0;34m'
+BLUE_GREEN=$'\e[1;32m'
+GREEN=$'\e[0;32m'
+NORMAL=$'\e[00m'
+RED=$'\e[0;31m'
+WHITE=$'\e[1;37m'
+
+BOLD=$(tput bold)
+RESET=$(tput sgr0)
+TP_BLUE=$(tput setaf 38)
+TP_GREEN=$(tput setaf 76)
+TP_PURPLE=$(tput setaf 171)
+TP_RED=$(tput setaf 1)
+TP_TAN=$(tput setaf 3)
+UNDERLINE=$(tput sgr 0 1)
