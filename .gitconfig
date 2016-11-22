@@ -6,11 +6,12 @@
   ls = log --pretty=format:'%C(yellow)%h - %ad%Cred%d | %Creset%s%Cblue [%cn]' --decorate --date=short
   p = push
   pl = pull
+  root = "!f() { cd $(git rev-parse --show-toplevel); }; f"
   s = status
   sc = stash clear
   sl = stash list
   sp = stash pop
-  touched = "!f() { git log --pretty='%H' --author='Petesta' | while read commit_hash; do git show --oneline --name-only $commit_hash | tail -n+2; done | sort | uniq; }; f"
+  touched = "!f() { git log --pretty='%H' --author='Petesta\\|Pete Cruz' | while read commit_hash; do git show --oneline --name-only $commit_hash | tail -n+2; done | sort | uniq; }; f"
 [color "branch"]
   local = blue
   remote = yellow
