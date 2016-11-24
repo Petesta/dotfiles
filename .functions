@@ -47,3 +47,49 @@ function web {
     open 'http://www.google.com'
   fi
 }
+
+function type_exists() {
+  if [ $(type -P $1) ]; then
+    return 0
+  fi
+  return 1
+}
+
+function which_os() {
+  if [[ $OSTYPE == $1* ]]; then
+    return 0
+  fi
+  return 1
+}
+
+function p_header {
+  printf "\n${BOLD}${TP_PURPLE}==========  %s  ==========${RESET}\n" "$@"
+}
+
+function p_arrow {
+  printf "➜ $@\n"
+}
+
+function p_success {
+  printf "${TP_GREEN}✔ %s${RESET}\n" "$@"
+}
+
+function p_error {
+  printf "${TP_RED}✖ %s${RESET}\n" "$@"
+}
+
+function p_warning {
+  printf "${TP_TAN}➜ %s${RESET}\n" "$@"
+}
+
+function p_underline {
+  printf "${UNDERLINE}${BOLD}%s${RESET}\n" "$@"
+}
+
+function p_bold {
+  printf "${BOLD}%s${RESET}\n" "$@"
+}
+
+function p_note {
+  printf "${UNDERLINE}${BOLD}${TP_BLUE}Note:${RESET} ${TP_BLUE}%s${RESET}\n" "$@"
+}
