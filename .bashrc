@@ -31,10 +31,10 @@ PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 if [ -f ~/.sh_colors ]; then
   . ~/.sh_colors
   if [ -d ~/.git-radar ]; then
-    PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w$git_branch$NORMAL'
+    PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w$git_branch\[$NORMAL\]'
     PS1="$PS1\$(git-radar --bash --fetch) "
   else
-    PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w $git_branch$NORMAL'
+    PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w$git_branch\[$NORMAL\] '
   fi
 else
   PS1='\u :: λ -> \w$git_branch '
@@ -45,5 +45,5 @@ fi
 ################################################################################
 
 for file in ~/.{aliases,colors,exports,git_completion,functions,sources}; do
-  [ -r "${file}" ] && [ -f "${file}" ] && . "${file}"
+  [ -r $file ] && . $file
 done; unset file
