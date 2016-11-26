@@ -25,15 +25,14 @@ function find_git_branch {
   git_branch=''
 }
 
-PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
-
 # Load up shell colors and define prompt
 if [ -f ~/.sh_colors ]; then
   . ~/.sh_colors
   if [ -d ~/.git-radar ]; then
-    PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w$git_branch\[$NORMAL\]'
+    PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w\[$NORMAL\]'
     PS1="$PS1\$(git-radar --bash --fetch) "
   else
+    PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
     PS1='\[$RED\]\u \[$WHITE\]:: \[$RED\]λ \[$WHITE\]-> \[$RED\]\w$git_branch\[$NORMAL\] '
   fi
 else
