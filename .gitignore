@@ -4,6 +4,7 @@
 *.o
 
 # Directories
+.elasticbeanstalk
 .idea
 bin
 dist
