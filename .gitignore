@@ -6,6 +6,7 @@
 # Directories
 .elasticbeanstalk
 .idea
+.vagrant
 bin
 dist
 log
