@@ -1,4 +1,3 @@
-# Brew (brew install)
 declare -ar MAC_PACKAGES=(
   'ack'
   'awsebcli' # aws-elasticbeanstalk, awscli
@@ -14,12 +13,22 @@ declare -ar MAC_PACKAGES=(
   'scala'
   'tree'
   'vim'
+  'watch'
 )
 
-# Apt (sudo apt-get install)
+declare -ar CENTOS_PACKAGES=(
+  'git'
+  'ImageMagick'
+  'tree'
+  'vim'
+)
+
 declare -ar UBUNTU_PACKAGES=(
   'ack-grep'
+  'bc'
   'git'
+  'python-software-properties'
+  'tree'
   'vim'
 )
 
@@ -75,6 +84,38 @@ function mac_setup() {
   printf 'Finished setup\n'
 }
 
+function centos_setup() {
+  printf 'Beginning Centos setup\n'
+  sudo yum update
+
+  for package in "${CENTOS_PACKAGES[@]}"; do
+    sudo yum install -y $package
+    if [ ! $? -eq 0 ]; then
+      printf "ERR: Installing package $package\n"
+    fi
+  done; unset package
+}
+
+function install_java() {
+  local ubuntu_release=($(lsb_release -r))
+
+  if [[ $(printf "${ubuntu_release[1]} 12.10\n" | awk '{print ($1 < $2}') ]]; then
+    sudo apt-get install -yf python-software-properties
+  fi
+
+  if [ ! grep -q 'webupd8team' /etc/apt/sources.list.d/* ]; then
+    sudo add-apt-repository ppa:webupd8team/java
+  fi
+
+  read -t 5 -n 1 -p $'Which version of Java would you like to install? Enter number\n' java_version
+  if [ $? -eq 0 ] || [[ $java_version == *[6-9]* ]]; then
+    printf
+    sudo apt-get install "oracle-java-${java_version}-installer"
+  else
+    sudo apt-get install oracle-java-8-installer
+  fi
+}
+
 function ubuntu_setup() {
   printf 'Beginning Ubuntu setup\n'
   sudo apt-get update
@@ -86,7 +127,25 @@ function ubuntu_setup() {
     fi
   done; unset package
 
+  if [ ! $(type -P java) ]; then
+    install_java
+  fi
+
   printf 'Finished setup\n'
+}
+
+function linux_setup() {
+  if [[ $(type -P apt-get) && $(type -P yum) ]]; then
+    prinf 'ERR: Both apt-get and yum are installed. Not sure which setup to run.'
+    exit 1
+  elif [ $(type -P apt-get) ]; then
+    ubuntu_setup
+  elif [ $(type -P yum) ]; then
+    centos_setup
+  else
+    printf 'ERR: apt-get or yum are not installed. Not sure which setup to run.'
+    exit 1
+  fi
 }
 
 case $OSTYPE in
@@ -94,7 +153,7 @@ case $OSTYPE in
     mac_setup
     ;;
   linux*)
-    ubuntu_setup
+    linux_setup
     ;;
   *)
     printf "ERR: Unrecognized operating system $OSTYPE\n"
