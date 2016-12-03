@@ -1,13 +1,13 @@
 declare -ar MAC_PACKAGES=(
   'ack'
-  'awsebcli' # aws-elasticbeanstalk, awscli
+  'awsebcli'
   'ctags'
   'elasticsearch17'
   'git'
-  'imagemagick' # freetype, jpeg, libpng, libtiff, libtool, xz
+  'imagemagick'
   'leiningen'
   'node'
-  'rbenv' # autoconf, openssl, pkg-config, ruby-build
+  'rbenv'
   'redis'
   'sbt'
   'scala'
@@ -51,14 +51,14 @@ function install_xcode() {
 }
 
 function uninstall_brew() {
-  if [ $(type -P brew) ]; then
+  if [ $(type -p brew) ]; then
     printf 'Uninstalling `brew`\n'
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
   fi
 }
 
 function install_brew() {
-  if [ ! $(type -P brew) ]; then
+  if [ ! $(type -p brew) ]; then
     printf 'Installing `brew`.\n'
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
@@ -97,22 +97,22 @@ function centos_setup() {
 }
 
 function install_java() {
-  local ubuntu_release=($(lsb_release -r))
+  local ubuntu_release=($(lsb_release --release))
 
   if [[ $(printf "${ubuntu_release[1]} 12.10\n" | awk '{print ($1 < $2}') ]]; then
-    sudo apt-get install -yf python-software-properties
+    sudo apt-get install --fix-broken --yes python-software-properties
   fi
 
   if [ ! grep -q 'webupd8team' /etc/apt/sources.list.d/* ]; then
-    sudo add-apt-repository ppa:webupd8team/java
+    sudo add-apt-repository --yes ppa:webupd8team/java
   fi
 
   read -t 5 -n 1 -p $'Which version of Java would you like to install? Enter number\n' java_version
   if [ $? -eq 0 ] || [[ $java_version == *[6-9]* ]]; then
     printf
-    sudo apt-get install "oracle-java-${java_version}-installer"
+    sudo apt-get install --fix-broken --yes "oracle-java-${java_version}-installer"
   else
-    sudo apt-get install oracle-java-8-installer
+    sudo apt-get install --fix-broken --yes oracle-java-8-installer
   fi
 }
 
@@ -127,7 +127,7 @@ function ubuntu_setup() {
     fi
   done; unset package
 
-  if [ ! $(type -P java) ]; then
+  if [ ! $(type -p java) ]; then
     install_java
   fi
 
@@ -135,12 +135,12 @@ function ubuntu_setup() {
 }
 
 function linux_setup() {
-  if [[ $(type -P apt-get) && $(type -P yum) ]]; then
+  if [[ $(type -p apt-get) && $(type -p yum) ]]; then
     prinf 'ERR: Both apt-get and yum are installed. Not sure which setup to run.'
     exit 1
-  elif [ $(type -P apt-get) ]; then
+  elif [ $(type -p apt-get) ]; then
     ubuntu_setup
-  elif [ $(type -P yum) ]; then
+  elif [ $(type -p yum) ]; then
     centos_setup
   else
     printf 'ERR: apt-get or yum are not installed. Not sure which setup to run.'
