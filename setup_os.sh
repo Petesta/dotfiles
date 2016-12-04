@@ -153,6 +153,12 @@ function linux_setup() {
 
 
 declare -r SETUP_OS_DOTFILE="$HOME/${0%.*}"
+
+if [ -f $SETUP_OS_DOTFILE ]; then
+  printf "You have already run the $0 script. Exiting..."
+  exit 0
+fi
+
 printf "Running $0 script: $(date)\n" >> $SETUP_OS_DOTFILE
 
 case $OSTYPE in
