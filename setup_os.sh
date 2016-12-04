@@ -99,7 +99,7 @@ function centos_setup() {
 function install_java() {
   local ubuntu_release=($(lsb_release --release))
 
-  if [[ $(printf "${ubuntu_release[1]} 12.10\n" | awk '{print ($1 < $2}') ]]; then
+  if [[ $(printf "${ubuntu_release[1]} 12.10\n" | awk '{print ($1 < $2)}') ]]; then
     sudo apt-get install --fix-broken --yes python-software-properties
   fi
 
