@@ -28,6 +28,7 @@ declare -ar UBUNTU_PACKAGES=(
   'bc'
   'git'
   'python-software-properties'
+  'redis-server'
   'tree'
   'vim'
 )
@@ -97,7 +98,8 @@ function centos_setup() {
 }
 
 function install_java() {
-  local ubuntu_release=($(lsb_release --release))
+  local -r ubuntu_release=($(lsb_release --release))
+  local java_version
 
   if [[ $(printf "${ubuntu_release[1]} 12.10\n" | awk '{print ($1 < $2)}') ]]; then
     sudo apt-get install --fix-broken --yes python-software-properties
@@ -107,11 +109,12 @@ function install_java() {
     sudo add-apt-repository --yes ppa:webupd8team/java
   fi
 
-  read -t 5 -n 1 -p $'Which version of Java would you like to install? Enter number\n' java_version
+  read -t 5 -n 1 -s -p $'Which version of Java would you like to install? Enter number\n' java_version
   if [ $? -eq 0 ] || [[ $java_version == *[6-9]* ]]; then
-    printf
+    printf "Installing oracle-java-${java_version}-installer\n"
     sudo apt-get install --fix-broken --yes "oracle-java-${java_version}-installer"
   else
+    printf 'Installing oracle-java-8-installer\n'
     sudo apt-get install --fix-broken --yes oracle-java-8-installer
   fi
 }
@@ -136,17 +139,21 @@ function ubuntu_setup() {
 
 function linux_setup() {
   if [[ $(type -p apt-get) && $(type -p yum) ]]; then
-    prinf 'ERR: Both apt-get and yum are installed. Not sure which setup to run.'
+    prinf 'ERR: Both apt-get and yum are installed. Not sure which setup to run.\n'
     exit 1
   elif [ $(type -p apt-get) ]; then
     ubuntu_setup
   elif [ $(type -p yum) ]; then
     centos_setup
   else
-    printf 'ERR: apt-get or yum are not installed. Not sure which setup to run.'
+    printf 'ERR: apt-get or yum are not installed. Not sure which setup to run.\n'
     exit 1
   fi
 }
+
+
+declare -r SETUP_OS_DOTFILE="$HOME/${0%.*}"
+printf "Running $0 script: $(date)\n" >> $SETUP_OS_DOTFILE
 
 case $OSTYPE in
   darwin*)
