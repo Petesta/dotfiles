@@ -1,9 +1,9 @@
 #!/bin/bash
 
-readonly DIR=$(dirname $0)
+readonly DOTFILES_DIR=$(dirname $0)
 
-declare -r COLORS="$DIR/.colors"
-declare -r FUNCTIONS="$DIR/.functions"
+declare -r COLORS="$DOTFILES_DIR/.colors"
+declare -r FUNCTIONS="$DOTFILES_DIR/.functions"
 
 if [[ -f $COLORS && -f $FUNCTIONS ]]; then
   . $COLORS
@@ -12,10 +12,10 @@ fi
 
 declare -r ERR_SETUP='ERR: Setup needs to be run from within the dotfiles directory, exiting...'
 
-if [[ $DIR != '.' && ! -f $COLORS || ! -f $FUNCTIONS ]]; then
+if [[ $DOTFILES_DIR != '.' && ! -f $COLORS || ! -f $FUNCTIONS ]]; then
   printf "✖ $ERR_SETUP\n"
   exit 1
-elif [[ $DIR != '.' ]]; then
+elif [[ $DOTFILES_DIR != '.' ]]; then
   p_error "$ERR_SETUP"
   exit 1
 else
@@ -24,7 +24,7 @@ else
   declare -ar FILES=($(find . -name '.*' -type f -exec basename {} ';'))
 
   for file in "${FILES[@]}"; do
-    ln -sf "$DIR/$file" "$HOME/$file"
+    ln -sf "$DOTFILES_DIR/$file" "$HOME/$file"
     if [ $? -eq 0 ]; then
       p_success "Symlinking $file"
     else

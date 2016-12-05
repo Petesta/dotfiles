@@ -1,3 +1,7 @@
+#!/bin/bash
+
+declare -r DOTFILES_GITHUB_URL='https://github.com/Petesta/dotfiles.git'
+
 declare -ar MAC_PACKAGES=(
   'ack'
   'awsebcli'
@@ -32,6 +36,23 @@ declare -ar UBUNTU_PACKAGES=(
   'tree'
   'vim'
 )
+
+function generate_ssh_for_github() {
+  if [ ! -n "$(find "$HOME/.ssh" -prune -empty)" ]; then
+    ssh-keygen -t rsa -b 4096 -C 'iPetesta@gmail.com'
+    eval "$(ssh-agent -s)"
+    ssh-add "$HOME/.ssh/id_rsa"
+  fi
+}
+
+function clone_dotfiles() {
+  local -r git_dir="$HOME/Git"
+  local -r dotfiles_dir=$(basename $DOTFILES_GITHUB_URL)
+  if [[ ! -d $git_dir && ${dotfiles_dir%.*} ]]; then
+    mkdir $git_dir
+    git clone $DOTFILES_GITHUB_URL $git_dir
+  fi
+}
 
 function install_xcode() {
   if [ ! xcode-select --print-path &> /dev/null ]; then
@@ -81,8 +102,6 @@ function mac_setup() {
       printf "ERR: Installing package $package\n"
     fi
   done; unset package
-
-  printf 'Finished setup\n'
 }
 
 function centos_setup() {
@@ -110,7 +129,7 @@ function install_java() {
   fi
 
   read -t 5 -n 1 -s -p $'Which version of Java would you like to install? Enter number\n' java_version
-  if [ $? -eq 0 ] || [[ $java_version == *[6-9]* ]]; then
+  if [ $? -eq 0 ] && [[ $java_version == *[6-9]* ]]; then
     printf "Installing oracle-java-${java_version}-installer\n"
     sudo apt-get install --fix-broken --yes "oracle-java-${java_version}-installer"
   else
@@ -124,7 +143,7 @@ function ubuntu_setup() {
   sudo apt-get update
 
   for package in "${UBUNTU_PACKAGES[@]}"; do
-    sudo apt-get -yf install $package
+    sudo apt-get --fix-broken --yes install $package
     if [ ! $? -eq 0 ]; then
       printf "ERR: Installing package $package\n"
     fi
@@ -133,8 +152,6 @@ function ubuntu_setup() {
   if [ ! $(type -p java) ]; then
     install_java
   fi
-
-  printf 'Finished setup\n'
 }
 
 function linux_setup() {
@@ -151,24 +168,30 @@ function linux_setup() {
   fi
 }
 
-
 declare -r SETUP_OS_DOTFILE="$HOME/${0%.*}"
 
 if [ -f $SETUP_OS_DOTFILE ]; then
   printf "You have already run the $0 script. Exiting..."
   exit 0
+else
+  printf "Running $0 script: $(date)\n" >> $SETUP_OS_DOTFILE
+
+  case $OSTYPE in
+    darwin*)
+      mac_setup
+      ;;
+    linux*)
+      linux_setup
+      ;;
+    *)
+      printf "ERR: Unrecognized operating system $OSTYPE\n"
+      exit 1
+      ;;
+  esac
+
+  clone_dotfiles
+  generate_ssh_for_github
+
+  cd "$HOME/Git/dotfiles"
+  ./setup_symlinks.sh
 fi
-
-printf "Running $0 script: $(date)\n" >> $SETUP_OS_DOTFILE
-
-case $OSTYPE in
-  darwin*)
-    mac_setup
-    ;;
-  linux*)
-    linux_setup
-    ;;
-  *)
-    printf "ERR: Unrecognized operating system $OSTYPE\n"
-    ;;
-esac
