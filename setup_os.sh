@@ -5,12 +5,13 @@ declare -r DOTFILES_GITHUB_URL='https://github.com/Petesta/dotfiles.git'
 declare -ar MAC_PACKAGES=(
   'ack'
   'awsebcli'
-  'ctags'
+  'ctags-exuberant'
   'elasticsearch17'
   'git'
   'imagemagick'
   'leiningen'
   'node'
+  'packer'
   'rbenv'
   'redis'
   'sbt'
@@ -30,15 +31,24 @@ declare -ar CENTOS_PACKAGES=(
 declare -ar UBUNTU_PACKAGES=(
   'ack-grep'
   'bc'
+  'exuberant-ctags'
   'git'
+  'postgresql'
+  'postgresql-contrib'
   'python-software-properties'
   'redis-server'
+  'sbt'
+  'scala'
   'tree'
   'vim'
 )
 
 function generate_ssh_for_github() {
-  if [ ! -n "$(find "$HOME/.ssh" -prune -empty)" ]; then
+  local -r ssh_dir="$HOME/.ssh"
+  if [ ! -d $ssh_dir ]; then
+    mkdir $ssh_dir
+  fi
+  if [ -n "$(find "$HOME/.ssh" -name id_rsa*)" ]; then
     ssh-keygen -t rsa -b 4096 -C 'iPetesta@gmail.com'
     eval "$(ssh-agent -s)"
     ssh-add "$HOME/.ssh/id_rsa"
