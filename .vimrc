@@ -18,7 +18,7 @@ iabbrev pc@ Pete Cruz iPetesta@gmail.com
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Highlight Colors For git_gutter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-highlight GitGutterAdd ctermbg=234
+highlight GitGutterAdd    ctermbg=234
 highlight GitGutterChange ctermbg=234
 highlight GitGutterDelete ctermbg=234
 
@@ -65,7 +65,7 @@ set laststatus=2   " Vim-Airline
 set ttimeoutlen=50 " Vim-Airline
 set tags=tags
 set dictionary=/usr/share/dict/words
-set wildignore+=*.so,*.swp,*.class,*/target/*
+set wildignore+=*.pyc,*.so,*.swp,*.class,*/target/*
 
 " Screen Coloring, Syntax Highlighting, and Color Scheme
 syntax on
@@ -77,10 +77,10 @@ colorscheme molokai
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Arrow Keys
-nnoremap <up>    :echo "No arrow keys in Vim :)" <esc>
-nnoremap <down>  :echo "No arrow keys in Vim :)" <esc>
-nnoremap <left>  :echo "No arrow keys in Vim :)" <esc>
-nnoremap <right> :echo "No arrow keys in Vim :)" <esc>
+nnoremap <up>    :echo "No arrow keys in Vim 😀" <esc>
+nnoremap <down>  :echo "No arrow keys in Vim 😀" <esc>
+nnoremap <left>  :echo "No arrow keys in Vim 😀" <esc>
+nnoremap <right> :echo "No arrow keys in Vim 😀" <esc>
 inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
@@ -239,103 +239,41 @@ command! -nargs=0 SBT :call SBTTestOnly()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup HighlightKeywords
   autocmd!
-  autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO\|FIXME\|NOTE', -1)
+  autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO\|FIXME\|NOTE\|XXX', -1)
 augroup END
 
-" C, C++, and Objective-C
-augroup ft_c
+augroup FileTypes
   au!
-  au BufNewFile,BufRead *.c   set shiftwidth=4
-  au BufNewFile,BufRead *.cpp set shiftwidth=4
-  au BufNewFile,BufRead *.m   set shiftwidth=4
-  au BufNewFile,BufRead *.h   set shiftwidth=4
-augroup END
-
-" Clojure, ClojureScript
-augroup ft_clojure
-  au!
-  au BufNewFile,BufRead *.clj  set shiftwidth=2
-  au BufNewFile,BufRead *.cljs set shiftwidth=2
-augroup END
-
-" CoffeeScript
-augroup ft_coffeescript
-  au!
-  au BufNewFile,BufRead *.coffee set shiftwidth=2
-augroup END
-
-" CSS, LESS, SCSS
-augroup ft_css
-  au!
-  au BufNewFile,BufRead *.css  set shiftwidth=2
-  au BufNewFile,BufRead *.less set shiftwidth=2
-  au BufNewFile,BufRead *.scss set shiftwidth=2
-augroup END
-
-" Haskell
-augroup ft_haskell
-  au!
-  au BufNewFile,BufRead *.hs set shiftwidth=2
-augroup END
-
-" Java
-augroup ft_java
-  au!
-  au BufNewFile,BufRead *.java set shiftwidth=4
-augroup END
-
-" JavaScript
-augroup ft_javascript
-  au!
-  au BufNewFile,BufRead *.js set shiftwidth=2
-augroup END
-
-" Python
-augroup ft_python
-  au!
-  au BufNewFile,BufRead *.py set shiftwidth=4
-augroup END
-
-" Ruby
-augroup ft_ruby
-  au!
-  au BufNewFile,BufRead *.rb         set shiftwidth=2
-  au BufNewFile,BufRead Berksfile    set shiftwidth=2
-  au BufNewFile,BufRead Guardfile    set shiftwidth=2
-  au BufNewFile,BufRead Gemfile      set shiftwidth=2
-  au BufNewFile,BufRead Gemfile.lock set shiftwidth=2
-augroup END
-
-" Rust
-augroup ft_rust
-  au!
-  au BufNewFile,BufRead *.rs set shiftwidth=4
-augroup END
-
-" Scala
-augroup ft_scala
-  au!
-  au BufNewFile,BufRead *.scala set shiftwidth=2
-augroup END
-
-" Shell
-augroup ft_shell
-  au!
-  au BufNewFile,BufRead *.sh set shiftwidth=2
-augroup END
-
-" Additional File Types
-augroup ft_settings
-  au!
-  au BufNewFile,BufRead *.haml set shiftwidth=2
-  au BufNewFile,BufRead *.html set shiftwidth=2
-  au BufNewFile,BufRead *.json set shiftwidth=2
-  au BufNewFile,BufRead *.md   set shiftwidth=2
-  au BufNewFile,BufRead *.rc   set shiftwidth=2
-  au BufNewFile,BufRead *.slim set shiftwidth=2
-  au BufNewFile,BufRead *.toml set shiftwidth=4
-  au BufNewFile,BufRead *.xml  set shiftwidth=2
-  au BufNewFile,BufRead *.yaml set shiftwidth=2
-  au BufNewFile,BufRead *.yml  set shiftwidth=2
-  au BufNewFile,BufRead .aliases,.exports,.sources set shiftwidth=2 | set filetype=sh
+  au BufNewFile,BufRead .*        set shiftwidth=2 | set filetype=sh
+  au BufNewFile,BufRead *.c       set shiftwidth=4
+  au BufNewFile,BufRead *.clj     set shiftwidth=2
+  au BufNewFile,BufRead *.cljs    set shiftwidth=2
+  au BufNewFile,BufRead *.coffee  set shiftwidth=2
+  au BufNewFile,BufRead *.cpp     set shiftwidth=4
+  au BufNewFile,BufRead *.css     set shiftwidth=2
+  au BufNewFile,BufRead *.h       set shiftwidth=4
+  au BufNewFile,BufRead *.haml    set shiftwidth=2
+  au BufNewFile,BufRead *.hs      set shiftwidth=2
+  au BufNewFile,BufRead *.html    set shiftwidth=2
+  au BufNewFile,BufRead *.java    set shiftwidth=4
+  au BufNewFile,BufRead *.js      set shiftwidth=2
+  au BufNewFile,BufRead *.json    set shiftwidth=2
+  au BufNewFile,BufRead *.less    set shiftwidth=2
+  au BufNewFile,BufRead *.m       set shiftwidth=4
+  au BufNewFile,BufRead *.md      set shiftwidth=2
+  au BufNewFile,BufRead *.py      set shiftwidth=4
+  au BufNewFile,BufRead *.rb      set shiftwidth=2
+  au BufNewFile,BufRead *.rc      set shiftwidth=2
+  au BufNewFile,BufRead *.rs      set shiftwidth=4
+  au BufNewFile,BufRead *.scala   set shiftwidth=2
+  au BufNewFile,BufRead *.scss    set shiftwidth=2
+  au BufNewFile,BufRead *.sh      set shiftwidth=2
+  au BufNewFile,BufRead *.slim    set shiftwidth=2
+  au BufNewFile,BufRead *.toml    set shiftwidth=4
+  au BufNewFile,BufRead *.xml     set shiftwidth=2
+  au BufNewFile,BufRead *.yaml    set shiftwidth=2
+  au BufNewFile,BufRead *.yml     set shiftwidth=2
+  au BufNewFile,BufRead Berksfile set shiftwidth=2
+  au BufNewFile,BufRead Guardfile set shiftwidth=2
+  au BufNewFile,BufRead Gemfile*  set shiftwidth=2
 augroup END

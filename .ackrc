@@ -1,6 +1,7 @@
 --type-add=css=.less,.sass,.scss
 --type-add=html=.erb,.haml,.slim
 --type-add=js=.js,.json
+--type-add=python=requirements.txt
 --type-add=ruby=.builder,.erb,.rake,.rsel
 
 --type-set=coffeescript=.coffee
