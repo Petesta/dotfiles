@@ -35,7 +35,7 @@ autocmd BufWinLeave * call clearmatches()
 autocmd BufWritePre * :%s/\s\+$//e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                             Vim Configruations
+"                             Vim Configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 set autoread                   " Autoread
@@ -276,4 +276,5 @@ augroup FileTypes
   au BufNewFile,BufRead Berksfile set shiftwidth=2
   au BufNewFile,BufRead Guardfile set shiftwidth=2
   au BufNewFile,BufRead Gemfile*  set shiftwidth=2
+  au BufNewFile,BufRead requirements.txt set filetype=py
 augroup END
