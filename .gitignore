@@ -2,10 +2,13 @@
 *.class
 *.hi
 *.o
+*.pyc
 
 # Directories
 .elasticbeanstalk
 .idea
+.vagrant
+__pycache__
 bin
 dist
 log

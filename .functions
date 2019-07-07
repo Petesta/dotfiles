@@ -1,13 +1,17 @@
 #!/bin/bash
 
+#######################################
 # Print size of the given directory
 # Ex: dirsize app/ => 25M
+#######################################
 function dirsize {
   du -skh $1
 }
 
+#######################################
 # Open Dropbox in a finder window
 # Exit the terminal unless run with -k
+#######################################
 function db {
   open ~/Dropbox
   if [ $1 != '-k' ]; then
@@ -15,8 +19,10 @@ function db {
   fi
 }
 
+#######################################
 # Extract compressed files
 # Ex: extract downloaded_package.tar.gz
+#######################################
 function extract {
   if [ -f $1 ]; then
     case $1 in
@@ -38,14 +44,81 @@ function extract {
   fi
 }
 
-# Open a url in a web browser, because sometimes opening a browser is too much work
+#######################################
+# Open a url in a web browser, because
+# sometimes opening a browser is too
+# much work
 # Ex: web github.com/rails/rails
+#######################################
 function web {
   if [ -n $1 ]; then
     open "http://www.$1"
   else
     open 'http://www.google.com'
   fi
+}
+
+#######################################
+# Create Scala project directory and
+# template build.sbt file
+#######################################
+function scroject {
+  if [ ! $# -eq 1 ]; then
+    printf 'ERR: Wrong number of arguments.\n\nExample usage: scroject projectName\n'
+    exit 1
+  fi
+
+  if [[ ! -d $1 && ! -f build.sbt ]]; then
+    local -r scala_version
+    printf "Project $1 doesn't exist, bootstrapping directory.\n"
+
+    mkdir -p src/{main,test}/{resources,scala}/$1/$1.scala
+    mkdir project
+
+    printf 'Creating template build.sbt file.\n'
+    read -t 5 -n 1 -s -p $'Which Scala version would you like for your project? Will default to 2.11.7.\n' scala_version
+    if [ $? -eq 0 ]; then
+      build_sbt_file $1 $scala_version
+    else
+      build_sbt_file $1 2.11.7
+    fi
+  else
+    printf "ERR: There looks like there's already an existing project, exiting...\n"
+    exit 0
+  fi
+}
+
+#######################################
+# Creates template build.sbt file
+#######################################
+function build_sbt_file {
+  cat <<EOF >> build.sbt
+name := "$1"
+
+version := "0.0.1-SNAPSHOT"
+
+scalaVersion := "$2"
+
+libraryDependencies ++= Seq(
+)
+
+scalacOptions ++= Seq(
+  "-deprecation",
+  "-encoding", "UTF-8",
+  "-feature",
+  "-language:existentials",
+  "-language:higherKinds",
+  "-language:implicitConversions",
+  "-unchecked",
+  "-Xfatal-warnings",
+  "-Xfuture",
+  "-Yno-adapted-args",
+  "-Ywarn-dead-code",
+  "-Ywarn-numeric-widen",
+  "-Ywarn-unused-import",
+  "-Ywarn-value-discard"
+)
+EOF
 }
 
 function type_exists() {
