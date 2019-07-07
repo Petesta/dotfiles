@@ -1,12 +1,8 @@
---type-add=css=.less,.sass,.scss
---type-add=html=.erb,.haml,.slim
---type-add=js=.js,.json
---type-add=ruby=.builder,.erb,.rake,.rsel
+--type-add=js=.json
+--type-add=python=Pipfile,Pipfile.lock,pylintrc,requirements.txt
+--type-add=ruby=.builder,.haml,.rake,.rselm,.ru,.slim,Gemfile,Gemfile.lock
+--type-add=scala=.sbt
 
---type-set=coffeescript=.coffee
---type-set=cucumber=.feature
---type-set=haml=.haml
---type-set=handlebars=.handlebars,.hbs
 --type-set=markdown=.markdown,.md,.mdown,.mkd,.mkdn,.txt
 
 --ignore-dir=.bundle
@@ -23,6 +19,7 @@
 --ignore-dir=node_modules
 --ignore-dir=public/assets
 --ignore-dir=target
+--ignore-dir=temp
 --ignore-dir=tmp
 --ignore-dir=uploads
 --ignore-dir=vendor
