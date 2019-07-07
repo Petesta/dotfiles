@@ -12,6 +12,11 @@ export HISTSIZE=1000
 export HISTFILESIZE=2000
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
+# Opt out of Google Analytics on `brew`
+if [ ! $(type -p brew) ]; then
+  export HOMEBREW_NO_ANALYTICS=1
+fi
+
 # JAVA_HOME
 if [ -h /usr/libexec/java_home ]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
