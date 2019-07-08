@@ -16,8 +16,6 @@
   local = blue
   remote = yellow
 [color "diff"]
-  func = cyan
-  meta = yellow
   whitespace = red
 [color "status"]
   untracked = yellow
@@ -31,3 +29,4 @@
 [user]
   email = iPetesta@gmail.com
   name = Pete Cruz
+  username = Petesta
