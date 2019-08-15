@@ -1,2 +1,15 @@
-# Ignore case while completing
+# Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
+
+# List all matches in case multiple possible completions are possible
+set show-all-if-ambiguous on
+
+# Show extra file information when completing, like `ls -F` does
+set visible-stats on
+
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# Filtered history search
+"\e[A": history-search-backward
+"\e[B": history-search-forward
