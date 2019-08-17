@@ -61,7 +61,7 @@ export SCM_CHECK=true
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
 
-#### Aliases
+#### alias
 
 # Custom
 alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
@@ -73,11 +73,16 @@ alias ls='ls -FGlAhp'
 alias mkdir='mkdir -p'
 alias mv='mv -iv'
 
+# Colorize grep commands
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+
 # Ruby
 alias be='bundle exec'
 
 # IP addresses
-alias localip="ipconfig getifaddr en0"
+alias localip='ipconfig getifaddr en0'
 
 # Typos
 alias c='clear'
@@ -86,28 +91,39 @@ alias clera='clear'
 alias im='vim'
 alias rpsec='rspec'
 
-#### Export
+#### export
 
 # Default editor Vim
 export EDITOR=vim
-
-# Tell grep to highlight matches
-export GREP_OPTIONS='—color=auto'
 
 # Terminal history
 export HISTCONTROL=ignoredups:ignorespace
 export HISTSIZE=5000
 export HISTFILESIZE=5000
-export HISTTIMEFORMAT="%d/%m/%y %T "
+export HISTTIMEFORMAT='%d/%m/%y %T '
 
-# Highlighting of `man` pages
-export LESS_TERMCAP_mb=$'\E[01;31m'       # Begin blinking
-export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # Begin bold
-export LESS_TERMCAP_me=$'\E[0m'           # End mode
-export LESS_TERMCAP_se=$'\E[0m'           # End standout-mode
-export LESS_TERMCAP_so=$'\E[38;5;246m'    # Begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\E[0m'           # End underline
-export LESS_TERMCAP_us=$'\E[04;38;5;146m' # Begin underline
+## Highlighting of `man` pages
+
+# Begin blinking
+export LESS_TERMCAP_mb=$'\E[01;31m'
+
+# Begin bold
+export LESS_TERMCAP_md=$'\E[01;38;5;74m'
+
+# End mode
+export LESS_TERMCAP_me=$'\E[0m'
+
+# End standout-mode
+export LESS_TERMCAP_se=$'\E[0m'
+
+# Begin standout-mode - info box
+export LESS_TERMCAP_so=$'\E[38;5;246m'
+
+# End underline
+export LESS_TERMCAP_ue=$'\E[0m'
+
+# Begin underline
+export LESS_TERMCAP_us=$'\E[04;38;5;146m'
 
 # Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
@@ -129,4 +145,8 @@ fi
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
+fi
+
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
 fi
