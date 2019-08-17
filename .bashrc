@@ -7,7 +7,7 @@ case $- in
 esac
 
 # Path to the bash it configuration
-export BASH_IT="/Users/petecruz/projects/bash-it"
+export BASH_IT="${HOME}/.bash_it"
 
 # Lock and Load a custom theme file.
 # Leave empty to disable theming.
@@ -76,6 +76,9 @@ alias mv='mv -iv'
 # Ruby
 alias be='bundle exec'
 
+# IP addresses
+alias localip="ipconfig getifaddr en0"
+
 # Typos
 alias c='clear'
 alias claer='clear'
@@ -88,10 +91,13 @@ alias rpsec='rspec'
 # Default editor Vim
 export EDITOR=vim
 
+# Tell grep to highlight matches
+export GREP_OPTIONS='—color=auto'
+
 # Terminal history
 export HISTCONTROL=ignoredups:ignorespace
-# export HISTSIZE=1000
-# export HISTFILESIZE=2000
+export HISTSIZE=5000
+export HISTFILESIZE=5000
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # Highlighting of `man` pages
@@ -105,6 +111,17 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # Begin underline
 
 # Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
+
+#### shopt
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob;
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend;
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell;
 
 if command -v pipenv 1>/dev/null 2>&1; then
   eval "$(pipenv --completion)"
