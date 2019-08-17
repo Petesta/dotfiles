@@ -20,6 +20,13 @@ set match-hidden-files off
 # Readline used by Bash 4.)
 set skip-completed-text on
 
+# Enable 8bit input
+set meta-flag On
+set input-meta On
+
+# Turns off 8th bit stripping
+set convert-meta Off
+
 # Filtered history search
 "\e[A": history-search-backward
 "\e[B": history-search-forward
