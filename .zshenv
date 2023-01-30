@@ -1,0 +1,5 @@
+alias cp='cp -iv'
+alias ll='ls -al'
+alias ls='ls -FGlAhp'
+alias mkdir='mkdir -p'
+alias mv='mv -iv'
