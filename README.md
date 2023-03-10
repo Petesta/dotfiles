@@ -1,19 +1,7 @@
 # dotfiles
 
-## Mac OS Apps
+## Bash prompt
+[bash-it](https://github.com/Bash-it/bash-it)
 
-* Chrome
-* Firefox
-* Visual Studio Code
-* XCode
-* Android Studio
-* Postman
-* iTerm
-* 1Password
-* Discord
-* Slack
-* Signal
-* Postgres
-* Twitch
-* Divvy
-* Reflector 4
+## ZSH prompt
+[ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
