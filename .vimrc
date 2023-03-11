@@ -58,8 +58,54 @@ set ruler
 " Show title
 set title
 
+" Highlight matching strings
+set hlsearch
+
+" Show matching braces
+set showmatch
+
 " Enable flashing of error
 set visualbell
 
 " Don’t create backups when editing files in certain directories
-set backupskip=/private/tmp/*,/tmp/*
+set backupskip=/tmp/*
+
+" Highlight trailing whitespace
+highlight TrailingWhitespace ctermbg=red guibg=red
+match TrailingWhitespace /\s\+$/
+autocmd BufWinEnter * match TrailingWhitespace /\s\+$/
+autocmd InsertEnter * match TrailingWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match TrailingWhitespace /\s\+$/
+
+augroup FileTypes
+  au BufNewFile,BufRead *.c       set shiftwidth=4
+  au BufNewFile,BufRead *.clj     set shiftwidth=2
+  au BufNewFile,BufRead *.cpp     set shiftwidth=4
+  au BufNewFile,BufRead *.cs      set shiftwidth=4
+  au BufNewFile,BufRead *.css     set shiftwidth=2
+  au BufNewFile,BufRead *.h       set shiftwidth=4
+  au BufNewFile,BufRead *.haml    set shiftwidth=2
+  au BufNewFile,BufRead *.hs      set shiftwidth=2
+  au BufNewFile,BufRead *.html    set shiftwidth=2
+  au BufNewFile,BufRead *.java    set shiftwidth=4
+  au BufNewFile,BufRead *.js      set shiftwidth=4
+  au BufNewFile,BufRead *.json    set shiftwidth=2
+  au BufNewFile,BufRead *.less    set shiftwidth=2
+  au BufNewFile,BufRead *.md      set shiftwidth=2
+  au BufNewFile,BufRead *.py      set shiftwidth=4
+  au BufNewFile,BufRead *.rb      set shiftwidth=2
+  au BufNewFile,BufRead *.rs      set shiftwidth=4
+  au BufNewFile,BufRead *.scala   set shiftwidth=2
+  au BufNewFile,BufRead *.scss    set shiftwidth=2
+  au BufNewFile,BufRead *.sh      set shiftwidth=2
+  au BufNewFile,BufRead *.slim    set shiftwidth=2
+  au BufNewFile,BufRead *.swift   set shiftwidth=4
+  au BufNewFile,BufRead *.toml    set shiftwidth=4
+  au BufNewFile,BufRead *.ts      set shiftwidth=2
+  au BufNewFile,BufRead *.xml     set shiftwidth=4
+  au BufNewFile,BufRead *.yaml    set shiftwidth=2
+  au BufNewFile,BufRead *.yml     set shiftwidth=2
+  au BufNewFile,BufRead Berksfile set shiftwidth=2
+  au BufNewFile,BufRead Guardfile set shiftwidth=2
+  au BufNewFile,BufRead Gemfile*  set shiftwidth=2
+augroup END
