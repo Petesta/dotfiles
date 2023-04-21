@@ -124,7 +124,7 @@ shopt -s histappend;
 shopt -s cdspell;
 
 if command -v pipenv 1>/dev/null 2>&1; then
-  eval "$(pipenv --completion)"
+  eval "$(_PIPENV_COMPLETE=bash_source pipenv)"
 fi
 
 if command -v pyenv 1>/dev/null 2>&1; then
