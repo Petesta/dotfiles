@@ -50,7 +50,9 @@ set ttyfast
 set number
 
 " Enable scrolling
-set mouse=a
+if has('mouse')
+  set mouse=a
+endif
 
 " Show position in file
 set ruler
@@ -78,6 +80,7 @@ autocmd InsertEnter * match TrailingWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match TrailingWhitespace /\s\+$/
 
 augroup FileTypes
+  au!
   au BufNewFile,BufRead *.c       set shiftwidth=4
   au BufNewFile,BufRead *.clj     set shiftwidth=2
   au BufNewFile,BufRead *.cpp     set shiftwidth=4
