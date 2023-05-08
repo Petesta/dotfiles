@@ -100,6 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export HOMEBREW_NO_ANALYTICS=1
+
 alias cp='cp -iv'
 alias ll='ls -al'
 alias ls='ls -FGlAhp'
@@ -110,6 +112,11 @@ alias c='clear'
 alias claer='clear'
 alias clera='clear'
 
+# eval "$(~/.rbenv/bin/rbenv init - zsh)"
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init - zsh)"
+fi
+
 if command -v pipenv 1>/dev/null 2>&1; then
   eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 fi
@@ -119,3 +126,9 @@ if command -v pyenv 1>/dev/null 2>&1; then
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
 fi
+
+export PATH="/Applications/Postgres.app/Contents/Versions/15/bin:$PATH"
+
+# NOTE: THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
