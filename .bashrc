@@ -131,6 +131,6 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
-if command -v pyenv 1>/dev/null 2>&1; then
+if command -v rbenv 1>/dev/null 2>&1; then
   eval "$(~/.rbenv/bin/rbenv init - bash)"
 fi
