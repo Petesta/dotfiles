@@ -79,6 +79,8 @@ autocmd BufWinEnter * match TrailingWhitespace /\s\+$/
 autocmd InsertEnter * match TrailingWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match TrailingWhitespace /\s\+$/
 
+set t_Co=256
+
 augroup FileTypes
   au!
   au BufNewFile,BufRead *.c       set shiftwidth=4
