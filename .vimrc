@@ -10,6 +10,9 @@ set nocompatible
 " Enable syntax highlighting
 syntax on
 
+" Enable colorscheme
+colorscheme koehler
+
 " Enable autoread of files changed externally
 set autoread
 
