@@ -1,9 +1,9 @@
 # dotfiles
 
-## Bash prompt
+## Bash theme
 [bash-it](https://github.com/Bash-it/bash-it)
 * bobby
 
-## ZSH prompt
+## ZSH theme
 [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
-* jonathan
+* powerlevel10k/powerlevel10k
