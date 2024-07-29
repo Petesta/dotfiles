@@ -1,4 +1,4 @@
-# dotfiles
+# 🗂️ dotfiles
 
 ## Bash theme
 [bash-it](https://github.com/Bash-it/bash-it)
