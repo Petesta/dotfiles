@@ -1,0 +1,8 @@
+*.docx diff=word
+*.pbxproj binary
+*.png diff=exif
+*.jpeg diff=exif
+*.jpg diff=exif
+*.py[co] binary export-ignore
+
+/logs export-ignore
