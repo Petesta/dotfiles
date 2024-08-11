@@ -116,6 +116,12 @@ iabbrev wiht with
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings:
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Navigate around splits
+nnoremap <c-l> <c-w><c-l>
+nnoremap <c-h> <c-w><c-h>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-j> <c-w><c-j>
+
 " Leader key
 let mapleader="\<space>"
 
@@ -134,6 +140,11 @@ nnoremap _ yydd2jp
 nnoremap <leader>e gt
 nnoremap <leader>q gT
 
+" Jump to buffer position
+for i in range(1, 9)
+  execute "nnoremap <leader>".i." ".i."gt"
+endfor
+
 " Open files
 nnoremap <leader>v :split $MYVIMRC<cr>
 nnoremap <leader>b :split ~/.bashrc<cr>
@@ -142,14 +153,6 @@ nnoremap <leader>z :split ~/.zshrc<cr>
 if has('mouse')
   " Enable scrolling
   set mouse=a
-endif
-
-if has('syntax')
-  " Enable horizontal cursor
-  set cursorline
-
-  " Enable vertical cursor
-  set cursorcolumn
 endif
 
 " Extra search
@@ -191,6 +194,15 @@ command! FixWhiteSpace :%s/\s\+$//e
 " Autocommands:
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('autocmd')
+  if has('syntax')
+    " Toggled horizontal and vertical cursors
+    augroup cursors_toggled
+      autocmd!
+      autocmd WinEnter * set cursorline cursorcolumn
+      autocmd WinLeave * set nocursorline nocursorcolumn
+    augroup END
+  endif
+
   " Highlight trailing whitespace
   highlight TrailingWhitespace ctermbg=red guibg=red
   match TrailingWhitespace /\s\+$/
@@ -215,13 +227,24 @@ if has('autocmd')
   augroup END
 
   if has('&omnifunc')
-    augroup ft_omnifunc
+    augroup enable_omnifunc
       autocmd!
       autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
       autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
       autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
       autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
       autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    augroup END
+  endif
+
+  if has('persistent_undo')
+    augroup no_undofile
+      autocmd!
+      autocmd BufWritePre /tmp/* setlocal noundofile
+      autocmd BufWritePre COMMIT_EDITMSG setlocal noundofile
+      autocmd BufWritePre MERGE_MSG setlocal noundofile
+      autocmd BufWritePre *.log setlocal noundofile
+      autocmd BufWritePre *.tmp setlocal noundofile
     augroup END
   endif
 
@@ -316,6 +339,7 @@ if has('autocmd')
   augroup ft_ruby
     autocmd!
     autocmd BufNewFile,BufRead .gemrc set filetype=ruby
+    autocmd BufNewFile,BufRead .irbrc set filetype=ruby
     autocmd BufNewFile,BufRead .ruby-version set filetype=ruby
     autocmd BufNewFile,BufRead *.slim set filetype=eruby
     autocmd BufNewFile,BufRead Appfile set filetype=ruby
