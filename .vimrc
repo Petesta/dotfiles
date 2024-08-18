@@ -116,6 +116,16 @@ iabbrev wiht with
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings:
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable arrow keys
+nnoremap <up>    :echo "no arrow keys in vim :)" <esc>
+nnoremap <down>  :echo "no arrow keys in vim :)" <esc>
+nnoremap <left>  :echo "no arrow keys in vim :)" <esc>
+nnoremap <right> :echo "no arrow keys in vim :)" <esc>
+inoremap <up>    :echo "no arrow keys in vim :)" <esc>
+inoremap <down>  :echo "no arrow keys in vim :)" <esc>
+inoremap <left>  :echo "no arrow keys in vim :)" <esc>
+inoremap <right> :echo "no arrow keys in vim :)" <esc>
+
 " Navigate around splits
 nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
@@ -149,6 +159,17 @@ endfor
 nnoremap <leader>v :split $MYVIMRC<cr>
 nnoremap <leader>b :split ~/.bashrc<cr>
 nnoremap <leader>z :split ~/.zshrc<cr>
+
+" Default grep search to ack
+if has('mac')
+  if executable('ack')
+    set grepprg='ack -k'
+  endif
+elseif has('unix')
+  if executable('ack-grep')
+    set grepprg='ack-grep -k'
+  endif
+endif
 
 if has('mouse')
   " Enable scrolling
@@ -280,6 +301,11 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.erl nnoremap <buffer> <c-.> <end>.
   augroup END
 
+  augroup ft_gleam
+    autocmd!
+    autocmd BufNewFile,BufRead *.gleam set filetype=gleam
+  augroup END
+
   augroup ft_go
     autocmd!
     autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
@@ -309,7 +335,7 @@ if has('autocmd')
 
   augroup ft_markdown
     autocmd!
-    autocmd FileType markdown setlocal colorscheme newsprint
+    autocmd FileType markdown setlocal silent! colorscheme newsprint
   augroup END
 
   augroup ft_ocaml
@@ -364,6 +390,11 @@ if has('autocmd')
     autocmd!
     autocmd BufNewFile,BufRead .* set filetype=sh
     autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <leader>p i#!/usr/bin/env bash<esc>
+  augroup END
+
+  augroup ft_unison
+    autocmd!
+    autocmd BufNewFile,BufRead *.u set filetype=unison
   augroup END
 
   augroup ft_xml

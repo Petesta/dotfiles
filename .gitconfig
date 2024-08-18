@@ -1,16 +1,30 @@
 [alias]
+  b = branch
+  c = commit
   ca = commit --amend
   d = diff
-  graph = log --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --date=relative --graph
-  la = log --pretty=format:'%C(yellow)%h - %ad%Cred%d | %Creset%s%Cblue [%cn]' --decorate --date=short --numstat
-  ls = log --pretty=format:'%C(yellow)%h - %ad%Cred%d | %Creset%s%Cblue [%cn]' --decorate --date=short
+  dc = diff --cached
+  dk = diff --check
+  dp = diff --patience
+  dck = diff --cached --checked
+  empty = "git commit --allow-empty"
+  f = fetch
+  fp = fetch --prune
+  loga = log --pretty=format:'%C(yellow)%h - %ad%Cred%d | %Creset%s%Cblue [%cn]' --decorate --date=short --numstat
+  logg = log --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --date=relative --graph
+  logs = log --pretty=format:'%C(yellow)%h - %ad%Cred%d | %Creset%s%Cblue [%cn]' --decorate --date=short
   p = push
   pl = pull
+  rbi = rebase --interactive
   root = "!f() { cd $(git rev-parse --show-toplevel); }; f"
   s = status
+  sa = stash apply
   sc = stash clear
+  sd = stash drop
   sl = stash list
   sp = stash pop
+  ss = stash save
+  sw = stash show
   touched = "!f() { git log --pretty='%H' --author='Petesta\\|Pete Cruz' | while read commit_hash; do git show --oneline --name-only $commit_hash | tail -n+2; done | sort | uniq; }; f"
 [color "branch"]
   local = blue
@@ -22,6 +36,7 @@
 [core]
   editor = vim
   excludesfile = ~/.gitignore
+  whitespace = cr-at-eol
 [credential]
   helper = osxkeychain
 [push]
