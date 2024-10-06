@@ -6,3 +6,15 @@
 *.py[co] binary export-ignore
 
 /logs export-ignore
+
+*.py text diff=python
+
+*.ipynb text eol=lf
+
+*.md text diff=markdown
+
+*.json text
+*.toml text
+*.xml text
+*.yaml text
+*.yml text

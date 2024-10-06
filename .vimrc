@@ -280,6 +280,11 @@ if has('autocmd')
     autocmd FileType gitcommit,mail setlocal spell spelllang=en_us
   augroup END
 
+  augroup ft_makefile
+    autocmd!
+    autocmd BufNewFile,BufRead Makefile setlocal noexpandtab tabstop=8 shiftwidth=8
+  augroup END
+
   augroup ft_c
     autocmd!
     autocmd BufNewFile,BufRead *.c,*.h setlocal tabstop=4 shiftwidth=4
@@ -333,6 +338,11 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.kt setlocal tabstop=4 shiftwidth=4
   augroup END
 
+  augroup ft_makefile
+    autocmd!
+    autocmd FileType make setlocal noexpandtab tabstop=8 shiftwidth=8
+  augroup END
+
   augroup ft_markdown
     autocmd!
     autocmd FileType markdown setlocal silent! colorscheme newsprint
@@ -340,6 +350,7 @@ if has('autocmd')
 
   augroup ft_ocaml
     autocmd!
+    autocmd BufNewFile,BufRead .ocamlformat set filetype=ocaml
     autocmd BufNewFile,BufRead *.ml setlocal tabstop=4 shiftwidth=4
   augroup END
 
@@ -400,5 +411,11 @@ if has('autocmd')
   augroup ft_xml
     autocmd!
     autocmd BufNewFile,BufRead *.xml setlocal tabstop=4 shiftwidth=4
+  augroup END
+
+  augroup ft_zig
+    autocmd!
+    autocmd BufNewFile,BufRead *.zig set filetype=zig
+    autocmd BufNewFile,BufRead *.zig setlocal tabstop=4 shiftwidth=4
   augroup END
 endif
