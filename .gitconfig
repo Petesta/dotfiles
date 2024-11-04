@@ -17,6 +17,8 @@
   pl = pull
   rbi = rebase --interactive
   root = "!f() { cd $(git rev-parse --show-toplevel); }; f"
+  sh = shortlog -sn
+  shf = shortlog --all --format='format:%cs %h %s'
   s = status
   sa = stash apply
   sc = stash clear

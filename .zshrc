@@ -108,9 +108,20 @@ alias ls='ls -FGlAhp'
 alias mkdir='mkdir -p'
 alias mv='mv -iv'
 alias localip='ipconfig getifaddr en0'
+alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
+
 alias c='clear'
 alias claer='clear'
 alias clera='clear'
+
+alias node_globals='npm list -g --depth=0'
+
+alias json2xml='yg -p json -o xml'
+alias json2yml='yg -p json -o yaml'
+alias xml2json='yg -p xml -o json'
+alias xml2yml='yg -p xml -o yaml'
+alias yml2json='yg -p yaml -o json'
+alias yml2xml='yg -p yaml -o xml'
 
 # eval "$(~/.rbenv/bin/rbenv init - zsh)"
 if command -v rbenv 1>/dev/null 2>&1; then

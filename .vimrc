@@ -380,6 +380,7 @@ if has('autocmd')
     autocmd BufNewFile,BufRead .ruby-version set filetype=ruby
     autocmd BufNewFile,BufRead *.slim set filetype=eruby
     autocmd BufNewFile,BufRead Appfile set filetype=ruby
+    autocmd BufNewFile,BufRead Brewfile set filetype=ruby
     autocmd BufNewFile,BufRead Fastfile set filetype=ruby
     autocmd BufNewFile,BufRead Podfile set filetype=ruby
     autocmd BufNewFile,BufRead Gemfile.lock set filetype=ruby
