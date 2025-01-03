@@ -65,6 +65,14 @@ source "$BASH_IT"/bash_it.sh
 
 # Custom
 alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
+alias now='date +"%T"'
+alias nowdate='date +"%Y-%m-%d"'
+alias json2xml='yg -p json -o xml'
+alias json2yml='yg -p json -o yaml'
+alias xml2json='yg -p xml -o json'
+alias xml2yml='yg -p xml -o yaml'
+alias yml2json='yg -p yaml -o json'
+alias yml2xml='yg -p yaml -o xml'
 
 # Unix commands
 alias cp='cp -iv'
