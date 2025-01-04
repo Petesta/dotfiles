@@ -67,6 +67,7 @@ source "$BASH_IT"/bash_it.sh
 alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
 alias now='date +"%T"'
 alias nowdate='date +"%Y-%m-%d"'
+alias lolls='ls | lolcat'
 alias json2xml='yg -p json -o xml'
 alias json2yml='yg -p json -o yaml'
 alias xml2json='yg -p xml -o json'
@@ -77,6 +78,7 @@ alias yml2xml='yg -p yaml -o xml'
 # Unix commands
 alias cp='cp -iv'
 alias ll='ls -al'
+alias ln='ln -iv'
 alias ls='ls -FGlAhp'
 alias mkdir='mkdir -p'
 alias mv='mv -iv'

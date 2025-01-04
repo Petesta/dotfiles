@@ -104,6 +104,7 @@ export HOMEBREW_NO_ANALYTICS=1
 
 alias cp='cp -iv'
 alias ll='ls -al'
+alias ln='ln -iv'
 alias ls='ls -FGlAhp'
 alias mkdir='mkdir -p'
 alias mv='mv -iv'
@@ -115,6 +116,8 @@ alias nowdate='date +"%Y-%m-%d"'
 alias c='clear'
 alias claer='clear'
 alias clera='clear'
+
+alias lolls='ls | lolcat'
 
 alias node_globals='npm list -g --depth=0'
 
