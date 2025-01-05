@@ -112,6 +112,7 @@ alias localip='ipconfig getifaddr en0'
 alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
 alias now='date +"%T"'
 alias nowdate='date +"%Y-%m-%d"'
+alias pyserver='python -m http.server'
 
 alias c='clear'
 alias claer='clear'

@@ -68,6 +68,7 @@ alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
 alias now='date +"%T"'
 alias nowdate='date +"%Y-%m-%d"'
 alias lolls='ls | lolcat'
+alias pyserver='python -m http.server'
 alias json2xml='yg -p json -o xml'
 alias json2yml='yg -p json -o yaml'
 alias xml2json='yg -p xml -o json'
