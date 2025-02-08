@@ -8,7 +8,7 @@
 [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
 * [powerlevel10k/powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
-```
+```graphql
 📁 .
 ├── 🛠️ .ackrc
 ├── 📁 .ammonite

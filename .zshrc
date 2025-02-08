@@ -103,10 +103,11 @@ export EDITOR='vim'
 export HOMEBREW_NO_ANALYTICS=1
 
 alias cp='cp -iv'
+alias du='du -h'
 alias ll='ls -al'
 alias ln='ln -iv'
 alias ls='ls -FGlAhp'
-alias mkdir='mkdir -p'
+alias mkdir='mkdir -pv'
 alias mv='mv -iv'
 alias localip='ipconfig getifaddr en0'
 alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"

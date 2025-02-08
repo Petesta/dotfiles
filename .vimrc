@@ -271,7 +271,7 @@ if has('autocmd')
 
   augroup append_semi_colon
     autocmd!
-    autocmd BufNewFile,BufRead *.c,*.cpp,*.erl,*.go,*.java,*.js,*.rs nnoremap <buffer> <c-;> <esc>;
+    autocmd BufNewFile,BufRead *.c,*.cpp,*.erl,*.go,*.java,*.js,*.rs nnoremap <buffer> <c-;> <end>;
   augroup END
 
   augroup spell_check
@@ -404,6 +404,11 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <leader>p i#!/usr/bin/env bash<esc>
   augroup END
 
+  augroup ft_sql
+    autocmd!
+    autocmd BufNewFile,BufRead .psqlrc set filetype=sql
+  augroup END
+
   augroup ft_unison
     autocmd!
     autocmd BufNewFile,BufRead *.u set filetype=unison
@@ -437,15 +442,20 @@ let g:airline#extensions#battery#enabled = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree:
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Start NERDTree and put the cursor back in the other window.
-autocmd VimEnter * NERDTree | wincmd p
 
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-if v:version >= 900
-  autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
-else
-  autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-fi
+augroup plugin_nerdtree
+  autocmd!
+
+  " Start NERDTree and put the cursor back in the other window.
+  autocmd VimEnter * NERDTree | wincmd p
+
+  " Exit Vim if NERDTree is the only window remaining in the only tab.
+  if v:version >= 900
+    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
+  else
+    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+  fi
+augroup END
 
 let g:NERDTreeFileLines = 1
 

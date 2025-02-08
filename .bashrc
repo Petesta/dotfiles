@@ -81,7 +81,7 @@ alias cp='cp -iv'
 alias ll='ls -al'
 alias ln='ln -iv'
 alias ls='ls -FGlAhp'
-alias mkdir='mkdir -p'
+alias mkdir='mkdir -pv'
 alias mv='mv -iv'
 
 # Ruby
