@@ -100,6 +100,8 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export HISTCONTROL=ignorespace:ignoredups
+
 export HOMEBREW_NO_ANALYTICS=1
 
 alias cp='cp -iv'
@@ -129,6 +131,15 @@ alias xml2json='yg -p xml -o json'
 alias xml2yml='yg -p xml -o yaml'
 alias yml2json='yg -p yaml -o json'
 alias yml2xml='yg -p yaml -o xml'
+
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
 
 # eval "$(~/.rbenv/bin/rbenv init - zsh)"
 if command -v rbenv 1>/dev/null 2>&1; then

@@ -106,7 +106,7 @@ export EDITOR=vim
 export GREP_OPTIONS='—color=auto'
 
 # Terminal history
-export HISTCONTROL=ignoredups:ignorespace
+export HISTCONTROL=ignorespace:ignoredups
 export HISTSIZE=5000
 export HISTFILESIZE=5000
 export HISTTIMEFORMAT="%d/%m/%y %T "
@@ -133,6 +133,15 @@ shopt -s histappend;
 
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
+
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
 
 if command -v pipenv 1>/dev/null 2>&1; then
   eval "$(_PIPENV_COMPLETE=bash_source pipenv)"
