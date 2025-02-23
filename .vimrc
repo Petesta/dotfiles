@@ -401,6 +401,7 @@ if has('autocmd')
   augroup ft_sh
     autocmd!
     autocmd BufNewFile,BufRead .* set filetype=sh
+    autocmd BufNewFile,BufRead .ripgreprc set filetype=sh
     autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <leader>p i#!/usr/bin/env bash<esc>
   augroup END
 
