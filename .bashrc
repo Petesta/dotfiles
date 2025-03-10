@@ -134,6 +134,11 @@ shopt -s histappend;
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
+function urlencode() {
+  local args="$@"
+  jq -nr --arg v "$args" '$v|@uri'
+}
+
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"

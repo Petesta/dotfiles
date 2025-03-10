@@ -1,14 +1,14 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " ██████╗░░█████╗░
 " ██╔══██╗██╔══██╗
 " ██████╔╝██║░░╚═╝
 " ██╔═══╝░██║░░██╗
 " ██║░░░░░╚█████╔╝
 " ╚═╝░░░░░░╚════╝░
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " Author: Pete Cruz
 " Description: Some pretty chill stuff here
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 
 " Enable compatibility
 if &compatible
@@ -30,6 +30,8 @@ set backspace=indent,eol,start
 " Disable case sensitivity for searches
 set ignorecase
 
+set smartcase
+
 " Enable matching braces
 set showmatch
 
@@ -39,9 +41,9 @@ set matchpairs+=<:>
 " Completeopt
 set completeopt=menuone,menu,preview,longest
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " Indentation:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 set autoindent
 set expandtab
 set shiftwidth=2
@@ -94,9 +96,9 @@ set scrolloff=5
 " Set encoding
 set encoding=utf-8
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " FileFormat:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " Set fileformat
 set fileformat=unix
 
@@ -106,40 +108,40 @@ set fileformats=unix,dos,mac
 " Match
 match Error /\%>80c/
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " Abbreviations:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 iabbrev fro for
 iabbrev improt import
 iabbrev wiht with
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " Mappings:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " Disable arrow keys
-nnoremap <up>    :echo "no arrow keys in vim :)" <esc>
-nnoremap <down>  :echo "no arrow keys in vim :)" <esc>
-nnoremap <left>  :echo "no arrow keys in vim :)" <esc>
-nnoremap <right> :echo "no arrow keys in vim :)" <esc>
-inoremap <up>    :echo "no arrow keys in vim :)" <esc>
-inoremap <down>  :echo "no arrow keys in vim :)" <esc>
-inoremap <left>  :echo "no arrow keys in vim :)" <esc>
-inoremap <right> :echo "no arrow keys in vim :)" <esc>
+nnoremap <Up>    :echo "no arrow keys in vim :)" <Esc>
+nnoremap <Down>  :echo "no arrow keys in vim :)" <Esc>
+nnoremap <Left>  :echo "no arrow keys in vim :)" <Esc>
+nnoremap <Right> :echo "no arrow keys in vim :)" <Esc>
+inoremap <Up>    :echo "no arrow keys in vim :)" <Esc>
+inoremap <Down>  :echo "no arrow keys in vim :)" <Esc>
+inoremap <Left>  :echo "no arrow keys in vim :)" <Esc>
+inoremap <Right> :echo "no arrow keys in vim :)" <Esc>
 
 " Navigate around splits
-nnoremap <c-l> <c-w><c-l>
-nnoremap <c-h> <c-w><c-h>
-nnoremap <c-k> <c-w><c-k>
-nnoremap <c-j> <c-w><c-j>
+nnoremap <C-l> <C-w><C-l>
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-j> <C-w><C-j>
 
 " Leader key
-let mapleader="\<space>"
+let mapleader="\<Space>"
 
 " Toggle Lex
-nnoremap <leader>l :Lex<cr>
+nnoremap <Leader>l :Lex<CR>
 
 " Toggle paste
-nnoremap <leader>p :set paste!<cr>
+nnoremap <Leader>p :set paste!<CR>
 
 " Switch line with proceeding
 nnoremap - yyddp
@@ -147,18 +149,18 @@ nnoremap - yyddp
 nnoremap _ yydd2jp
 
 " Switch between buffers
-nnoremap <leader>e gt
-nnoremap <leader>q gT
+nnoremap <Leader>e gt
+nnoremap <Leader>q gT
 
 " Jump to buffer position
 for i in range(1, 9)
-  execute "nnoremap <leader>".i." ".i."gt"
+  execute "nnoremap <Leader>" . i . " " . i . "gt"
 endfor
 
 " Open files
-nnoremap <leader>v :split $MYVIMRC<cr>
-nnoremap <leader>b :split ~/.bashrc<cr>
-nnoremap <leader>z :split ~/.zshrc<cr>
+nnoremap <Leader>v :split $MYVIMRC<Cr>
+nnoremap <Leader>b :split ~/.bashrc<Cr>
+nnoremap <Leader>z :split ~/.zshrc<Cr>
 
 " Default grep search to ack
 if has('mac')
@@ -193,9 +195,9 @@ if exists('&wildmode')
   set wildmode=list:longest,full
 end
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " IgnoreSearch:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 if has('wildignore')
   set wildignore+=.DS_Store
   set wildignore+=*.bak,*.exe
@@ -211,9 +213,9 @@ endif
 " Remove trailing whitespace
 command! FixWhiteSpace :%s/\s\+$//e
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " Autocommands:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 if has('autocmd')
   if has('syntax')
     " Toggled horizontal and vertical cursors
@@ -222,6 +224,8 @@ if has('autocmd')
       autocmd WinEnter * set cursorline cursorcolumn
       autocmd WinLeave * set nocursorline nocursorcolumn
     augroup END
+
+    highlight CursorLine cterm=bold
   endif
 
   " Highlight trailing whitespace
@@ -303,7 +307,7 @@ if has('autocmd')
   augroup ft_erlang
     autocmd!
     autocmd BufNewFile,BufRead *.erl setlocal tabstop=4 shiftwidth=4
-    autocmd BufNewFile,BufRead *.erl nnoremap <buffer> <c-.> <end>.
+    autocmd BufNewFile,BufRead *.erl nnoremap <buffer> <C-.> <End>.
   augroup END
 
   augroup ft_gleam
@@ -319,18 +323,18 @@ if has('autocmd')
   augroup ft_haskell
     autocmd!
     autocmd BufNewFile,BufRead *.hs setlocal tabstop=4 shiftwidth=4
-    autocmd FileType haskell nnoremap <buffer> <leader>i iimport <esc>
   augroup END
 
   augroup ft_java
     autocmd!
     autocmd BufNewFile,BufRead *.java setlocal tabstop=4 shiftwidth=4
-    autocmd BufNewFile,BufRead *.java nnoremap <buffer> <leader>i iimport ;<esc>
   augroup END
 
   augroup ft_json
     autocmd!
     autocmd BufNewFile,BufRead .*-json,.*_json set filetype=json
+    " <F9> Format json
+    autocmd FileType json nnoremap <buffer> <F9> :%!python -m json.tool<CR>
   augroup END
 
   augroup ft_kotlin
@@ -346,6 +350,8 @@ if has('autocmd')
   augroup ft_markdown
     autocmd!
     autocmd FileType markdown setlocal silent! colorscheme newsprint
+    autocmd FileType markdown nnoremap <buffer> <Leader>c i```<CR>```<Esc>
+    autocmd FileType markdown nnoremap <buffer> <Leader>h i[]()<Esc>
   augroup END
 
   augroup ft_ocaml
@@ -354,9 +360,15 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.ml setlocal tabstop=4 shiftwidth=4
   augroup END
 
+  augroup ft_org
+    autocmd!
+    autocmd FileType org nnoremap <buffer> <Leader>c i#+BEGIN_SRC<CR>#+END_SRC<Esc>
+    autocmd FileType org nnoremap <buffer> <Leader>h i[[][]]<Esc>
+  augroup END
+
   augroup ft_perl
     autocmd!
-    autocmd BufNewFile,BufRead *.pl nnoremap <buffer> <leader>p i#!/usr/bin/env perl<esc>
+    autocmd BufNewFile,BufRead *.pl nnoremap <buffer> <Leader>s i#!/usr/bin/env perl<Esc>
   augroup END
 
   augroup ft_php
@@ -368,9 +380,8 @@ if has('autocmd')
     autocmd!
     autocmd BufNewFile,BufRead .python-version set filetype=python
     autocmd BufNewFile,BufRead requirements-*.txt,requirements_*.txt set filetype=python
-    autocmd FileType python nnoremap <buffer> <leader>p i#!/usr/bin/env python<esc>
-    autocmd FileType python nnoremap <buffer> <leader># -*- encoding: utf-8 -*-<esc>
-    autocmd FileType python nnoremap <buffer> <leader>i iimport ""<esc>
+    autocmd FileType python nnoremap <buffer> <Leader>c i# -*- coding: utf-8 -*-<Esc>
+    autocmd FileType python nnoremap <buffer> <Leader>s i#!/usr/bin/env python<Esc>
   augroup END
 
   augroup ft_ruby
@@ -384,8 +395,7 @@ if has('autocmd')
     autocmd BufNewFile,BufRead Fastfile set filetype=ruby
     autocmd BufNewFile,BufRead Podfile set filetype=ruby
     autocmd BufNewFile,BufRead Gemfile.lock set filetype=ruby
-    autocmd BufNewFile,BufRead *.ruby nnoremap <buffer> <leader>p i#!/usr/bin/env ruby<esc>
-    autocmd BufNewFile,BufRead *.ruby nnoremap <buffer> <leader>r irequire ""<esc>
+    autocmd BufNewFile,BufRead *.ruby nnoremap <buffer> <Leader>s i#!/usr/bin/env ruby<Esc>
   augroup END
 
   augroup ft_rust
@@ -393,16 +403,10 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.rust,*.toml setlocal tabstop=4 shiftwidth=4
   augroup END
 
-  augroup ft_scala
-    autocmd!
-    autocmd BufNewFile,BufRead *.scala nnoremap <buffer> <leader>i iimport ;<esc>
-  augroup END
-
   augroup ft_sh
     autocmd!
     autocmd BufNewFile,BufRead .* set filetype=sh
     autocmd BufNewFile,BufRead .ripgreprc set filetype=sh
-    autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <leader>p i#!/usr/bin/env bash<esc>
   augroup END
 
   augroup ft_sql
@@ -427,30 +431,30 @@ if has('autocmd')
   augroup END
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 " Plugins:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"-------------------------------------------------------------------------------
 " Airline:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"-------------------------------------------------------------------------------
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:battery#update_tabline = 1
 let g:battery#update_statusline = 1
 let g:airline#extensions#battery#enabled = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"-------------------------------------------------------------------------------
 " NERDTree:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"-------------------------------------------------------------------------------
 
 augroup plugin_nerdtree
   autocmd!
 
-  " Start NERDTree and put the cursor back in the other window.
+  " Start NERDTree and put the cursor back in the other window
   autocmd VimEnter * NERDTree | wincmd p
 
-  " Exit Vim if NERDTree is the only window remaining in the only tab.
+  " Exit Vim if NERDTree is the only window remaining in the only tab
   if v:version >= 900
     autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
   else
@@ -460,7 +464,7 @@ augroup END
 
 let g:NERDTreeFileLines = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"-------------------------------------------------------------------------------
 " CSV:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"-------------------------------------------------------------------------------
 let g:csv_highlight_column = 'y'

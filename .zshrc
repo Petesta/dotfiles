@@ -132,6 +132,11 @@ alias xml2yml='yg -p xml -o yaml'
 alias yml2json='yg -p yaml -o json'
 alias yml2xml='yg -p yaml -o xml'
 
+function urlencode() {
+  local args="$@"
+  jq -nr --arg v "$args" '$v|@uri'
+}
+
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
