@@ -41,6 +41,8 @@
   whitespace = cr-at-eol
 [credential]
   helper = osxkeychain
+[diff "exif"]
+  textconv = exiftool
 [push]
   default = upstream
 [user]

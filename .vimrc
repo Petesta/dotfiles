@@ -15,6 +15,8 @@ if &compatible
   set nocompatible
 endif
 
+filetype plugin indent on
+
 " Enable syntax highlighting
 syntax on
 
@@ -45,12 +47,15 @@ set completeopt=menuone,menu,preview,longest
 " Indentation:
 "===============================================================================
 set autoindent
+" Spaces no tabs
 set expandtab
 set shiftwidth=2
 set smarttab
 " Make tabs as wide as two spaces
 set tabstop=2
 set softtabstop=2
+
+set listchars=tab:▸»,trail:·,precedes:←,extends:→,eol:↲,nbsp:␣
 
 " Don't redraw while executing macros
 set lazyredraw
@@ -69,6 +74,9 @@ set ruler
 
 " Show title
 set title
+
+" Show key presses
+set showcmd
 
 " Enable flashing of error
 set visualbell
@@ -96,6 +104,12 @@ set scrolloff=5
 " Set encoding
 set encoding=utf-8
 
+" Fix Shell syntax highlighting
+let g:is_posix = 1
+
+" Enable code block highlighting
+let g:markdown_fenced_languages = ['python', 'ruby']
+
 "===============================================================================
 " FileFormat:
 "===============================================================================
@@ -111,9 +125,9 @@ match Error /\%>80c/
 "===============================================================================
 " Abbreviations:
 "===============================================================================
-iabbrev fro for
-iabbrev improt import
-iabbrev wiht with
+if exists('*strftime')
+  iabbrev <expr> xdate strftime('%Y-%m-%d')
+endif
 
 "===============================================================================
 " Mappings:
@@ -128,17 +142,25 @@ inoremap <Down>  :echo "no arrow keys in vim :)" <Esc>
 inoremap <Left>  :echo "no arrow keys in vim :)" <Esc>
 inoremap <Right> :echo "no arrow keys in vim :)" <Esc>
 
-" Navigate around splits
+" Navigate buffers
+nnoremap <Leader>[ :previous<CR>
+nnoremap <Leader>] :back<CR>
+
+" Navigate splits/windows
 nnoremap <C-l> <C-w><C-l>
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-j> <C-w><C-j>
 
-" Leader key
-let mapleader="\<Space>"
+" Visually selects last modified text
+nnoremap <expr> gV '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-" Toggle Lex
-nnoremap <Leader>l :Lex<CR>
+" Ctrl-[hl]: Move left/right by word
+cnoremap <C-h> <S-Left>
+cnoremap <C-l> <S-Right>
+
+" Leader key
+let mapleader = "\<Space>"
 
 " Toggle paste
 nnoremap <Leader>p :set paste!<CR>
@@ -154,7 +176,7 @@ nnoremap <Leader>q gT
 
 " Jump to buffer position
 for i in range(1, 9)
-  execute "nnoremap <Leader>" . i . " " . i . "gt"
+  execute 'nnoremap <Leader>' . i . ' ' . i . 'gt'
 endfor
 
 " Open files
@@ -258,6 +280,7 @@ if has('autocmd')
       autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
       autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
       autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+      autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
       autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     augroup END
   endif
@@ -275,7 +298,19 @@ if has('autocmd')
 
   augroup append_semi_colon
     autocmd!
-    autocmd BufNewFile,BufRead *.c,*.cpp,*.erl,*.go,*.java,*.js,*.rs nnoremap <buffer> <c-;> <end>;
+    autocmd BufNewFile,BufRead *.c,*.cpp,*.erl,*.go,*.java,*.js,*.rs
+      \ nnoremap <buffer> <c-;> <end>;
+  augroup END
+
+  augroup remember_cursor_position
+    autocmd!
+    autocmd BufReadPost *
+      \ if line("'\"") > 1
+          \ && line("'\"") <= line("$")
+          \ && &filetype !~# 'commit'
+          \ && index(['gitrebase', 'tutor', 'xxd'], &filetype) == -1
+        \ | execute "normal! g`\""
+      \ | endif
   augroup END
 
   augroup spell_check
@@ -323,6 +358,15 @@ if has('autocmd')
   augroup ft_haskell
     autocmd!
     autocmd BufNewFile,BufRead *.hs setlocal tabstop=4 shiftwidth=4
+  augroup END
+
+  augroup ft_helm
+    autocmd!
+    autocmd BufNewFile,BufRead *.{yaml,yml}
+      \ if getline(1) =~ '^apiVersion:'
+          \ || getline(2) =~ '^apiVersion:'
+        \ | setlocal filetype=helm
+      \ | endif
   augroup END
 
   augroup ft_java
@@ -434,6 +478,7 @@ endif
 "===============================================================================
 " Plugins:
 "===============================================================================
+packadd! matchit
 
 "-------------------------------------------------------------------------------
 " Airline:
@@ -447,7 +492,6 @@ let g:airline#extensions#battery#enabled = 1
 "-------------------------------------------------------------------------------
 " NERDTree:
 "-------------------------------------------------------------------------------
-
 augroup plugin_nerdtree
   autocmd!
 
@@ -456,13 +500,35 @@ augroup plugin_nerdtree
 
   " Exit Vim if NERDTree is the only window remaining in the only tab
   if v:version >= 900
-    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
+    autocmd BufEnter *
+      \ if tabpagenr('$') == 1
+          \ && winnr('$') == 1
+          \ && exists('b:NERDTree')
+          \ && b:NERDTree.isTabTree()
+        \ | call feedkeys(":quit\<CR>:\<BS>")
+      \ | endif
   else
-    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-  fi
+    autocmd BufEnter *
+      \ if tabpagenr('$') == 1
+          \ && winnr('$') == 1
+          \ && exists('b:NERDTree')
+          \ && b:NERDTree.isTabTree()
+        \ | quit
+      \ | endif
+  endif
 augroup END
 
 let g:NERDTreeFileLines = 1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeIgnore = [
+  \ '\~$',
+  \ '\.DS_Store$',
+  \ '\.class$',
+  \ '\.git$',
+  \ '\.o$',
+  \ '\.pyc$',
+  \ '\.sw[op]$'
+]
 
 "-------------------------------------------------------------------------------
 " CSV:
@@ -473,41 +539,41 @@ let g:csv_highlight_column = 'y'
 " LSP:
 "-------------------------------------------------------------------------------
 if executable('pylsp')
-    " pip install python-lsp-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pylsp',
-        \ 'cmd': {server_info->['pylsp']},
-        \ 'allowlist': ['python'],
-        \ })
+  " pip install python-lsp-server
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'pylsp',
+    \ 'cmd': {server_info->['pylsp']},
+    \ 'allowlist': ['python'],
+  \ })
 endif
 
 function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gs <plug>(lsp-document-symbol-search)
-    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
-    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
-    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
 
-    let g:lsp_format_sync_timeout = 1000
-    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-    
-    " refer to doc to add more commands
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+  nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+  let g:lsp_format_sync_timeout = 1000
+  autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
 
 augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  au!
+  " NOTE: Call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
 let g:lsp_log_verbose = 1
