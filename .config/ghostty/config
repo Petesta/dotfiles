@@ -1,0 +1,10 @@
+command = /opt/homebrew/bin/nu
+shell-integration = none
+
+mouse-hide-while-typing = true
+copy-on-select = true
+clipboard-trim-trailing-whitespaces = true
+
+mac-option-as-alt = true
+
+keybind = cmd+r=reload_config
