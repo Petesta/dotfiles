@@ -72,7 +72,9 @@ HIST_STAMPS="mm/dd/yyyy"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+if [ -f $ZSH/oh-my-zsh.sh ]; then
+  source $ZSH/oh-my-zsh.sh
+fi
 
 # User configuration
 
@@ -102,7 +104,17 @@ export EDITOR='vim'
 
 export HISTCONTROL=ignorespace:ignoredups
 
-export HOMEBREW_NO_ANALYTICS=1
+export LC_ALL=${LC_ALL:-C.UTF-8}
+export LANG=${LANG:-C.UTF-8}
+
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+
+if [ ! -f $XDG_CONFIG_HOME/homebrew/brew.env ]; then
+  export HOMEBREW_NO_ANALYTICS=1
+fi
 
 alias cp='cp -iv'
 alias du='du -h'
@@ -135,6 +147,10 @@ alias yml2xml='yg -p yaml -o xml'
 function urlencode() {
   local args="$@"
   jq -nr --arg v "$args" '$v|@uri'
+}
+
+function weather() {
+  curl -s "https://wttr.in/${1:-Cupertino}?m2F&format=v2"
 }
 
 function y() {

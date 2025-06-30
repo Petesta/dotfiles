@@ -120,8 +120,18 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # Begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # End underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # Begin underline
 
+export LC_ALL=${LC_ALL:-C.UTF-8}
+export LANG=${LANG:-C.UTF-8}
+
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+
 # Disable Homebrew analytics
-export HOMEBREW_NO_ANALYTICS=1
+if [ ! -f $XDG_CONFIG_HOME/homebrew/brew.env ]; then
+  export HOMEBREW_NO_ANALYTICS=1
+fi
 
 #### shopt
 
@@ -137,6 +147,10 @@ shopt -s cdspell;
 function urlencode() {
   local args="$@"
   jq -nr --arg v "$args" '$v|@uri'
+}
+
+function weather() {
+  curl -s "https://wttr.in/${1:-Cupertino}?m2F&format=v2"
 }
 
 function y() {
