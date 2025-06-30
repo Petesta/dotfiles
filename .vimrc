@@ -221,6 +221,8 @@ end
 " IgnoreSearch:
 "===============================================================================
 if has('wildignore')
+  set wildignore+=.git,.hg,.svn
+  set wildignore+=node_modules
   set wildignore+=.DS_Store
   set wildignore+=*.bak,*.exe
   set wildignore+=*.bmp,*.docx,*.jpg,*.jpeg,*.gif,*.pdf,*.png
@@ -299,7 +301,7 @@ if has('autocmd')
   augroup append_semi_colon
     autocmd!
     autocmd BufNewFile,BufRead *.c,*.cpp,*.erl,*.go,*.java,*.js,*.rs
-      \ nnoremap <buffer> <c-;> <end>;
+      \ nnoremap <buffer> <C-;> <End>;
   augroup END
 
   augroup remember_cursor_position
@@ -374,9 +376,14 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.java setlocal tabstop=4 shiftwidth=4
   augroup END
 
+  augroup ft_javascript
+    autocmd!
+    autocmd FileType javascript nnoremap <buffer> <Leader>s i#!/usr/bin/env node<Esc>
+  augroup END
+
   augroup ft_json
     autocmd!
-    autocmd BufNewFile,BufRead .*-json,.*_json set filetype=json
+    autocmd BufNewFile,BufRead .*{-json,_json} set filetype=json
     " <F9> Format json
     autocmd FileType json nnoremap <buffer> <F9> :%!python -m json.tool<CR>
   augroup END
@@ -393,6 +400,9 @@ if has('autocmd')
 
   augroup ft_markdown
     autocmd!
+    if v:version < 740
+      autocmd BufNewFile,BufRead *.md set filetype=markdown
+    endif
     autocmd FileType markdown setlocal silent! colorscheme newsprint
     autocmd FileType markdown nnoremap <buffer> <Leader>c i```<CR>```<Esc>
     autocmd FileType markdown nnoremap <buffer> <Leader>h i[]()<Esc>
@@ -435,22 +445,27 @@ if has('autocmd')
     autocmd BufNewFile,BufRead .ruby-version set filetype=ruby
     autocmd BufNewFile,BufRead *.slim set filetype=eruby
     autocmd BufNewFile,BufRead Appfile set filetype=ruby
-    autocmd BufNewFile,BufRead Brewfile set filetype=ruby
+    autocmd BufNewFile,BufRead Brewfile,*.Brewfile set filetype=ruby
     autocmd BufNewFile,BufRead Fastfile set filetype=ruby
     autocmd BufNewFile,BufRead Podfile set filetype=ruby
     autocmd BufNewFile,BufRead Gemfile.lock set filetype=ruby
-    autocmd BufNewFile,BufRead *.ruby nnoremap <buffer> <Leader>s i#!/usr/bin/env ruby<Esc>
+    autocmd BufNewFile,BufRead *.rb nnoremap <buffer> <Leader>s i#!/usr/bin/env ruby<Esc>
   augroup END
 
   augroup ft_rust
     autocmd!
-    autocmd BufNewFile,BufRead *.rust,*.toml setlocal tabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.{rust,toml} setlocal tabstop=4 shiftwidth=4
   augroup END
 
   augroup ft_sh
     autocmd!
     autocmd BufNewFile,BufRead .* set filetype=sh
     autocmd BufNewFile,BufRead .ripgreprc set filetype=sh
+  augroup END
+
+  augroup ft_swift
+    autocmd!
+    autocmd FileType swift nnoremap <buffer> <Leader>s i#!/usr/bin/env swift<Esc>
   augroup END
 
   augroup ft_sql
@@ -478,7 +493,9 @@ endif
 "===============================================================================
 " Plugins:
 "===============================================================================
-packadd! matchit
+if v:version >= 800
+  packadd! matchit
+endif
 
 "-------------------------------------------------------------------------------
 " Airline:
@@ -523,8 +540,12 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeIgnore = [
   \ '\~$',
   \ '\.DS_Store$',
+  \ '\.bak$',
+  \ '\.beam$',
   \ '\.class$',
+  \ '\.exe$',
   \ '\.git$',
+  \ '\.jar$',
   \ '\.o$',
   \ '\.pyc$',
   \ '\.sw[op]$'
