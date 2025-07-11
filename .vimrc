@@ -1,14 +1,16 @@
-"===============================================================================
-" ██████╗░░█████╗░
-" ██╔══██╗██╔══██╗
-" ██████╔╝██║░░╚═╝
-" ██╔═══╝░██║░░██╗
-" ██║░░░░░╚█████╔╝
-" ╚═╝░░░░░░╚════╝░
-"===============================================================================
-" Author: Pete Cruz
-" Description: Some pretty chill stuff here
-"===============================================================================
+" ╔════════════════════════════════════════════════════════════════════════════╗
+" ██████╗░░█████╗░                                                             ║▒
+" ██╔══██╗██╔══██╗                                                             ║▒
+" ██████╔╝██║░░╚═╝                                                             ║▒
+" ██╔═══╝░██║░░██╗                                                             ║▒
+" ██║░░░░░╚█████╔╝                                                             ║▒
+" ╠═╝░░░░░░╚════╝░                                                             ║▒
+" ╚════════════════════════════════════════════════════════════════════════════╝▒
+" ╔════════════════════════════════════════════════════════════════════════════╗▒
+" Author: Pete Cruz                                                            ║▒
+" Description: Some pretty chill stuff here                                    ║▒
+" ╚════════════════════════════════════════════════════════════════════════════╝▒
+"  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 
 " Enable compatibility
 if &compatible
@@ -43,9 +45,9 @@ set matchpairs+=<:>
 " Completeopt
 set completeopt=menuone,menu,preview,longest
 
-"===============================================================================
-" Indentation:
-"===============================================================================
+" ╔════════════════════════════════════════════════════════════════════════════╗
+" Indentation:                                                                 ║
+" ╚════════════════════════════════════════════════════════════════════════════╝
 set autoindent
 " Spaces no tabs
 set expandtab
@@ -82,7 +84,7 @@ set showcmd
 set visualbell
 
 " Don’t create backups when editing files in certain directories
-set backupskip=/logs/*,/tmp/*,/vendor/*
+set backupskip=/logs/*,/node_modules/*,/tmp/*,/vendor/*
 
 set t_Co=256
 
@@ -110,9 +112,9 @@ let g:is_posix = 1
 " Enable code block highlighting
 let g:markdown_fenced_languages = ['python', 'ruby']
 
-"===============================================================================
-" FileFormat:
-"===============================================================================
+" ╔════════════════════════════════════════════════════════════════════════════╗
+" FileFormat:                                                                  ║
+" ╚════════════════════════════════════════════════════════════════════════════╝
 " Set fileformat
 set fileformat=unix
 
@@ -122,16 +124,16 @@ set fileformats=unix,dos,mac
 " Match
 match Error /\%>80c/
 
-"===============================================================================
-" Abbreviations:
-"===============================================================================
+" ╔════════════════════════════════════════════════════════════════════════════╗
+" Abbreviations:                                                               ║
+" ╚════════════════════════════════════════════════════════════════════════════╝
 if exists('*strftime')
-  iabbrev <expr> xdate strftime('%Y-%m-%d')
+  iabbrev <expr> today strftime('%Y-%m-%d')
 endif
 
-"===============================================================================
-" Mappings:
-"===============================================================================
+" ╔════════════════════════════════════════════════════════════════════════════╗
+" Mappings:                                                                    ║
+" ╚════════════════════════════════════════════════════════════════════════════╝
 " Disable arrow keys
 nnoremap <Up>    :echo "no arrow keys in vim :)" <Esc>
 nnoremap <Down>  :echo "no arrow keys in vim :)" <Esc>
@@ -158,6 +160,10 @@ nnoremap <expr> gV '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Ctrl-[hl]: Move left/right by word
 cnoremap <C-h> <S-Left>
 cnoremap <C-l> <S-Right>
+
+" Ctrl-[ae]: Move head/tail of input
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
 
 " Leader key
 let mapleader = "\<Space>"
@@ -217,16 +223,17 @@ if exists('&wildmode')
   set wildmode=list:longest,full
 end
 
-"===============================================================================
-" IgnoreSearch:
-"===============================================================================
+" ╔════════════════════════════════════════════════════════════════════════════╗
+" IgnoreSearch:                                                                ║
+" ╚════════════════════════════════════════════════════════════════════════════╝
 if has('wildignore')
   set wildignore+=.git,.hg,.svn
+  set wildignore+=.tmp
   set wildignore+=node_modules
   set wildignore+=.DS_Store
-  set wildignore+=*.bak,*.exe
   set wildignore+=*.bmp,*.docx,*.jpg,*.jpeg,*.gif,*.pdf,*.png
-  set wildignore+=*.py[co],*.so,*.sw[op],*.beam,*.class,*.jar,*.zip,*~
+  set wildignore+=*~,*.beam,*.class,*.jar,*.py[co],*.so,*.sw[op],*.zip
+  set wildignore+=*.bak,*.dll,*.exe,*.so
 endif
 
 " Enable smoothscroll
@@ -237,9 +244,9 @@ endif
 " Remove trailing whitespace
 command! FixWhiteSpace :%s/\s\+$//e
 
-"===============================================================================
-" Autocommands:
-"===============================================================================
+" ╔════════════════════════════════════════════════════════════════════════════╗
+" Autocommands:                                                                ║
+" ╚════════════════════════════════════════════════════════════════════════════╝
 if has('autocmd')
   if has('syntax')
     " Toggled horizontal and vertical cursors
@@ -290,13 +297,23 @@ if has('autocmd')
   if has('persistent_undo')
     augroup no_undofile
       autocmd!
-      autocmd BufWritePre /tmp/* setlocal noundofile
-      autocmd BufWritePre COMMIT_EDITMSG setlocal noundofile
-      autocmd BufWritePre MERGE_MSG setlocal noundofile
-      autocmd BufWritePre *.log setlocal noundofile
-      autocmd BufWritePre *.tmp setlocal noundofile
+      autocmd BufRead,BufWritePre /logs/* setlocal noundofile
+      autocmd BufRead,BufWritePre /node_modules/* setlocal noundofile
+      autocmd BufRead,BufWritePre /tmp/* setlocal noundofile
+      autocmd BufRead,BufWritePre COMMIT_EDITMSG setlocal noundofile
+      autocmd BufRead,BufWritePre MERGE_MSG setlocal noundofile
+      autocmd BufRead,BufWritePre *.log setlocal noundofile
+      autocmd BufRead,BufWritePre *.tmp setlocal noundofile
     augroup END
   endif
+
+  augroup private_mode
+    autocmd!
+    autocmd BufRead *
+      \ if &cryptmethod != ""
+        \ | setlocal nobackup nomodeline noswapfile noundofile nowritebackup secure viminfo=""
+      \ | endif
+  augroup END
 
   augroup append_semi_colon
     autocmd!
@@ -321,9 +338,9 @@ if has('autocmd')
     autocmd FileType gitcommit,mail setlocal spell spelllang=en_us
   augroup END
 
-  augroup ft_makefile
+  augroup ft_applescript
     autocmd!
-    autocmd BufNewFile,BufRead Makefile setlocal noexpandtab tabstop=8 shiftwidth=8
+    autocmd BufNewFile,BufRead *.scpt setlocal tabstop=4 shiftwidth=4
   augroup END
 
   augroup ft_c
@@ -395,7 +412,7 @@ if has('autocmd')
 
   augroup ft_makefile
     autocmd!
-    autocmd FileType make setlocal noexpandtab tabstop=8 shiftwidth=8
+    autocmd BufNewFile,BufRead Makefile setlocal noexpandtab tabstop=8 shiftwidth=8
   augroup END
 
   augroup ft_markdown
@@ -490,25 +507,25 @@ if has('autocmd')
   augroup END
 endif
 
-"===============================================================================
-" Plugins:
-"===============================================================================
+" ╔════════════════════════════════════════════════════════════════════════════╗
+" Plugins:                                                                     ║
+" ╚════════════════════════════════════════════════════════════════════════════╝
 if v:version >= 800
   packadd! matchit
 endif
 
-"-------------------------------------------------------------------------------
-" Airline:
-"-------------------------------------------------------------------------------
+" ╭────────────────────────────────────────────────────────────────────────────╮
+" Airline:                                                                     │
+" ╰────────────────────────────────────────────────────────────────────────────╯
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:battery#update_tabline = 1
 let g:battery#update_statusline = 1
 let g:airline#extensions#battery#enabled = 1
 
-"-------------------------------------------------------------------------------
-" NERDTree:
-"-------------------------------------------------------------------------------
+" ╭────────────────────────────────────────────────────────────────────────────╮
+" NERDTree:                                                                    │
+" ╰────────────────────────────────────────────────────────────────────────────╯
 augroup plugin_nerdtree
   autocmd!
 
@@ -551,14 +568,14 @@ let g:NERDTreeIgnore = [
   \ '\.sw[op]$'
 ]
 
-"-------------------------------------------------------------------------------
-" CSV:
-"-------------------------------------------------------------------------------
+" ╭────────────────────────────────────────────────────────────────────────────╮
+" CSV:                                                                         │
+" ╰────────────────────────────────────────────────────────────────────────────╯
 let g:csv_highlight_column = 'y'
 
-"-------------------------------------------------------------------------------
-" LSP:
-"-------------------------------------------------------------------------------
+" ╭────────────────────────────────────────────────────────────────────────────╮
+" LSP:                                                                         │
+" ╰────────────────────────────────────────────────────────────────────────────╯
 if executable('pylsp')
   " pip install python-lsp-server
   au User lsp_setup call lsp#register_server({
