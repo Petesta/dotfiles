@@ -120,8 +120,8 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # Begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # End underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # Begin underline
 
-export LC_ALL=${LC_ALL:-C.UTF-8}
-export LANG=${LANG:-C.UTF-8}
+export LC_ALL=${LC_ALL:-en_US.UTF-8}
+export LANG=${LANG:-en_US.UTF-8}
 
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
