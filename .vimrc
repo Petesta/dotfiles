@@ -1,16 +1,15 @@
 " ╔════════════════════════════════════════════════════════════════════════════╗
-" ██████╗░░█████╗░                                                             ║▒
-" ██╔══██╗██╔══██╗                                                             ║▒
-" ██████╔╝██║░░╚═╝                                                             ║▒
-" ██╔═══╝░██║░░██╗                                                             ║▒
-" ██║░░░░░╚█████╔╝                                                             ║▒
-" ╠═╝░░░░░░╚════╝░                                                             ║▒
-" ╚════════════════════════════════════════════════════════════════════════════╝▒
-" ╔════════════════════════════════════════════════════════════════════════════╗▒
-" Author: Pete Cruz                                                            ║▒
-" Description: Some pretty chill stuff here                                    ║▒
-" ╚════════════════════════════════════════════════════════════════════════════╝▒
-"  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+" ██████╗░░█████╗░                                                             ║
+" ██╔══██╗██╔══██╗                                                             ║
+" ██████╔╝██║░░╚═╝                                                             ║
+" ██╔═══╝░██║░░██╗                                                             ║
+" ██║░░░░░╚█████╔╝                                                             ║
+" ╠═╝░░░░░░╚════╝░                                                             ║
+" ╚════════════════════════════════════════════════════════════════════════════╝
+" ╔════════════════════════════════════════════════════════════════════════════╗
+" Author: Pete Cruz                                                            ║
+" Description: Some pretty chill stuff here                                    ║
+" ╚════════════════════════════════════════════════════════════════════════════╝
 
 " Enable compatibility
 if &compatible
@@ -109,8 +108,18 @@ set encoding=utf-8
 " Fix Shell syntax highlighting
 let g:is_posix = 1
 
+" Enable Postgres dialect
+let g:sql_type_default = 'pgsql'
+
 " Enable code block highlighting
-let g:markdown_fenced_languages = ['python', 'ruby']
+let g:markdown_fenced_languages = [
+  \ 'bash',
+  \ 'html',
+  \ 'javascript',
+  \ 'python',
+  \ 'ruby',
+  \ 'rust'
+]
 
 " ╔════════════════════════════════════════════════════════════════════════════╗
 " FileFormat:                                                                  ║
@@ -144,15 +153,20 @@ inoremap <Down>  :echo "no arrow keys in vim :)" <Esc>
 inoremap <Left>  :echo "no arrow keys in vim :)" <Esc>
 inoremap <Right> :echo "no arrow keys in vim :)" <Esc>
 
-" Navigate buffers
-nnoremap <Leader>[ :previous<CR>
-nnoremap <Leader>] :back<CR>
+" Toggle lowercase and uppercase
+nnoremap <C-t> mzg~iw`z
 
 " Navigate splits/windows
 nnoremap <C-l> <C-w><C-l>
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-j> <C-w><C-j>
+
+" Center screen from search pattern
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
 
 " Visually selects last modified text
 nnoremap <expr> gV '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -166,7 +180,18 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
 " Leader key
-let mapleader = "\<Space>"
+let mapleader = '\<Space>'
+
+" Local leader key
+let maplocalleader = ','
+
+" Navigate buffer list
+nnoremap <Leader>[b :bprevious<CR>
+nnoremap <Leader>]b :bnext<CR>
+
+" Navigate tabs
+nnoremap <Leader>[t :tabprevious<CR>
+nnoremap <Leader>]t :tabnext<CR>
 
 " Toggle paste
 nnoremap <Leader>p :set paste!<CR>
@@ -176,7 +201,7 @@ nnoremap - yyddp
 " Switch line with preceeding
 nnoremap _ yydd2jp
 
-" Switch between buffers
+" Navigate buffers
 nnoremap <Leader>e gt
 nnoremap <Leader>q gT
 
@@ -232,7 +257,7 @@ if has('wildignore')
   set wildignore+=node_modules
   set wildignore+=.DS_Store
   set wildignore+=*.bmp,*.docx,*.jpg,*.jpeg,*.gif,*.pdf,*.png
-  set wildignore+=*~,*.beam,*.class,*.jar,*.py[co],*.so,*.sw[op],*.zip
+  set wildignore+=*~,*.beam,*.class,*.jar,*.o,*.py[co],*.so,*.sw[op],*.zip
   set wildignore+=*.bak,*.dll,*.exe,*.so
 endif
 
@@ -270,16 +295,24 @@ if has('autocmd')
   augroup END
 
   " Auto-resize splits
-  autocmd! VimResized * wincmd =
+  augroup auto_resize_splits
+    autocmd!
+    autocmd! VimResized * wincmd =
+  augroup END
 
   " Source .vimrc on save
-  autocmd! BufWritePost .vimrc source $MYVIMRC
+  augroup source_vimrc
+    autocmd! BufWritePost .vimrc source $MYVIMRC
+  augroup END
 
   augroup highlight_keywords
     autocmd!
-    autocmd BufWinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO\|FIXME\|NOTE\|XXX', -1)
-    autocmd BufWinEnter,VimEnter * :silent! call matchadd('Debug', 'Debug\|NOTICE', -1)
-    autocmd BufWinEnter,VimEnter * :silent! call matchadd('Error', 'Error\|FATAL', -1)
+    autocmd BufWinEnter,VimEnter * :silent!
+      \ call matchadd('Todo', 'TODO\|FIXME\|NOTE\|XXX', -1)
+    autocmd BufWinEnter,VimEnter * :silent!
+      \ call matchadd('Debug', 'Debug\|NOTICE', -1)
+    autocmd BufWinEnter,VimEnter * :silent!
+      \ call matchadd('Error', 'Error\|FATAL', -1)
   augroup END
 
   if has('&omnifunc')
@@ -287,7 +320,8 @@ if has('autocmd')
       autocmd!
       autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
       autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-      autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+      autocmd FileType javascript
+        \ setlocal omnifunc=javascriptcomplete#CompleteJS
       autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
       autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
       autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
@@ -395,7 +429,8 @@ if has('autocmd')
 
   augroup ft_javascript
     autocmd!
-    autocmd FileType javascript nnoremap <buffer> <Leader>s i#!/usr/bin/env node<Esc>
+    autocmd FileType javascript
+      \ nnoremap <buffer> <LocalLeader>s i#!/usr/bin/env node<Esc>
   augroup END
 
   augroup ft_json
@@ -412,7 +447,8 @@ if has('autocmd')
 
   augroup ft_makefile
     autocmd!
-    autocmd BufNewFile,BufRead Makefile setlocal noexpandtab tabstop=8 shiftwidth=8
+    autocmd BufNewFile,BufRead Makefile
+      \ setlocal noexpandtab tabstop=8 shiftwidth=8
   augroup END
 
   augroup ft_markdown
@@ -421,8 +457,10 @@ if has('autocmd')
       autocmd BufNewFile,BufRead *.md set filetype=markdown
     endif
     autocmd FileType markdown setlocal silent! colorscheme newsprint
-    autocmd FileType markdown nnoremap <buffer> <Leader>c i```<CR>```<Esc>
-    autocmd FileType markdown nnoremap <buffer> <Leader>h i[]()<Esc>
+    autocmd FileType markdown nnoremap <buffer> <LocalLeader>c i```<CR>```<Esc>
+    autocmd FileType markdown nnoremap <buffer> <LocalLeader>h i[]()<Esc>
+    autocmd FileType markdown nnoremap <buffer> <LocalLeader>- m`yypVr-``
+    autocmd FileType markdown nnoremap <buffer> <LocalLeader>= m`yypVr=``
   augroup END
 
   augroup ft_ocaml
@@ -433,13 +471,15 @@ if has('autocmd')
 
   augroup ft_org
     autocmd!
-    autocmd FileType org nnoremap <buffer> <Leader>c i#+BEGIN_SRC<CR>#+END_SRC<Esc>
-    autocmd FileType org nnoremap <buffer> <Leader>h i[[][]]<Esc>
+    autocmd FileType org
+      \ nnoremap <buffer> <LocalLeader>c i#+BEGIN_SRC<CR>#+END_SRC<Esc>
+    autocmd FileType org nnoremap <buffer> <LocalLeader>h i[[][]]<Esc>
   augroup END
 
   augroup ft_perl
     autocmd!
-    autocmd BufNewFile,BufRead *.pl nnoremap <buffer> <Leader>s i#!/usr/bin/env perl<Esc>
+    autocmd BufNewFile,BufRead *.pl
+      \ nnoremap <buffer> <LocalLeader>s i#!/usr/bin/env perl<Esc>
   augroup END
 
   augroup ft_php
@@ -450,9 +490,12 @@ if has('autocmd')
   augroup ft_python
     autocmd!
     autocmd BufNewFile,BufRead .python-version set filetype=python
-    autocmd BufNewFile,BufRead requirements-*.txt,requirements_*.txt set filetype=python
-    autocmd FileType python nnoremap <buffer> <Leader>c i# -*- coding: utf-8 -*-<Esc>
-    autocmd FileType python nnoremap <buffer> <Leader>s i#!/usr/bin/env python<Esc>
+    autocmd BufNewFile,BufRead requirements-*.txt,requirements_*.txt
+      \ set filetype=python
+    autocmd FileType python
+      \ nnoremap <buffer> <LocalLeader>c i# -*- coding: utf-8 -*-<Esc>
+    autocmd FileType python
+      \ nnoremap <buffer> <LocalLeader>s i#!/usr/bin/env python<Esc>
   augroup END
 
   augroup ft_ruby
@@ -466,7 +509,8 @@ if has('autocmd')
     autocmd BufNewFile,BufRead Fastfile set filetype=ruby
     autocmd BufNewFile,BufRead Podfile set filetype=ruby
     autocmd BufNewFile,BufRead Gemfile.lock set filetype=ruby
-    autocmd BufNewFile,BufRead *.rb nnoremap <buffer> <Leader>s i#!/usr/bin/env ruby<Esc>
+    autocmd BufNewFile,BufRead *.rb
+      \ nnoremap <buffer> <LocalLeader>s i#!/usr/bin/env ruby<Esc>
   augroup END
 
   augroup ft_rust
@@ -482,7 +526,8 @@ if has('autocmd')
 
   augroup ft_swift
     autocmd!
-    autocmd FileType swift nnoremap <buffer> <Leader>s i#!/usr/bin/env swift<Esc>
+    autocmd FileType swift
+      \ nnoremap <buffer> <LocalLeader>s i#!/usr/bin/env swift<Esc>
   augroup END
 
   augroup ft_sql
@@ -560,11 +605,13 @@ let g:NERDTreeIgnore = [
   \ '\.bak$',
   \ '\.beam$',
   \ '\.class$',
+  \ '\.dll$',
   \ '\.exe$',
   \ '\.git$',
   \ '\.jar$',
   \ '\.o$',
-  \ '\.pyc$',
+  \ '\.py[co]$',
+  \ '\.so$',
   \ '\.sw[op]$'
 ]
 
@@ -616,3 +663,7 @@ augroup END
 
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
+
+if filereadable(expand('~/.vim/custom.vim'))
+  source ~/.vim/custom.vim
+endif
