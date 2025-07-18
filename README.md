@@ -1,15 +1,40 @@
 # 🗂️ dotfiles
 
-## Bash theme
-[bash-it](https://github.com/Bash-it/bash-it)
-* [bobby](https://github.com/Bash-it/bash-it/blob/master/themes/bobby/bobby.theme.bash)
+<table>
+  <caption><strong>Shells</strong></caption>
 
-## ZSH theme
-[ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
-* [powerlevel10k/powerlevel10k](https://github.com/romkatv/powerlevel10k)
+  <thead>
+    <tr>
+      <th></th>
+      <th>Bash</th>
+      <th>Zsh</th>
+      <th>Nushell</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Framework</th>
+      <td><a href="https://github.com/Bash-it/bash-it">bash-it</a></td>
+      <td><a href="https://github.com/ohmyzsh/ohmyzsh">ohmyzsh</a></td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <th>Theme</th>
+      <td>
+        <a href="https://github.com/Bash-it/bash-it/blob/master/themes/bobby/bobby.theme.bash">bobby</a>
+      </td>
+      <td>
+        <a href="https://github.com/romkatv/powerlevel10k">powerlevel10k/powerlevel10k</a>
+      </td>
+      <td>Default</td>
+    </tr>
+  </tbody>
+</table>
+
+---
 
 ```graphql
-📁 .
+📁 ~
 ├── 🛠️ .ackrc
 ├── 📁 .ammonite
 │   └── 📄 predef.scala
@@ -21,6 +46,8 @@
 ├── 📁 .config
 │   ├── 📁 ghostty
 │   │   └── 🛠️ config
+│   ├── 📁 nushell
+│   │   └── 🛠️ config.nu
 │   ├── 📁 yazi
 │   │   └── 🛠️ yazi.toml
 │   └── 📁 zellij
@@ -37,9 +64,6 @@
 ├── 🛠️ .sqliterc
 ├── 📁 .ssh
 │   └── 🛠️ config
-├── 📁 .vim
-│   └── 📁 colors
-│       └── 🎨 newsprint.vim
 ├── 🛠️ .vimrc
 ├── 🛠️ .zprofile
 ├── 🛠️ .zshenv
