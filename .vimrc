@@ -50,11 +50,15 @@ set completeopt=menuone,menu,preview,longest
 set autoindent
 " Spaces no tabs
 set expandtab
+" Whitespace length for one indentation level
 set shiftwidth=2
 set smarttab
 " Make tabs as wide as two spaces
 set tabstop=2
 set softtabstop=2
+
+" Round misaligned indents
+set shiftround
 
 set listchars=tab:▸»,trail:·,precedes:←,extends:→,eol:↲,nbsp:␣
 
@@ -82,6 +86,19 @@ set showcmd
 " Enable flashing of error
 set visualbell
 
+set history=1000
+
+" Prepend default location of swap files
+set directory^=~/.vim/directory//
+
+if has('persistent_undo')
+  " Enable undofiles
+  set undofile
+
+  " Prepend default location of undo files
+  set undodir^=~/.vim/undodir//
+endif
+
 " Don’t create backups when editing files in certain directories
 set backupskip=/logs/*,/node_modules/*,/tmp/*,/vendor/*
 
@@ -93,9 +110,9 @@ if &term =~ 'xterm'
     let &t_SR = '\e[4 q'
     let &t_EI = '\e[1 q'
   elseif $TERM_PROGRAM == 'iTerm.app'
-    let &t_SI = '\<Esc>]50;CursorShape=1\x7'
-    let &t_SR = '\<Esc>]50;CursorShape=2\x7'
-    let &t_EI = '\<Esc>]50;CursorShape=0\x7'
+    let &t_SI = '\<Esc>]1337;CursorShape=1\x7'
+    let &t_SR = '\<Esc>]1337;CursorShape=2\x7'
+    let &t_EI = '\<Esc>]1337;CursorShape=0\x7'
   endif
 endif
 
@@ -114,12 +131,19 @@ let g:sql_type_default = 'pgsql'
 " Enable code block highlighting
 let g:markdown_fenced_languages = [
   \ 'bash',
+  \ 'erb=eruby',
   \ 'html',
   \ 'javascript',
+  \ 'json=javascript',
   \ 'python',
   \ 'ruby',
-  \ 'rust'
-]
+  \ 'rust',
+  \ 'xml',
+  \ 'vim'
+\ ]
+
+" Enable highlighting special atoms
+let g:erlang_highlight_special_atoms = 1
 
 " ╔════════════════════════════════════════════════════════════════════════════╗
 " FileFormat:                                                                  ║
@@ -153,7 +177,7 @@ inoremap <Down>  :echo "no arrow keys in vim :)" <Esc>
 inoremap <Left>  :echo "no arrow keys in vim :)" <Esc>
 inoremap <Right> :echo "no arrow keys in vim :)" <Esc>
 
-" Toggle lowercase and uppercase
+" Toggle lowercase|uppercase
 nnoremap <C-t> mzg~iw`z
 
 " Navigate splits/windows
@@ -162,14 +186,31 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-j> <C-w><C-j>
 
+" Resize window
+nnoremap <C-S-Left> <C-w><
+nnoremap <C-S-Right> <C-w>>
+nnoremap <C-S-Down> <C-w>-
+nnoremap <C-S-Up> <C-w>+
+
+" Ctrl-[Rr]: Rotate window up/left and down/right
+nnoremap <Leader>R <C-w>R
+nnoremap <Leader>r <C-w>r
+
 " Center screen from search pattern
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 
+" Visually reselect pasted text
+nnoremap gp `[v`]
+
 " Visually selects last modified text
 nnoremap <expr> gV '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+" Ctrl-[jk]: Move cursor down/up
+inoremap <C-j> <C-o>gj
+inoremap <C-k> <C-o>gk
 
 " Ctrl-[hl]: Move left/right by word
 cnoremap <C-h> <S-Left>
@@ -179,11 +220,19 @@ cnoremap <C-l> <S-Right>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
+" Switch line with proceeding
+nnoremap - yyddp
+" Switch line with preceeding
+nnoremap _ yydd2jp
+
 " Leader key
 let mapleader = '\<Space>'
 
 " Local leader key
 let maplocalleader = ','
+
+" Visually selects block
+nnoremap <Leader>v V`}
 
 " Navigate buffer list
 nnoremap <Leader>[b :bprevious<CR>
@@ -196,18 +245,16 @@ nnoremap <Leader>]t :tabnext<CR>
 " Toggle paste
 nnoremap <Leader>p :set paste!<CR>
 
-" Switch line with proceeding
-nnoremap - yyddp
-" Switch line with preceeding
-nnoremap _ yydd2jp
-
 " Navigate buffers
 nnoremap <Leader>e gt
 nnoremap <Leader>q gT
 
-" Jump to buffer position
 for i in range(1, 9)
+  " Jump to tab position
   execute 'nnoremap <Leader>' . i . ' ' . i . 'gt'
+
+  " Move tab to different position
+  execute 'nnoremap <Leader>m' . i . ' :tabmove ' . (i - 1) . '<CR>'
 endfor
 
 " Open files
@@ -294,6 +341,12 @@ if has('autocmd')
     autocmd InsertLeave * match TrailingWhitespace /\s\+$/
   augroup END
 
+  " Check if file changed and update
+  augroup check_time
+    autocmd!
+    autocmd FocusGained * if mode() != 'c' | checktime | endif
+  augroup END
+
   " Auto-resize splits
   augroup auto_resize_splits
     autocmd!
@@ -310,9 +363,9 @@ if has('autocmd')
     autocmd BufWinEnter,VimEnter * :silent!
       \ call matchadd('Todo', 'TODO\|FIXME\|NOTE\|XXX', -1)
     autocmd BufWinEnter,VimEnter * :silent!
-      \ call matchadd('Debug', 'Debug\|NOTICE', -1)
+      \ call matchadd('Debug', 'DEBUG\|NOTICE', -1)
     autocmd BufWinEnter,VimEnter * :silent!
-      \ call matchadd('Error', 'Error\|FATAL', -1)
+      \ call matchadd('Error', 'ERR\|ERROR\|FATAL', -1)
   augroup END
 
   if has('&omnifunc')
@@ -351,7 +404,13 @@ if has('autocmd')
 
   augroup append_semi_colon
     autocmd!
-    autocmd BufNewFile,BufRead *.c,*.cpp,*.erl,*.go,*.java,*.js,*.rs
+    autocmd BufNewFile,BufRead *.c,
+      \*.cpp,
+      \*.erl,
+      \*.go,
+      \*.java,
+      \*.js,
+      \*.rs
       \ nnoremap <buffer> <C-;> <End>;
   augroup END
 
@@ -489,8 +548,9 @@ if has('autocmd')
 
   augroup ft_python
     autocmd!
-    autocmd BufNewFile,BufRead .python-version set filetype=python
-    autocmd BufNewFile,BufRead requirements-*.txt,requirements_*.txt
+    autocmd BufNewFile,BufRead .python-version,
+      \requirements-*.txt,
+      \requirements_*.txt
       \ set filetype=python
     autocmd FileType python
       \ nnoremap <buffer> <LocalLeader>c i# -*- coding: utf-8 -*-<Esc>
@@ -500,15 +560,17 @@ if has('autocmd')
 
   augroup ft_ruby
     autocmd!
-    autocmd BufNewFile,BufRead .gemrc set filetype=ruby
-    autocmd BufNewFile,BufRead .irbrc set filetype=ruby
-    autocmd BufNewFile,BufRead .ruby-version set filetype=ruby
-    autocmd BufNewFile,BufRead *.slim set filetype=eruby
-    autocmd BufNewFile,BufRead Appfile set filetype=ruby
-    autocmd BufNewFile,BufRead Brewfile,*.Brewfile set filetype=ruby
-    autocmd BufNewFile,BufRead Fastfile set filetype=ruby
-    autocmd BufNewFile,BufRead Podfile set filetype=ruby
-    autocmd BufNewFile,BufRead Gemfile.lock set filetype=ruby
+    autocmd BufNewFile,BufRead .gemrc,
+      \.irbrc,
+      \.ruby-version,
+      \*.slim,
+      \Appfile,
+      \Brewfile,
+      \*.Brewfile,
+      \Fastfile,
+      \Podfile,
+      \Gemfile.lock
+      \ set filetype=ruby
     autocmd BufNewFile,BufRead *.rb
       \ nnoremap <buffer> <LocalLeader>s i#!/usr/bin/env ruby<Esc>
   augroup END
@@ -520,8 +582,9 @@ if has('autocmd')
 
   augroup ft_sh
     autocmd!
-    autocmd BufNewFile,BufRead .* set filetype=sh
-    autocmd BufNewFile,BufRead .ripgreprc set filetype=sh
+    autocmd BufNewFile,BufRead .*,
+      \.ripgreprc
+      \ set filetype=sh
   augroup END
 
   augroup ft_swift
@@ -613,7 +676,7 @@ let g:NERDTreeIgnore = [
   \ '\.py[co]$',
   \ '\.so$',
   \ '\.sw[op]$'
-]
+\ ]
 
 " ╭────────────────────────────────────────────────────────────────────────────╮
 " CSV:                                                                         │
@@ -638,16 +701,16 @@ function! s:on_lsp_buffer_enabled() abort
 
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
 
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> gs <plug>(lsp-document-symbol-search)
-  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-  nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gi <plug>(lsp-implementation)
-  nmap <buffer> gt <plug>(lsp-type-definition)
-  nmap <buffer> <leader>rn <plug>(lsp-rename)
-  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-  nmap <buffer> K <plug>(lsp-hover)
+  nnoremap <buffer> gd <plug>(lsp-definition)
+  nnoremap <buffer> gs <plug>(lsp-document-symbol-search)
+  nnoremap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nnoremap <buffer> gr <plug>(lsp-references)
+  nnoremap <buffer> gi <plug>(lsp-implementation)
+  nnoremap <buffer> gt <plug>(lsp-type-definition)
+  nnoremap <buffer> <leader>rn <plug>(lsp-rename)
+  nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nnoremap <buffer> K <plug>(lsp-hover)
   nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
   nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
@@ -656,7 +719,7 @@ function! s:on_lsp_buffer_enabled() abort
 endfunction
 
 augroup lsp_install
-  au!
+  autocmd!
   " NOTE: Call s:on_lsp_buffer_enabled only for languages that has the server registered.
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END

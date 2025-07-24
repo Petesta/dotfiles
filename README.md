@@ -4,29 +4,26 @@
   <caption><strong>Shells</strong></caption>
 
   <thead>
+  </thead>
     <tr>
       <th></th>
-      <th>Bash</th>
-      <th>Zsh</th>
-      <th>Nushell</th>
-    </tr>
-  </thead>
+      <th>Theme</th>
+      <th>Framework</th>
   <tbody>
     <tr>
-      <th>Framework</th>
-      <td><a href="https://github.com/Bash-it/bash-it">bash-it</a></td>
-      <td><a href="https://github.com/ohmyzsh/ohmyzsh">ohmyzsh</a></td>
+      <th>Nushell</th>
+      <td>Default</td>
       <td>N/A</td>
     </tr>
     <tr>
-      <th>Theme</th>
-      <td>
-        <a href="https://github.com/Bash-it/bash-it/blob/master/themes/bobby/bobby.theme.bash">bobby</a>
-      </td>
-      <td>
-        <a href="https://github.com/romkatv/powerlevel10k">powerlevel10k/powerlevel10k</a>
-      </td>
-      <td>Default</td>
+      <th>Zsh</th>
+      <td><a href="https://github.com/romkatv/powerlevel10k">powerlevel10k/powerlevel10k</a></td>
+      <td><a href="https://github.com/ohmyzsh/ohmyzsh">ohmyzsh</a></td>
+    </tr>
+    <tr>
+      <th>Bash</th>
+      <td><a href="https://github.com/Bash-it/bash-it/blob/master/themes/bobby/bobby.theme.bash">bobby</a></td>
+      <td><a href="https://github.com/Bash-it/bash-it">bash-it</a></td>
     </tr>
   </tbody>
 </table>
