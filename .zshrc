@@ -70,7 +70,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zoxide)
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
   source $ZSH/oh-my-zsh.sh
@@ -162,19 +162,52 @@ function y() {
   rm -f -- "$tmp"
 }
 
-# eval "$(~/.rbenv/bin/rbenv init - zsh)"
+# rbenv
 if command -v rbenv 1>/dev/null 2>&1; then
+  # eval "$(~/.rbenv/bin/rbenv init - zsh)"
   eval "$(rbenv init - zsh)"
 fi
 
+# pipenv
 if command -v pipenv 1>/dev/null 2>&1; then
   eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 fi
 
+# pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
+fi
+
+# fzf
+if command -v fzf 1>/dev/null 2>&1; then
+  source <(fzf --zsh)
+fi
+
+# zoxide
+if command -v zoxide 1>/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
+
+# jj
+if command -v jj 1>/dev/null 2>&1; then
+  source <(jj util completion zsh)
+fi
+
+# uv
+if command -v uv 1>/dev/null 2>&1; then
+  eval "$(uv generate-shell-completion zsh)"
+fi
+
+# kubectl
+if command -v kubectl 1>/dev/null 2>&1; then
+eval "$(kubectl init zsh)"
+fi
+
+# helm
+if command -v helm 1>/dev/null 2>&1; then
+  eval "$(helm init zsh)"
 fi
 
 export PATH="/Applications/Postgres.app/Contents/Versions/15/bin:$PATH"

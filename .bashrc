@@ -173,3 +173,27 @@ fi
 if command -v rbenv 1>/dev/null 2>&1; then
   eval "$(~/.rbenv/bin/rbenv init - bash)"
 fi
+
+if command -v fzf 1>/dev/null 2>&1; then
+  eval "$(fzf --bash)"
+fi
+
+if command -v zoxide 1>/dev/null 2>&1; then
+  eval "$(zoxide init bash)"
+fi
+
+if command -v jj 1>/dev/null 2>&1; then
+  source <(jj util completion bash)
+fi
+
+if command -v uv 1>/dev/null 2>&1; then
+  eval "$(uv generate-shell-completion bash)"
+fi
+
+if command -v kubectl 1>/dev/null 2>&1; then
+  source <(kubectl completion bash)
+fi
+
+if command -v helm 1>/dev/null 2>&1; then
+  source <(helm completion bash)
+fi
