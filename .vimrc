@@ -724,6 +724,12 @@ augroup lsp_install
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
+" Enable LSP hover
+augroup enable_lsp_hover
+  autocmd!
+  autocmd FileType python autocmd CursorHold,CursorHoldI <buffer> LspHover
+augroup END
+
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
 
