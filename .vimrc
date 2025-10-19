@@ -68,6 +68,8 @@ set lazyredraw
 " Optimize for fast terminal connections
 set ttyfast
 
+set updatetime=300
+
 " Enable line number
 set number
 
@@ -265,11 +267,11 @@ nnoremap <Leader>z :split ~/.zshrc<Cr>
 " Default grep search to ack
 if has('mac')
   if executable('ack')
-    set grepprg='ack -k'
+    set grepprg='ack'
   endif
 elseif has('unix')
   if executable('ack-grep')
-    set grepprg='ack-grep -k'
+    set grepprg='ack-grep'
   endif
 endif
 
@@ -515,7 +517,6 @@ if has('autocmd')
     if v:version < 740
       autocmd BufNewFile,BufRead *.md set filetype=markdown
     endif
-    autocmd FileType markdown setlocal silent! colorscheme newsprint
     autocmd FileType markdown nnoremap <buffer> <LocalLeader>c i```<CR>```<Esc>
     autocmd FileType markdown nnoremap <buffer> <LocalLeader>h i[]()<Esc>
     autocmd FileType markdown nnoremap <buffer> <LocalLeader>- m`yypVr-``
@@ -582,9 +583,7 @@ if has('autocmd')
 
   augroup ft_sh
     autocmd!
-    autocmd BufNewFile,BufRead .*,
-      \.ripgreprc
-      \ set filetype=sh
+    autocmd BufNewFile,BufRead .ripgreprc set filetype=sh
   augroup END
 
   augroup ft_swift
@@ -682,6 +681,15 @@ let g:NERDTreeIgnore = [
 " CSV:                                                                         │
 " ╰────────────────────────────────────────────────────────────────────────────╯
 let g:csv_highlight_column = 'y'
+
+" ╭────────────────────────────────────────────────────────────────────────────╮
+" Emmet_vim:                                                                   │
+" ╰────────────────────────────────────────────────────────────────────────────╯
+let g:user_emmet_install_global = 0
+
+augroup plugin_emmet_vim
+  autocmd FileType css,html,markdown EmmetInstall
+augroup END
 
 " ╭────────────────────────────────────────────────────────────────────────────╮
 " LSP:                                                                         │
