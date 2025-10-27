@@ -104,6 +104,15 @@ export EDITOR='vim'
 
 export HISTCONTROL=ignorespace:ignoredups
 
+# Highlighting of `man` pages
+export LESS_TERMCAP_mb=$'\e[01;32m'
+export LESS_TERMCAP_md=$'\e[01;36m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[01;31m'
+
 export LC_ALL=${LC_ALL:-en_US.UTF-8}
 export LANG=${LANG:-en_US.UTF-8}
 
@@ -202,7 +211,7 @@ fi
 
 # kubectl
 if command -v kubectl 1>/dev/null 2>&1; then
-eval "$(kubectl init zsh)"
+  eval "$(kubectl init zsh)"
 fi
 
 # helm
