@@ -13,6 +13,7 @@
   loga = log --pretty=format:'%C(yellow)%h - %ad%Cred%d | %Creset%s%Cblue [%cn]' --decorate --date=short --numstat
   logg = log --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --date=relative --graph
   logs = log --pretty=format:'%C(yellow)%h - %ad%Cred%d | %Creset%s%Cblue [%cn]' --decorate --date=short
+  modified = "!f() { git log --pretty='%H' --author='Petesta\\|Pete Cruz' | while read commit_hash; do git show --oneline --name-only $commit_hash | tail -n+2; done | sort | uniq; }; f"
   p = push
   pl = pull
   rbi = rebase --interactive
@@ -27,12 +28,15 @@
   sp = stash pop
   ss = stash save
   sw = stash show
-  touched = "!f() { git log --pretty='%H' --author='Petesta\\|Pete Cruz' | while read commit_hash; do git show --oneline --name-only $commit_hash | tail -n+2; done | sort | uniq; }; f"
   yesterday = log --since='yesterday.midnight' --until='midnight' --all --no-merges --author='Petesta\\|Pete Cruz'
+[branch]
+  sort = -committerdate
 [color "branch"]
   local = blue
   remote = yellow
 [color "diff"]
+  new = green ul
+  old = red ul
   whitespace = red
 [color "status"]
   untracked = yellow
