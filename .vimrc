@@ -60,7 +60,8 @@ set softtabstop=2
 " Round misaligned indents
 set shiftround
 
-set listchars=tab:▸»,trail:·,precedes:←,extends:→,eol:↲,nbsp:␣
+set list
+set listchars=tab:▸»,trail:·,precedes:←,extends:→,nbsp:␣
 
 " Don't redraw while executing macros
 set lazyredraw
@@ -275,27 +276,32 @@ elseif has('unix')
   endif
 endif
 
+" Enable scrolling
 if has('mouse')
-  " Enable scrolling
   set mouse=a
 endif
 
-" Extra search
+" Enable highlighting of matching strings
 if has('extra_search')
-  " Enable highlighting of matching strings
   set hlsearch
   set incsearch
 endif
 
-" Wildmenu
+" Enable wildmenu
 if has('wildmenu')
   set wildmenu
 endif
 
-" Wildmode
+" Enable wildmode
 if exists('&wildmode')
   set wildmode=list:longest,full
 end
+
+" Enable wildoptions
+if exists('&wildoptions')
+  set wildoptions=pum
+  set pumheight=10
+endif
 
 " ╔════════════════════════════════════════════════════════════════════════════╗
 " IgnoreSearch:                                                                ║
@@ -326,15 +332,15 @@ if has('autocmd')
     " Toggled horizontal and vertical cursors
     augroup cursors_toggled
       autocmd!
-      autocmd WinEnter * set cursorline cursorcolumn
+      autocmd BufWinEnter,VimEnter,WinEnter * set cursorline cursorcolumn
       autocmd WinLeave * set nocursorline nocursorcolumn
     augroup END
 
-    highlight CursorLine cterm=bold
+    highlight CursorLine ctermbg=240 cterm=bold,underline
   endif
 
   " Highlight trailing whitespace
-  highlight TrailingWhitespace ctermbg=red guibg=red
+  highlight TrailingWhitespace ctermbg=red
   match TrailingWhitespace /\s\+$/
   augroup TrailingWhitespaceGroup
     autocmd!
@@ -412,8 +418,9 @@ if has('autocmd')
       \*.go,
       \*.java,
       \*.js,
+      \*.pl,
       \*.rs
-      \ nnoremap <buffer> <C-;> <End>;
+      \ nnoremap <buffer> <C-;> A;<Esc>
   augroup END
 
   augroup remember_cursor_position
