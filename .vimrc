@@ -383,7 +383,7 @@ if has('autocmd')
       autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
       autocmd FileType javascript
         \ setlocal omnifunc=javascriptcomplete#CompleteJS
-      autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+      autocmd FileType python setlocal omnifunc=python3complete#Complete
       autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
       autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     augroup END
@@ -640,49 +640,51 @@ let g:airline#extensions#battery#enabled = 1
 " ╭────────────────────────────────────────────────────────────────────────────╮
 " NERDTree:                                                                    │
 " ╰────────────────────────────────────────────────────────────────────────────╯
-augroup plugin_nerdtree
-  autocmd!
+if exists(':NERDTree')
+  augroup plugin_nerdtree
+    autocmd!
 
-  " Start NERDTree and put the cursor back in the other window
-  autocmd VimEnter * NERDTree | wincmd p
+    " Start NERDTree and put the cursor back in the other window
+    autocmd VimEnter * NERDTree | wincmd p
 
-  " Exit Vim if NERDTree is the only window remaining in the only tab
-  if v:version >= 900
-    autocmd BufEnter *
-      \ if tabpagenr('$') == 1
-          \ && winnr('$') == 1
-          \ && exists('b:NERDTree')
-          \ && b:NERDTree.isTabTree()
-        \ | call feedkeys(":quit\<CR>:\<BS>")
-      \ | endif
-  else
-    autocmd BufEnter *
-      \ if tabpagenr('$') == 1
-          \ && winnr('$') == 1
-          \ && exists('b:NERDTree')
-          \ && b:NERDTree.isTabTree()
-        \ | quit
-      \ | endif
-  endif
-augroup END
+    " Exit Vim if NERDTree is the only window remaining in the only tab
+    if v:version >= 900
+      autocmd BufEnter *
+        \ if tabpagenr('$') == 1
+            \ && winnr('$') == 1
+            \ && exists('b:NERDTree')
+            \ && b:NERDTree.isTabTree()
+          \ | call feedkeys(":quit\<CR>:\<BS>")
+        \ | endif
+    else
+      autocmd BufEnter *
+        \ if tabpagenr('$') == 1
+            \ && winnr('$') == 1
+            \ && exists('b:NERDTree')
+            \ && b:NERDTree.isTabTree()
+          \ | quit
+        \ | endif
+    endif
+  augroup END
 
-let g:NERDTreeFileLines = 1
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeIgnore = [
-  \ '\~$',
-  \ '\.DS_Store$',
-  \ '\.bak$',
-  \ '\.beam$',
-  \ '\.class$',
-  \ '\.dll$',
-  \ '\.exe$',
-  \ '\.git$',
-  \ '\.jar$',
-  \ '\.o$',
-  \ '\.py[co]$',
-  \ '\.so$',
-  \ '\.sw[op]$'
-\ ]
+  let g:NERDTreeFileLines = 1
+  let g:NERDTreeShowHidden = 1
+  let g:NERDTreeIgnore = [
+    \ '\~$',
+    \ '\.DS_Store$',
+    \ '\.bak$',
+    \ '\.beam$',
+    \ '\.class$',
+    \ '\.dll$',
+    \ '\.exe$',
+    \ '\.git$',
+    \ '\.jar$',
+    \ '\.o$',
+    \ '\.py[co]$',
+    \ '\.so$',
+    \ '\.sw[op]$'
+  \ ]
+endif
 
 " ╭────────────────────────────────────────────────────────────────────────────╮
 " CSV:                                                                         │
@@ -692,62 +694,10 @@ let g:csv_highlight_column = 'y'
 " ╭────────────────────────────────────────────────────────────────────────────╮
 " Emmet_vim:                                                                   │
 " ╰────────────────────────────────────────────────────────────────────────────╯
-let g:user_emmet_install_global = 0
+if exists(':EmmetInstall')
+  let g:user_emmet_install_global = 0
 
-augroup plugin_emmet_vim
-  autocmd FileType css,html,markdown EmmetInstall
-augroup END
-
-" ╭────────────────────────────────────────────────────────────────────────────╮
-" LSP:                                                                         │
-" ╰────────────────────────────────────────────────────────────────────────────╯
-if executable('pylsp')
-  " pip install python-lsp-server
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'pylsp',
-    \ 'cmd': {server_info->['pylsp']},
-    \ 'allowlist': ['python'],
-  \ })
-endif
-
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-
-  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-
-  nnoremap <buffer> gd <plug>(lsp-definition)
-  nnoremap <buffer> gs <plug>(lsp-document-symbol-search)
-  nnoremap <buffer> gS <plug>(lsp-workspace-symbol-search)
-  nnoremap <buffer> gr <plug>(lsp-references)
-  nnoremap <buffer> gi <plug>(lsp-implementation)
-  nnoremap <buffer> gt <plug>(lsp-type-definition)
-  nnoremap <buffer> <leader>rn <plug>(lsp-rename)
-  nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
-  nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
-  nnoremap <buffer> K <plug>(lsp-hover)
-  nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
-  nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
-
-  let g:lsp_format_sync_timeout = 1000
-  autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-endfunction
-
-augroup lsp_install
-  autocmd!
-  " NOTE: Call s:on_lsp_buffer_enabled only for languages that has the server registered.
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
-" Enable LSP hover
-augroup enable_lsp_hover
-  autocmd!
-  autocmd FileType python autocmd CursorHold,CursorHoldI <buffer> LspHover
-augroup END
-
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/vim-lsp.log')
-
-if filereadable(expand('~/.vim/custom.vim'))
-  source ~/.vim/custom.vim
+  augroup plugin_emmet_vim
+    autocmd FileType css,html,markdown EmmetInstall
+  augroup END
 endif
