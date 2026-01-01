@@ -157,6 +157,9 @@ set fileformat=unix
 " Set fileformats
 set fileformats=unix,dos,mac
 
+" Append runtimepath
+set runtimepath+=/opt/homebrew/opt/fzf
+
 " Match
 match Error /\%>80c/
 
@@ -452,6 +455,7 @@ if has('autocmd')
 
   augroup ft_cpp
     autocmd!
+    autocmd FileType cpp inoremap <buffer> #inc #include <><Esc>hi
     autocmd BufNewFile,BufRead *.cpp setlocal tabstop=4 shiftwidth=4
   augroup END
 
@@ -585,6 +589,7 @@ if has('autocmd')
 
   augroup ft_rust
     autocmd!
+    autocmd FileType rust inoremap <buffer> #[d #[derive()]<Esc>hi
     autocmd BufNewFile,BufRead *.{rust,toml} setlocal tabstop=4 shiftwidth=4
   augroup END
 
