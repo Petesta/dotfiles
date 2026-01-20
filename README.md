@@ -4,11 +4,13 @@
   <caption><strong>Shells</strong></caption>
 
   <thead>
-  </thead>
     <tr>
       <th></th>
       <th>Theme</th>
       <th>Framework</th>
+    </tr>
+  </thead>
+
   <tbody>
     <tr>
       <th>Nushell</th>
@@ -17,13 +19,21 @@
     </tr>
     <tr>
       <th>Zsh</th>
-      <td><a href="https://github.com/romkatv/powerlevel10k">powerlevel10k/powerlevel10k</a></td>
-      <td><a href="https://github.com/ohmyzsh/ohmyzsh">ohmyzsh</a></td>
+      <td>
+        <a href="https://github.com/romkatv/powerlevel10k">powerlevel10k/powerlevel10k</a>
+      </td>
+      <td>
+        <a href="https://github.com/ohmyzsh/ohmyzsh">ohmyzsh</a>
+      </td>
     </tr>
     <tr>
       <th>Bash</th>
-      <td><a href="https://github.com/Bash-it/bash-it/blob/master/themes/bobby/bobby.theme.bash">bobby</a></td>
-      <td><a href="https://github.com/Bash-it/bash-it">bash-it</a></td>
+      <td>
+        <a href="https://github.com/Bash-it/bash-it/blob/master/themes/bobby/bobby.theme.bash">bobby</a>
+      </td>
+      <td>
+        <a href="https://github.com/Bash-it/bash-it">bash-it</a>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -64,5 +74,6 @@
 ├── 🛠️ .vimrc
 ├── 🛠️ .zprofile
 ├── 🛠️ .zshenv
-└── 🛠️ .zshrc
+├── 🛠️ .zshrc
+└── 🛠️ Brewfile
 ```
