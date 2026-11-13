@@ -1,108 +1,61 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+typeset -U path fpath
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export LANG=${LANG:-en_US.UTF-8}
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Cache tool init/completion output; regenerate only when the binary changes.
+_zcache_dir="$XDG_CACHE_HOME/zsh"
+_zcomp_dir="$_zcache_dir/completions"
+[[ -d $_zcomp_dir ]] || mkdir -p "$_zcomp_dir"
+fpath=("$_zcomp_dir" $fpath)
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# _cached <outfile> <cmd> [args...]
+_cached() {
+  local out=$1; shift
+  local bin=${commands[$1]}
+  [[ -n $bin ]] || return 1
+  local real=${bin:A} stamp
+  [[ -r $out.stamp ]] && read -r stamp < "$out.stamp"
+  if [[ ! -s $out || $stamp != $real || $real -nt $out ]]; then
+    "$@" >| "$out" 2>/dev/null && print -r -- "$real" >| "$out.stamp"
+  fi
+}
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# Completions are written to fpath before compinit and autoloaded on demand.
+_cached "$_zcomp_dir/_uv" uv generate-shell-completion zsh
+_cached "$_zcomp_dir/_uvx" uvx --generate-shell-completion zsh
+_cached "$_zcomp_dir/_kubectl" kubectl completion zsh
+_cached "$_zcomp_dir/_helm" helm completion zsh
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+autoload -Uz compinit
+compinit -d "$_zcache_dir/zcompdump"
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|=*' 'l:|=* r:|=*'
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+# History
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=10000
+setopt EXTENDED_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_VERIFY SHARE_HISTORY
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+# Directories & misc
+setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_MINUS INTERACTIVE_COMMENTS
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# Key bindings: emacs mode; Up/Down search history by the typed prefix
+bindkey -e
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git zoxide)
-
-if [ -f $ZSH/oh-my-zsh.sh ]; then
-  source $ZSH/oh-my-zsh.sh
-fi
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
 export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export HISTCONTROL=ignorespace:ignoredups
+export EZA_CONFIG_DIR="$XDG_CONFIG_HOME/eza"
+export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 # Highlighting of `man` pages
 export LESS_TERMCAP_mb=$'\e[01;32m'
@@ -113,29 +66,18 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;31m'
 
-export LC_ALL=${LC_ALL:-en_US.UTF-8}
-export LANG=${LANG:-en_US.UTF-8}
-
-export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
-export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
-export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
-
-export PYTHONSTARTUP=$HOME/.pythonrc.py
-
-if [ ! -f $XDG_CONFIG_HOME/homebrew/brew.env ]; then
+if [[ ! -f $XDG_CONFIG_HOME/homebrew/brew.env ]]; then
   export HOMEBREW_NO_ANALYTICS=1
 fi
 
 alias cp='cp -iv'
 alias du='du -h'
-alias ll='ls -al'
 alias ln='ln -iv'
-alias ls='ls -FGlAhp'
+alias ls='ls -FGlAh'
 alias mkdir='mkdir -pv'
 alias mv='mv -iv'
 alias localip='ipconfig getifaddr en0'
-alias rmdots="find . -name \"*.swp\" -exec rm -rf {} \\;"
+alias rmdots="find . -type f -name '*.swp' -delete"
 alias now='date +"%T"'
 alias nowdate='date +"%Y-%m-%d"'
 alias pyserver='python -m http.server'
@@ -143,6 +85,12 @@ alias pyserver='python -m http.server'
 alias c='clear'
 alias claer='clear'
 alias clera='clear'
+
+alias l='eza --all --group --icons --header'
+alias ll='eza --long --all --icons --header'
+alias lg='eza --long --all --group --icons --header'
+alias lt='eza --long -all --group --header --icons --tree'
+alias ltree='eza --long -all --group --header --icons --tree --level=2'
 
 alias lolls='ls | lolcat'
 
@@ -155,77 +103,112 @@ alias xml2yml='yq -p xml -o yaml'
 alias yml2json='yq -p yaml -o json'
 alias yml2xml='yq -p yaml -o xml'
 
-function urlencode() {
+alias -s csv='csvlens --color-columns'
+alias -s json='fx'
+alias -s md='bat'
+alias -s csv='csvlens --tabs'
+alias -s txt='bat'
+
+urlencode() {
   local args="$@"
   jq -nr --arg v "$args" '$v|@uri'
 }
 
-function weather() {
+weather() {
   curl -s "https://wttr.in/${1:-Cupertino}?m2F&format=v2"
 }
 
-function y() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+y() {
+  local tmp cwd
+  tmp="$(mktemp -t "yazi-cwd.XXXXXX")" || return
   yazi "$@" --cwd-file="$tmp"
-  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    builtin cd -- "$cwd"
-  fi
+  cwd="$(command cat -- "$tmp")"
   rm -f -- "$tmp"
+  if [[ -n $cwd && $cwd != "$PWD" ]]; then
+    builtin cd -- "$cwd" || return
+  fi
 }
 
+f() { fzf --bind 'enter:become(printf %s {} | pbcopy)' }
+
+ff() {
+  fzf --border-label ' Files ' --header-label ' File Type ' \
+    --preview 'fzf-preview.sh {}' \
+    --bind 'ctrl-/:change-preview-window(down|hidden|)' \
+    --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}' \
+    --bind 'focus:+transform-header:file --brief {} || echo "No file selected"' \
+    "$@"
+}
+
+fv() { fzf --walker file,follow --bind 'enter:become(vim {})' }
+
 # rbenv
-if command -v rbenv 1>/dev/null 2>&1; then
-  # eval "$(~/.rbenv/bin/rbenv init - zsh)"
-  eval "$(rbenv init - zsh)"
-fi
-
-# pipenv
-if command -v pipenv 1>/dev/null 2>&1; then
-  eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
-fi
-
-# pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-fi
+_cached "$_zcache_dir/rbenv.zsh" rbenv init - --no-rehash zsh && source "$_zcache_dir/rbenv.zsh"
 
 # fzf
-if command -v fzf 1>/dev/null 2>&1; then
-  source <(fzf --zsh)
-fi
+export FZF_DEFAULT_OPTS_FILE="$XDG_CONFIG_HOME/fzf/fzfrc"
 
-# zoxide
-if command -v zoxide 1>/dev/null 2>&1; then
-  eval "$(zoxide init zsh)"
-fi
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 
-# jj
-if command -v jj 1>/dev/null 2>&1; then
-  source <(jj util completion zsh)
-fi
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND -X eza -1 --icons=always --color=always --no-quotes"
 
-# uv
-if command -v uv 1>/dev/null 2>&1; then
-  eval "$(uv generate-shell-completion zsh)"
-fi
+export FZF_CTRL_T_OPTS="
+  --ansi
+  --accept-nth 2..
+  --border-label ' Files '
+  --header-label ' File Type '
+  --preview 'fzf-preview.sh {2..}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+  --bind 'focus:transform-preview-label:[[ -n {2..} ]] && printf \" Previewing [%s] \" {2..}'
+  --bind 'focus:+transform-header:file --brief {2..} || echo \"No file selected\"'"
 
-# kubectl
-if command -v kubectl 1>/dev/null 2>&1; then
-  eval "$(kubectl init zsh)"
-fi
+export FZF_CTRL_R_OPTS="
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --header 'CTRL-Y: copy to clipboard'"
 
-# helm
-if command -v helm 1>/dev/null 2>&1; then
-  eval "$(helm init zsh)"
-fi
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'tree -C {}'"
 
-export PATH="/Applications/Postgres.app/Contents/Versions/15/bin:$PATH"
+_cached "$_zcache_dir/fzf.zsh" fzf --zsh && source "$_zcache_dir/fzf.zsh"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# fzf-git
+[[ -r $XDG_CONFIG_HOME/fzf-git/fzf-git.sh ]] && source "$XDG_CONFIG_HOME/fzf-git/fzf-git.sh"
 
-# NOTE: THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# jj dynamic completions (after compinit; uses compdef)
+COMPLETE=zsh _cached "$_zcache_dir/jj.zsh" jj && source "$_zcache_dir/jj.zsh"
+
+# zoxide (after compinit)
+_cached "$_zcache_dir/zoxide.zsh" zoxide init zsh && source "$_zcache_dir/zoxide.zsh"
+
+unset _zcomp_dir
+
+path=(/Applications/Postgres.app/Contents/Versions/15/bin(N) $path)
+
+# SDKMAN: put candidates on PATH now, load the slow `sdk` function on first use.
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+if [[ -s $SDKMAN_DIR/bin/sdkman-init.sh ]]; then
+  path=($SDKMAN_DIR/candidates/*/current/bin(N) $path)
+  [[ -d $SDKMAN_DIR/candidates/java/current ]] && export JAVA_HOME="$SDKMAN_DIR/candidates/java/current"
+  sdk() {
+    unfunction sdk
+    source "$SDKMAN_DIR/bin/sdkman-init.sh"
+    sdk "$@"
+  }
+fi
+
+# Starship prompt
+_cached "$_zcache_dir/starship.zsh" starship init zsh --print-full-init && source "$_zcache_dir/starship.zsh"
+
+# Starship fit
+[[ -r $XDG_CONFIG_HOME/starship-fit.zsh ]] && source "$XDG_CONFIG_HOME/starship-fit.zsh"
+
+# Ghostty shell integration
+if [[ -n "$GHOSTTY_RESOURCES_DIR" ]]; then
+  source "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration"
+fi
+
+# Must be last.
+_zsh_hl="${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -r $_zsh_hl ]] && source "$_zsh_hl"
+unset _zsh_hl

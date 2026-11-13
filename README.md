@@ -19,12 +19,8 @@
     </tr>
     <tr>
       <th>Zsh</th>
-      <td>
-        <a href="https://github.com/romkatv/powerlevel10k">powerlevel10k/powerlevel10k</a>
-      </td>
-      <td>
-        <a href="https://github.com/ohmyzsh/ohmyzsh">ohmyzsh</a>
-      </td>
+      <td>N/A</td>
+      <td>N/A</td>
     </tr>
     <tr>
       <th>Bash</th>
@@ -55,6 +51,8 @@
 │   │   └── 🛠️ config
 │   ├── 📁 nushell
 │   │   └── 🛠️ config.nu
+│   ├── 📁 uv
+│   │   └── 🛠️ uv.toml
 │   ├── 📁 yazi
 │   │   └── 🛠️ yazi.toml
 │   └── 📁 zellij
@@ -66,7 +64,9 @@
 ├── 🛠️ .gitignore
 ├── 🛠️ .inputrc
 ├── 🛠️ .irbrc
+├── 🛠️ .npmrc
 ├── 🛠️ .psqlrc
+├── 🛠️ .pythonrc.py
 ├── 🛠️ .ripgreprc
 ├── 🛠️ .sqliterc
 ├── 📁 .ssh

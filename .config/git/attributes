@@ -5,6 +5,7 @@
 *.png diff=exif
 *.jpeg diff=exif
 *.jpg diff=exif
+*.class binary export-ignore
 *.o binary
 *.py[co] binary export-ignore
 
@@ -13,17 +14,21 @@
 #==============================================================================
 /logs export-ignore
 
-
 #==============================================================================
 # CSS
 #==============================================================================
-*.css text diff=css
-*.scss text diff=css
+*.css text eol=lf diff=css
+*.scss text eol=lf diff=css
 
 #==============================================================================
-# C++
+# C & C++
 #==============================================================================
+*.c text eol=lf diff=cpp
+*.h text eol=lf diff=cpp
+*.cc text eol=lf diff=cpp
 *.cpp text eol=lf diff=cpp
+*.cxx text eol=lf diff=cpp
+*.hpp text eol=lf diff=cpp
 
 #==============================================================================
 # Go
@@ -37,6 +42,18 @@
 *.gradle text eol=lf diff=java
 
 #==============================================================================
+# JavaScript
+#==============================================================================
+*.js text eol=lf
+*.jsx text eol=lf
+*.mjs text eol=lf
+
+#==============================================================================
+# HTML
+#==============================================================================
+*.html text eol=lf diff=html
+
+#==============================================================================
 # Kotlin
 #==============================================================================
 *.kt text eol=lf diff=kotlin
@@ -47,10 +64,12 @@
 #==============================================================================
 *.py text eol=lf diff=python
 *.ipynb text eol=lf
+.pythonrc.py text eol=lf diff=python
 
 #==============================================================================
 # Ruby
 #==============================================================================
+Brewfile text eol=lf diff=ruby
 Gemfile text eol=lf diff=ruby
 *.gemspec text eol=lf diff=ruby
 *.rb text eol=lf diff=ruby
@@ -63,7 +82,7 @@ Gemfile text eol=lf diff=ruby
 #==============================================================================
 # Shell
 #==============================================================================
-*.bash text eol=lf
+*.bash text eol=lf diff=bash
 *.fish text eol=lf
 *.ksh text eol=lf
 *.sh text eol=lf
@@ -86,13 +105,13 @@ Gemfile text eol=lf diff=ruby
 #==============================================================================
 *.bibtex text diff=bibtex
 *.docx diff=word
-*.json text
-*.md text diff=markdown
-*.tex text diff=tex
-*.toml text diff=toml
-*.xml text
-*.yaml text
-*.yml text
+*.json eol=lf text
+*.md eol=lf text diff=markdown
+*.tex text eol=lf diff=tex
+*.toml text eol=lf diff=toml
+*.xml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
 
 #==============================================================================
 # Ignore
