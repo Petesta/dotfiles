@@ -6,7 +6,7 @@
   dc = diff --cached
   dk = diff --check
   dp = diff --patience
-  dck = diff --cached --checked
+  dck = diff --cached --check
   empty = "git commit --allow-empty"
   f = fetch
   fp = fetch --prune

@@ -106,7 +106,6 @@ alias yml2xml='yq -p yaml -o xml'
 alias -s csv='csvlens --color-columns'
 alias -s json='fx'
 alias -s md='bat'
-alias -s csv='csvlens --tabs'
 alias -s txt='bat'
 
 urlencode() {

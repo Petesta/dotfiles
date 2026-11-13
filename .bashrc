@@ -102,9 +102,6 @@ alias rpsec='rspec'
 # Default editor Vim
 export EDITOR=vim
 
-# Tell grep to highlight matches
-export GREP_OPTIONS='—color=auto'
-
 # Terminal history
 export HISTCONTROL=ignorespace:ignoredups
 export HISTSIZE=5000
