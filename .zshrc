@@ -56,6 +56,7 @@ bindkey '^[[B' down-line-or-beginning-search
 export EDITOR='vim'
 export EZA_CONFIG_DIR="$XDG_CONFIG_HOME/eza"
 export PYTHONSTARTUP=$HOME/.pythonrc.py
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # Highlighting of `man` pages
 export LESS_TERMCAP_mb=$'\e[01;32m'
